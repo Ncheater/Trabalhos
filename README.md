@@ -21,3 +21,5 @@ Como formatar o texto no GitHub: [Acessar](https://help.github.com/articles/basi
 - [ ] Página vendas
 - [ ] Página estoque
 - [ ] Página carrinho
+- [ ] Página relatórios
+- [ ] Página gráficos
