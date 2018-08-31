@@ -56,12 +56,12 @@ begin
     begin
       if (admin.ItemIndex = 0) then
         begin
-          ADOQuery1tipo_usu.AsBoolean := true;
+          ADOQuery1tipo_usu.AsBoolean := 1;
           ADOQuery1.Insert;
         end
       else
         begin
-          ADOQuery1tipo_usu.AsBoolean := false;
+          ADOQuery1tipo_usu.AsBoolean := 0;
           ADOQuery1.Insert;
         end;
     end;

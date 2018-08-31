@@ -13,22 +13,22 @@ type
     ADOQuery1id_usu: TAutoIncField;
     ADOQuery1login_usu: TStringField;
     ADOQuery1senha_usu: TStringField;
-    ADOQuery1tipo_usu: TStringField;
     usu: TEdit;
     Label1: TLabel;
     Label2: TLabel;
     senha: TEdit;
     acessar: TButton;
     esenha: TButton;
-    ADOQuery1tel_usu: TStringField;
     ADOQuery1nome_usu: TStringField;
+    ADOQuery1tel_usu: TLargeintField;
+    ADOQuery1tipo_usu: TStringField;
     procedure acessarClick(Sender: TObject);
     procedure esenhaClick(Sender: TObject);
   private
     { Private declarations }
   public
     idl: Integer;
-    tipo: Boolean;
+    tipo: String;
     { Public declarations }
   end;
 
@@ -49,7 +49,7 @@ begin
   if (not ADOQuery1id_usu.IsNull) then
     begin
       idl := ADOQuery1id_usu.AsInteger;
-      tipo := ADOQuery1tipo_usu.AsBoolean;
+      tipo := ADOQuery1tipo_usu.AsString;
       if (menu = NIL) then
         begin
           mmenu := Tmmenu.Create(self);

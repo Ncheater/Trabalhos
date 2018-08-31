@@ -14,13 +14,10 @@ type
     ADOQuery1id_usu: TAutoIncField;
     ADOQuery1login_usu: TStringField;
     ADOQuery1senha_usu: TStringField;
-    ADOQuery1tipo_usu: TStringField;
     admin: TRadioGroup;
     Button1: TButton;
-    ADOQuery1tel_usu: TStringField;
     ADOQuery1nome_usu: TStringField;
     Label1: TLabel;
-    DBEdit1: TDBEdit;
     DataSource1: TDataSource;
     Label2: TLabel;
     DBEdit2: TDBEdit;
@@ -28,6 +25,9 @@ type
     DBEdit3: TDBEdit;
     DBGrid1: TDBGrid;
     Button2: TButton;
+    ADOQuery1tel_usu: TLargeintField;
+    ADOQuery1tipo_usu: TStringField;
+    DBEdit1: TDBEdit;
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure DBGrid1CellClick(Column: TColumn);
@@ -56,12 +56,12 @@ begin
     begin
       if (admin.ItemIndex = 0) then
         begin
-          ADOQuery1tipo_usu.AsBoolean := 1;
+          ADOQuery1tipo_usu.AsString := 'ADMN';
           ADOQuery1.Insert;
         end
       else
         begin
-          ADOQuery1tipo_usu.AsBoolean := 0;
+          ADOQuery1tipo_usu.AsString := 'VEND';
           ADOQuery1.Insert;
         end;
     end;
@@ -69,13 +69,13 @@ end;
 
 procedure Tcad.Button2Click(Sender: TObject);
 begin
-  ShowMessage('Clique novamente para remover o usuário'+ADOQuery1nome_usu.AsString);
-  sure := True;
   if (sure) then
     begin
       ADOQuery1.Delete;
       sure := False;
     end;
+  ShowMessage('Clique novamente para remover o usuário '+ADOQuery1nome_usu.AsString);
+  sure := True;
 end;
 
 procedure Tcad.DBGrid1CellClick(Column: TColumn);

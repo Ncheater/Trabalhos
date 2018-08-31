@@ -1,6 +1,6 @@
 object log: Tlog
-  Left = 311
-  Top = 218
+  Left = 399
+  Top = 238
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Login'

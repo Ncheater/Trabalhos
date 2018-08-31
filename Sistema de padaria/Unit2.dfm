@@ -110,19 +110,18 @@ object nsenha: Tnsenha
       FixedChar = True
       Size = 32
     end
-    object ADOQuery1tipo_usu: TStringField
-      FieldName = 'tipo_usu'
-      Size = 5
-    end
-    object ADOQuery1tel_usu: TStringField
-      FieldName = 'tel_usu'
-      FixedChar = True
-      Size = 11
-    end
     object ADOQuery1nome_usu: TStringField
       FieldName = 'nome_usu'
       FixedChar = True
       Size = 64
+    end
+    object ADOQuery1tel_usu: TLargeintField
+      FieldName = 'tel_usu'
+    end
+    object ADOQuery1tipo_usu: TStringField
+      FieldName = 'tipo_usu'
+      FixedChar = True
+      Size = 4
     end
   end
 end

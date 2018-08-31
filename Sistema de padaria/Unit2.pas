@@ -18,9 +18,9 @@ type
     ADOQuery1id_usu: TAutoIncField;
     ADOQuery1login_usu: TStringField;
     ADOQuery1senha_usu: TStringField;
-    ADOQuery1tipo_usu: TStringField;
-    ADOQuery1tel_usu: TStringField;
     ADOQuery1nome_usu: TStringField;
+    ADOQuery1tel_usu: TLargeintField;
+    ADOQuery1tipo_usu: TStringField;
     procedure confirmClick(Sender: TObject);
   private
     { Private declarations }

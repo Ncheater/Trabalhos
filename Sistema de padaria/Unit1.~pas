@@ -49,6 +49,7 @@ begin
   if (not ADOQuery1id_usu.IsNull) then
     begin
       idl := ADOQuery1id_usu.AsInteger;
+      tipo := ADOQuery1tipo_usu.AsBoolean;
       if (menu = NIL) then
         begin
           mmenu := Tmmenu.Create(self);

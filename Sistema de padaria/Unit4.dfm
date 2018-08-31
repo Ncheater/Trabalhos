@@ -1,6 +1,6 @@
 object cad: Tcad
-  Left = 519
-  Top = 350
+  Left = 460
+  Top = 252
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Manuten'#231#227'o de usu'#225'rios'
@@ -35,7 +35,6 @@ object cad: Tcad
       Width = 40
       Height = 16
       Caption = 'Nome:'
-      FocusControl = DBEdit1
     end
     object Label2: TLabel
       Left = 10
@@ -53,15 +52,6 @@ object cad: Tcad
       Caption = 'Telefone:'
       FocusControl = DBEdit3
     end
-    object DBEdit1: TDBEdit
-      Left = 56
-      Top = 29
-      Width = 161
-      Height = 24
-      DataField = 'nome_usu'
-      DataSource = DataSource1
-      TabOrder = 0
-    end
     object DBEdit2: TDBEdit
       Left = 56
       Top = 116
@@ -69,7 +59,7 @@ object cad: Tcad
       Height = 24
       DataField = 'login_usu'
       DataSource = DataSource1
-      TabOrder = 1
+      TabOrder = 0
     end
     object DBEdit3: TDBEdit
       Left = 72
@@ -77,6 +67,15 @@ object cad: Tcad
       Width = 147
       Height = 24
       DataField = 'tel_usu'
+      DataSource = DataSource1
+      TabOrder = 1
+    end
+    object DBEdit1: TDBEdit
+      Left = 56
+      Top = 30
+      Width = 161
+      Height = 24
+      DataField = 'nome_usu'
       DataSource = DataSource1
       TabOrder = 2
     end
@@ -132,12 +131,14 @@ object cad: Tcad
       item
         Expanded = False
         FieldName = 'nome_usu'
-        Width = 181
+        Title.Caption = 'Nome'
+        Width = 158
         Visible = True
       end
       item
         Expanded = False
         FieldName = 'tel_usu'
+        Title.Caption = 'Telefone'
         Width = 113
         Visible = True
       end
@@ -188,19 +189,20 @@ object cad: Tcad
       FixedChar = True
       Size = 32
     end
-    object ADOQuery1tipo_usu: TStringField
-      FieldName = 'tipo_usu'
-      Size = 5
-    end
-    object ADOQuery1tel_usu: TStringField
-      FieldName = 'tel_usu'
-      FixedChar = True
-      Size = 11
-    end
     object ADOQuery1nome_usu: TStringField
       FieldName = 'nome_usu'
       FixedChar = True
       Size = 64
+    end
+    object ADOQuery1tel_usu: TLargeintField
+      Alignment = taLeftJustify
+      FieldName = 'tel_usu'
+      DisplayFormat = '(00) #0000-0000'
+    end
+    object ADOQuery1tipo_usu: TStringField
+      FieldName = 'tipo_usu'
+      FixedChar = True
+      Size = 4
     end
   end
   object DataSource1: TDataSource

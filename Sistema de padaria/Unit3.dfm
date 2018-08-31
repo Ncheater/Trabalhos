@@ -1,6 +1,6 @@
 object mmenu: Tmmenu
-  Left = 351
-  Top = 250
+  Left = 340
+  Top = 309
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Menu'
@@ -15,14 +15,15 @@ object mmenu: Tmmenu
   Menu = MainMenu1
   OldCreateOrder = False
   OnClose = FormClose
+  OnCreate = FormCreate
   DesignSize = (
     832
     429)
   PixelsPerInch = 96
   TextHeight = 13
   object Image1: TImage
-    Left = 8
-    Top = 16
+    Left = -8
+    Top = 8
     Width = 1387
     Height = 729
     Anchors = [akRight, akBottom]
@@ -819,9 +820,10 @@ object mmenu: Tmmenu
   object MainMenu1: TMainMenu
     object Incio1: TMenuItem
       Caption = 'In'#237'cio'
-      object Usurios1: TMenuItem
+      object Usuarios1: TMenuItem
         Caption = 'Usu'#225'rios'
-        OnClick = Usurios1Click
+        Enabled = False
+        OnClick = Usuarios1Click
       end
       object Produtos1: TMenuItem
         Caption = 'Produtos'
