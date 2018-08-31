@@ -13,6 +13,7 @@ uses
 
 begin
   Application.Initialize;
+  Application.Title := 'Sistema PadaGreSQL';
   Application.CreateForm(Tlog, log);
   Application.CreateForm(Tnsenha, nsenha);
   Application.CreateForm(Tmmenu, mmenu);

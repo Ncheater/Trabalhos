@@ -68,6 +68,8 @@ var
 
 implementation
 
+uses Unit1;
+
 {$R *.dfm}
 
 procedure Tcad.Button1Click(Sender: TObject);
@@ -77,6 +79,7 @@ begin
       ADOQuery1.Edit;
       edicao := false;
       admin.Enabled := true;
+      admin.ItemIndex := -1;
       Button1.Caption := 'Cadastrar';
       Button2.Caption := 'Remover';
       ADOQuery1.Close;
@@ -95,12 +98,14 @@ begin
             begin
               ADOQuery1tipo_usu.AsString := 'ADMN';
               ADOQuery1.Append;
+              admin.ItemIndex := -1;
               ADOQuery1.Cancel;
             end
           else
             begin
               ADOQuery1tipo_usu.AsString := 'VEND';
               ADOQuery1.Append;
+              admin.ItemIndex := -1;
               ADOQuery1.Cancel;
             end;
         end;
@@ -114,6 +119,7 @@ begin
       ADOQuery1.Cancel;
       edicao := false;
       admin.Enabled := true;
+      admin.ItemIndex := -1;
       Button1.Caption := 'Cadastrar';
       Button2.Caption := 'Remover';
       ADOQuery1.Close;
@@ -129,6 +135,7 @@ begin
           ADOQuery1.Close;
           ADOQuery1.SQL.Text := 'select * from padaria.tb_produto order by id_prod';
           ADOQuery1.Open;
+          admin.ItemIndex := -1;
         end;
       ShowMessage('Clique novamente para remover o usuário '+ADOQuery1nome_usu.AsString);
       sure := True;
@@ -139,9 +146,10 @@ procedure Tcad.DBGrid1CellClick(Column: TColumn);
 begin
   sure := False;
   edicao := true;
+  admin.ItemIndex := -1;
   Button1.Caption := 'Aplicar';
   Button2.Caption := 'Cancelar';
-  if (UpperCase(ADOQuery1tipo_usu.AsString) = 'SUPR') then
+  if (log.tipo = 'SUPR') then
     begin
       admin.Enabled := true;
     end
@@ -238,7 +246,7 @@ begin
       with ADOQuery1 do
         begin
           Close;
-          SQL.Text := 'SELECT * FROM padaria.tb_usuario WHERE lower(nome_usu) = '+QuotedStr(LowerCase(cnome.Text))+' ORDER BY id_usu';
+          SQL.Text := 'SELECT * FROM padaria.tb_usuario WHERE lower(nome_usu) = '+QuotedStr(LowerCase(cnome.Text)+'%')+' ORDER BY id_usu';
           Open;
         end;
     end
@@ -247,7 +255,7 @@ begin
       with ADOQuery1 do
         begin
           Close;
-          SQL.Text := 'SELECT * FROM padaria.tb_usuario WHERE lower(login_usu) = '+QuotedStr(LowerCase(clogin.Text))+' ORDER BY id_usu';
+          SQL.Text := 'SELECT * FROM padaria.tb_usuario WHERE lower(login_usu) = '+QuotedStr(LowerCase(clogin.Text)+'%')+' ORDER BY id_usu';
           Open;
         end;
     end;
@@ -292,6 +300,9 @@ end;
 procedure Tcad.FormCreate(Sender: TObject);
 begin
   insert := false;
+  ADOQuery1.Close;
+  ADOQuery1.SQL.Text := 'SELECT * FROM padaria.tb_usuario ORDER BY id_usu';
+  ADOQuery1.Open;
 end;
 
 end.

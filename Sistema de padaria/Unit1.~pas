@@ -37,7 +37,7 @@ var
 
 implementation
 
-uses Unit2, Unit3;
+uses Unit2, Unit3, uCadastroProduto;
 
 {$R *.dfm}
 
