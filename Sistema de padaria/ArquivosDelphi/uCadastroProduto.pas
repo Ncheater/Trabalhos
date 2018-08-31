@@ -1,0 +1,98 @@
+unit uCadastroProduto;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, DB, ADODB, Menus, Grids, DBGrids, Mask, DBCtrls;
+
+type
+  TForm1 = class(TForm)
+    ADOConnection1: TADOConnection;
+    ADOQuery1: TADOQuery;
+    ADOQuery1id_prod: TIntegerField;
+    ADOQuery1preco_prod: TBCDField;
+    ADOQuery1nome_prod: TStringField;
+    Label1: TLabel;
+    Label2: TLabel;
+    btnGravar: TButton;
+    btnCancelar: TButton;
+    btnDeletar: TButton;
+    btnInserir: TButton;
+    DBGrid1: TDBGrid;
+    DataSource1: TDataSource;
+    edtCodigo: TDBEdit;
+    edtNome: TDBEdit;
+    edtPreco: TDBEdit;
+    btnEditar: TButton;
+    procedure btnGravarClick(Sender: TObject);
+    procedure btnCancelarClick(Sender: TObject);
+    procedure btnDeletarClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure btnInserirClick(Sender: TObject);
+    procedure btnEditarClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form1: TForm1;
+
+implementation
+
+{$R *.dfm}
+
+procedure TForm1.btnGravarClick(Sender: TObject);
+begin
+  ADOQuery1.Open;
+  ADOQuery1.SQL.Text := 'insert into padaria.tb_produto(id_prod, preco_prod, nome_prod) values ('+QuotedStr(edtCodigo.Text)+ ', '+QuotedStr(edtPreco.Text) +','+ QuotedStr(edtNome.Text) + ')';
+  ADOQuery1.ExecSQL;
+  ADOQuery1.SQL.Clear;
+  ADOQuery1.SQL.Text := 'select * from padaria.tb_produto';
+  ADOQuery1.Open;
+end;
+
+procedure TForm1.btnCancelarClick(Sender: TObject);
+begin
+  ADOQuery1.Cancel;
+end;
+
+procedure TForm1.btnDeletarClick(Sender: TObject);
+begin
+  ADOQuery1.Open;
+  ADOQuery1.SQL.Text := 'delete from padaria.tb_produto where id_prod = ' +edtCodigo.Text;
+  ADOQuery1.ExecSQL;
+  ADOQuery1.SQL.Clear;
+  ADOQuery1.SQL.Text := 'select * from padaria.tb_produto';
+  ADOQuery1.Open;
+end;
+
+procedure TForm1.FormShow(Sender: TObject);
+begin
+ // ADOQuery1.Open;
+end;
+
+procedure TForm1.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  ADOQuery1.Close;
+end;
+
+procedure TForm1.btnInserirClick(Sender: TObject);
+begin
+  ADOQuery1.Append;
+end;
+
+procedure TForm1.btnEditarClick(Sender: TObject);
+begin
+  ADOQuery1.Open;
+  ADOQuery1.SQL.Text := 'update padaria.tb_produto set preco_prod =' +QuotedStr(edtPreco.Text)+', nome_prod = '+QuotedStr(edtNome.Text)+ 'where  id_prod ='+QuotedStr(edtCodigo.Text);
+  ADOQuery1.ExecSQL;
+  ADOQuery1.SQL.Clear;
+  ADOQuery1.SQL.Text := 'select * from padaria.tb_produto';
+  ADOQuery1.Open;
+end;
+
+end.
