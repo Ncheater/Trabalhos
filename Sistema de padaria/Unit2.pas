@@ -1,0 +1,62 @@
+unit Unit2;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, DB, ADODB, StdCtrls;
+
+type
+  Tnsenha = class(TForm)
+    Label1: TLabel;
+    Label2: TLabel;
+    npass: TEdit;
+    npassr: TEdit;
+    confirm: TButton;
+    ADOConnection1: TADOConnection;
+    ADOQuery1: TADOQuery;
+    ADOQuery1id_usu: TAutoIncField;
+    ADOQuery1login_usu: TStringField;
+    ADOQuery1senha_usu: TStringField;
+    ADOQuery1tipo_usu: TStringField;
+    procedure confirmClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  nsenha: Tnsenha;
+
+implementation
+
+uses Unit1;
+
+{$R *.dfm}
+
+procedure Tnsenha.confirmClick(Sender: TObject);
+begin
+  if (npass.Text <> '') and (npassr.Text <> '') then
+    begin
+      if (npassr.Text = npass.Text) then
+        begin
+          ADOQuery1.Close;
+          ADOQuery1.SQL.Text := 'UPDATE padaria.tb_usuario SET senha_usu = '+QuotedStr(npass.Text)+' WHERE id_usu = '+IntToStr(log.idl);
+          ADOQuery1.ExecSQL;
+          nsenha.Close;
+          nsenha := NIL;
+          log.senha.Text := '';
+        end
+      else
+        begin
+          ShowMessage('As duas senhas devem coincidir');
+        end;
+    end
+  else
+    begin
+      ShowMessage('Há campos vazios');
+    end;
+end;
+
+end.

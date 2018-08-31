@@ -1,0 +1,116 @@
+object nsenha: Tnsenha
+  Left = 675
+  Top = 97
+  Width = 297
+  Height = 184
+  Caption = 'Criar senha'
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'MS Sans Serif'
+  Font.Style = []
+  OldCreateOrder = False
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Label1: TLabel
+    Left = 40
+    Top = 25
+    Width = 71
+    Height = 16
+    Caption = 'Criar senha:'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'MS Sans Serif'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label2: TLabel
+    Left = 8
+    Top = 74
+    Width = 108
+    Height = 16
+    Caption = 'Digite novamente:'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'MS Sans Serif'
+    Font.Style = []
+    ParentFont = False
+  end
+  object npass: TEdit
+    Left = 120
+    Top = 21
+    Width = 121
+    Height = 24
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'MS Sans Serif'
+    Font.Style = []
+    ParentFont = False
+    PasswordChar = '*'
+    TabOrder = 0
+  end
+  object npassr: TEdit
+    Left = 120
+    Top = 70
+    Width = 121
+    Height = 24
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'MS Sans Serif'
+    Font.Style = []
+    ParentFont = False
+    PasswordChar = '*'
+    TabOrder = 1
+  end
+  object confirm: TButton
+    Left = 107
+    Top = 112
+    Width = 75
+    Height = 25
+    Caption = 'Confirmar'
+    TabOrder = 2
+    OnClick = confirmClick
+  end
+  object ADOConnection1: TADOConnection
+    Connected = True
+    ConnectionString = 
+      'Provider=MSDASQL.1;Persist Security Info=False;User ID=postgres;' +
+      'Data Source=PostgreSQL30'
+    LoginPrompt = False
+    Left = 8
+    Top = 115
+  end
+  object ADOQuery1: TADOQuery
+    Active = True
+    Connection = ADOConnection1
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      'select * from padaria.tb_usuario')
+    Left = 40
+    Top = 115
+    object ADOQuery1id_usu: TAutoIncField
+      FieldName = 'id_usu'
+      ReadOnly = True
+    end
+    object ADOQuery1login_usu: TStringField
+      FieldName = 'login_usu'
+      FixedChar = True
+      Size = 32
+    end
+    object ADOQuery1senha_usu: TStringField
+      FieldName = 'senha_usu'
+      FixedChar = True
+      Size = 32
+    end
+    object ADOQuery1tipo_usu: TStringField
+      FieldName = 'tipo_usu'
+      Size = 5
+    end
+  end
+end
