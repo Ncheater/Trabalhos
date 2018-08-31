@@ -169,6 +169,7 @@ begin
   edicao := false;
   admin.Enabled := true;
   insert := false;
+  admin.ItemIndex := -1;
   Button1.Caption := 'Cadastrar';
   Button2.Caption := 'Remover';
   ADOQuery1.Close;
@@ -184,6 +185,7 @@ begin
   edicao := false;
   admin.Enabled := true;
   insert := false;
+  admin.ItemIndex := -1;
   cid.Text := '';
   cnome.Text := '';
   clogin.Text := '';
