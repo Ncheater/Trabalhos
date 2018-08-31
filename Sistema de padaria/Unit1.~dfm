@@ -1,11 +1,11 @@
-object nsenha: Tnsenha
-  Left = 699
-  Top = 140
-  BorderIcons = [biSystemMenu]
+object log: Tlog
+  Left = 311
+  Top = 218
+  BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
-  Caption = 'Criar senha'
-  ClientHeight = 153
-  ClientWidth = 289
+  Caption = 'Login'
+  ClientHeight = 114
+  ClientWidth = 410
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -16,11 +16,11 @@ object nsenha: Tnsenha
   PixelsPerInch = 96
   TextHeight = 13
   object Label1: TLabel
-    Left = 40
-    Top = 25
-    Width = 71
+    Left = 11
+    Top = 28
+    Width = 50
     Height = 16
-    Caption = 'Criar senha:'
+    Caption = 'Usu'#225'rio:'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -13
@@ -29,11 +29,11 @@ object nsenha: Tnsenha
     ParentFont = False
   end
   object Label2: TLabel
-    Left = 8
-    Top = 74
-    Width = 108
+    Left = 216
+    Top = 28
+    Width = 42
     Height = 16
-    Caption = 'Digite novamente:'
+    Caption = 'Senha:'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -13
@@ -41,9 +41,9 @@ object nsenha: Tnsenha
     Font.Style = []
     ParentFont = False
   end
-  object npass: TEdit
-    Left = 120
-    Top = 21
+  object usu: TEdit
+    Left = 64
+    Top = 24
     Width = 121
     Height = 24
     Font.Charset = DEFAULT_CHARSET
@@ -52,12 +52,11 @@ object nsenha: Tnsenha
     Font.Name = 'MS Sans Serif'
     Font.Style = []
     ParentFont = False
-    PasswordChar = '*'
     TabOrder = 0
   end
-  object npassr: TEdit
-    Left = 120
-    Top = 70
+  object senha: TEdit
+    Left = 264
+    Top = 24
     Width = 121
     Height = 24
     Font.Charset = DEFAULT_CHARSET
@@ -69,14 +68,30 @@ object nsenha: Tnsenha
     PasswordChar = '*'
     TabOrder = 1
   end
-  object confirm: TButton
-    Left = 107
-    Top = 112
+  object acessar: TButton
+    Left = 167
+    Top = 59
     Width = 75
     Height = 25
-    Caption = 'Confirmar'
+    Caption = 'Acessar'
+    Default = True
     TabOrder = 2
-    OnClick = confirmClick
+    OnClick = acessarClick
+  end
+  object esenha: TButton
+    Left = 144
+    Top = 88
+    Width = 121
+    Height = 17
+    Caption = 'Esqueci minha senha'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -9
+    Font.Name = 'MS Sans Serif'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 3
+    OnClick = esenhaClick
   end
   object ADOConnection1: TADOConnection
     Connected = True
@@ -84,8 +99,8 @@ object nsenha: Tnsenha
       'Provider=MSDASQL.1;Persist Security Info=False;User ID=postgres;' +
       'Data Source=PostgreSQL30'
     LoginPrompt = False
-    Left = 8
-    Top = 115
+    Left = 16
+    Top = 67
   end
   object ADOQuery1: TADOQuery
     Active = True
@@ -94,8 +109,8 @@ object nsenha: Tnsenha
     Parameters = <>
     SQL.Strings = (
       'select * from padaria.tb_usuario')
-    Left = 40
-    Top = 115
+    Left = 48
+    Top = 67
     object ADOQuery1id_usu: TAutoIncField
       FieldName = 'id_usu'
       ReadOnly = True

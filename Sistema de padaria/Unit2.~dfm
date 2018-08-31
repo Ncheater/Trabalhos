@@ -1,6 +1,6 @@
 object nsenha: Tnsenha
-  Left = 699
-  Top = 140
+  Left = 675
+  Top = 97
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'Criar senha'

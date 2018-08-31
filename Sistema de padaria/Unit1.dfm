@@ -1,9 +1,11 @@
 object log: Tlog
-  Left = 311
-  Top = 218
-  Width = 418
-  Height = 145
+  Left = 399
+  Top = 238
+  BorderIcons = [biSystemMenu, biMinimize]
+  BorderStyle = bsSingle
   Caption = 'Login'
+  ClientHeight = 114
+  ClientWidth = 410
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -72,6 +74,7 @@ object log: Tlog
     Width = 75
     Height = 25
     Caption = 'Acessar'
+    Default = True
     TabOrder = 2
     OnClick = acessarClick
   end
@@ -125,6 +128,16 @@ object log: Tlog
     object ADOQuery1tipo_usu: TStringField
       FieldName = 'tipo_usu'
       Size = 5
+    end
+    object ADOQuery1tel_usu: TStringField
+      FieldName = 'tel_usu'
+      FixedChar = True
+      Size = 11
+    end
+    object ADOQuery1nome_usu: TStringField
+      FieldName = 'nome_usu'
+      FixedChar = True
+      Size = 64
     end
   end
 end
