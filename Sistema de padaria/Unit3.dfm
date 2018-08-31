@@ -1,6 +1,6 @@
 object mmenu: Tmmenu
-  Left = 340
-  Top = 309
+  Left = 278
+  Top = 193
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Menu'
@@ -23,7 +23,7 @@ object mmenu: Tmmenu
   TextHeight = 13
   object Image1: TImage
     Left = -8
-    Top = 8
+    Top = -8
     Width = 1387
     Height = 729
     Anchors = [akRight, akBottom]

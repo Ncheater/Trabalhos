@@ -4,7 +4,8 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, Grids, DBGrids, DB, StdCtrls, Mask, DBCtrls, ExtCtrls, ADODB;
+  Dialogs, Grids, DBGrids, DB, StdCtrls, Mask, DBCtrls, ExtCtrls, ADODB,
+  Menus;
 
 type
   Tcad = class(TForm)
@@ -28,10 +29,27 @@ type
     ADOQuery1tel_usu: TLargeintField;
     ADOQuery1tipo_usu: TStringField;
     DBEdit1: TDBEdit;
+    MainMenu1: TMainMenu;
+    Cadastro1: TMenuItem;
+    Consulta1: TMenuItem;
+    GroupBox2: TGroupBox;
+    pid: TRadioButton;
+    pnome: TRadioButton;
+    plogin: TRadioButton;
+    cid: TEdit;
+    cnome: TEdit;
+    clogin: TEdit;
+    psq: TButton;
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure DBGrid1CellClick(Column: TColumn);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure Consulta1Click(Sender: TObject);
+    procedure Cadastro1Click(Sender: TObject);
+    procedure pidClick(Sender: TObject);
+    procedure pnomeClick(Sender: TObject);
+    procedure ploginClick(Sender: TObject);
+    procedure psqClick(Sender: TObject);
   private
     sure: boolean;
     { Private declarations }
@@ -86,6 +104,87 @@ end;
 procedure Tcad.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   cad := NIL;
+end;
+
+procedure Tcad.Consulta1Click(Sender: TObject);
+begin
+  ADOQuery1.Close;
+  ADOQuery1.SQL.Text := 'SELECT * FROM padaria.tb_usuario ORDER BY id_usu';
+  ADOQuery1.Open;
+  GroupBox1.Hide;
+  GroupBox2.Show;
+  admin.Hide;
+end;
+
+procedure Tcad.Cadastro1Click(Sender: TObject);
+begin
+  ADOQuery1.Close;
+  ADOQuery1.SQL.Text := 'SELECT * FROM padaria.tb_usuario ORDER BY id_usu';
+  ADOQuery1.Open;
+  GroupBox1.Show;
+  GroupBox2.Hide;
+  admin.Show;
+end;
+
+procedure Tcad.pidClick(Sender: TObject);
+begin
+  cnome.Text := '';
+  cnome.Enabled := false;
+  clogin.Text := '';
+  clogin.Enabled := false;
+  cid.Enabled := true;
+  psq.Enabled := true;
+end;
+
+procedure Tcad.pnomeClick(Sender: TObject);
+begin
+  cid.Text := '';
+  cid.Enabled := false;
+  clogin.Text := '';
+  clogin.Enabled := false;
+  cnome.Enabled := true;
+  psq.Enabled := true;
+end;
+
+procedure Tcad.ploginClick(Sender: TObject);
+begin
+  cid.Text := '';
+  cid.Enabled := false;
+  cnome.Text := '';
+  cnome.Enabled := false;
+  clogin.Enabled := true;
+  psq.Enabled := true;
+end;
+
+procedure Tcad.psqClick(Sender: TObject);
+begin
+  if (pid.Checked) then
+    begin
+      with ADOQuery1 do
+        begin
+          Close;
+          SQL.Text := 'SELECT * FROM padaria.tb_usuario WHERE id_usu = '+QuotedStr(cid.Text)+' ORDER BY id_usu';
+          Open;
+        end;
+    end
+  else if (pnome.Checked) then
+    begin
+      with ADOQuery1 do
+        begin
+          Close;
+          SQL.Text := 'SELECT * FROM padaria.tb_usuario WHERE lower(nome_usu) = '+QuotedStr(LowerCase(cnome.Text))+' ORDER BY id_usu';
+          Open;
+        end;
+    end
+  else
+    begin
+      with ADOQuery1 do
+        begin
+          Close;
+          SQL.Text := 'SELECT * FROM padaria.tb_usuario WHERE lower(login_usu) = '+QuotedStr(LowerCase(clogin.Text))+' ORDER BY id_usu';
+          Open;
+        end;
+    end;
 end;
 
 end.

@@ -10,14 +10,15 @@ type
   Tmmenu = class(TForm)
     MainMenu1: TMainMenu;
     Incio1: TMenuItem;
-    Usurios1: TMenuItem;
+    Usuarios1: TMenuItem;
     Produtos1: TMenuItem;
     N1: TMenuItem;
     Sair1: TMenuItem;
     Image1: TImage;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure Sair1Click(Sender: TObject);
-    procedure Usurios1Click(Sender: TObject);
+    procedure Usuarios1Click(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
   public
@@ -45,7 +46,7 @@ begin
   log.Show;
 end;
 
-procedure Tmmenu.Usurios1Click(Sender: TObject);
+procedure Tmmenu.Usuarios1Click(Sender: TObject);
 begin
   if (cad = NIL) then
     begin
@@ -55,6 +56,18 @@ begin
   else
     begin
       cad.Show;
+    end;
+end;
+
+procedure Tmmenu.FormCreate(Sender: TObject);
+begin
+  if (UpperCase(log.tipo) = 'ADMN') then
+    begin
+      Usuarios1.Enabled := true;
+    end
+  else
+    begin
+      Usuarios1.Enabled := false;
     end;
 end;
 
