@@ -50,8 +50,14 @@ type
     procedure pnomeClick(Sender: TObject);
     procedure ploginClick(Sender: TObject);
     procedure psqClick(Sender: TObject);
+    procedure DBEdit1Click(Sender: TObject);
+    procedure DBEdit3Click(Sender: TObject);
+    procedure DBEdit2Click(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
   private
     sure: boolean;
+    edicao: boolean;
+    insert: boolean;
     { Private declarations }
   public
     { Public declarations }
@@ -66,39 +72,83 @@ implementation
 
 procedure Tcad.Button1Click(Sender: TObject);
 begin
-  if (admin.ItemIndex = -1) then
+  if (edicao) then
     begin
-      ShowMessage('Por favor selecione o tipo de usuário');
+      ADOQuery1.Edit;
+      edicao := false;
+      admin.Enabled := true;
+      Button1.Caption := 'Cadastrar';
+      Button2.Caption := 'Remover';
+      ADOQuery1.Close;
+      ADOQuery1.SQL.Text := 'SELECT * FROM padaria.tb_usuario ORDER BY id_usu';
+      ADOQuery1.Open;
     end
   else
     begin
-      if (admin.ItemIndex = 0) then
+      if (admin.ItemIndex = -1) then
         begin
-          ADOQuery1tipo_usu.AsString := 'ADMN';
-          ADOQuery1.Insert;
+          ShowMessage('Por favor selecione o tipo de usuário');
         end
       else
         begin
-          ADOQuery1tipo_usu.AsString := 'VEND';
-          ADOQuery1.Insert;
+          if (admin.ItemIndex = 0) then
+            begin
+              ADOQuery1tipo_usu.AsString := 'ADMN';
+              ADOQuery1.Append;
+              ADOQuery1.Cancel;
+            end
+          else
+            begin
+              ADOQuery1tipo_usu.AsString := 'VEND';
+              ADOQuery1.Append;
+              ADOQuery1.Cancel;
+            end;
         end;
     end;
 end;
 
 procedure Tcad.Button2Click(Sender: TObject);
 begin
-  if (sure) then
+  if (edicao) then
     begin
-      ADOQuery1.Delete;
-      sure := False;
+      ADOQuery1.Cancel;
+      edicao := false;
+      admin.Enabled := true;
+      Button1.Caption := 'Cadastrar';
+      Button2.Caption := 'Remover';
+      ADOQuery1.Close;
+      ADOQuery1.SQL.Text := 'SELECT * FROM padaria.tb_usuario ORDER BY id_usu';
+      ADOQuery1.Open;
+    end
+  else
+    begin
+      if (sure) then
+        begin
+          ADOQuery1.Delete;
+          sure := False;
+          ADOQuery1.Close;
+          ADOQuery1.SQL.Text := 'select * from padaria.tb_produto order by id_prod';
+          ADOQuery1.Open;
+        end;
+      ShowMessage('Clique novamente para remover o usuário '+ADOQuery1nome_usu.AsString);
+      sure := True;
     end;
-  ShowMessage('Clique novamente para remover o usuário '+ADOQuery1nome_usu.AsString);
-  sure := True;
 end;
 
 procedure Tcad.DBGrid1CellClick(Column: TColumn);
 begin
   sure := False;
+  edicao := true;
+  Button1.Caption := 'Aplicar';
+  Button2.Caption := 'Cancelar';
+  if (UpperCase(ADOQuery1tipo_usu.AsString) = 'SUPR') then
+    begin
+      admin.Enabled := true;
+    end
+  else
+    begin
+      admin.Enabled := false;
+    end;
 end;
 
 procedure Tcad.FormClose(Sender: TObject; var Action: TCloseAction);
@@ -108,6 +158,11 @@ end;
 
 procedure Tcad.Consulta1Click(Sender: TObject);
 begin
+  edicao := false;
+  admin.Enabled := true;
+  insert := false;
+  Button1.Caption := 'Cadastrar';
+  Button2.Caption := 'Remover';
   ADOQuery1.Close;
   ADOQuery1.SQL.Text := 'SELECT * FROM padaria.tb_usuario ORDER BY id_usu';
   ADOQuery1.Open;
@@ -118,6 +173,17 @@ end;
 
 procedure Tcad.Cadastro1Click(Sender: TObject);
 begin
+  edicao := false;
+  admin.Enabled := true;
+  insert := false;
+  cid.Text := '';
+  cnome.Text := '';
+  clogin.Text := '';
+  pid.Checked := false;
+  pnome.Checked := false;
+  plogin.Checked := false;
+  Button1.Caption := 'Cadastrar';
+  Button2.Caption := 'Remover';
   ADOQuery1.Close;
   ADOQuery1.SQL.Text := 'SELECT * FROM padaria.tb_usuario ORDER BY id_usu';
   ADOQuery1.Open;
@@ -185,6 +251,47 @@ begin
           Open;
         end;
     end;
+end;
+
+procedure Tcad.DBEdit1Click(Sender: TObject);
+begin
+  if (insert) then
+    begin
+    end
+  else
+    begin
+      ADOQuery1.Insert;
+      insert := true;
+    end;
+end;
+
+procedure Tcad.DBEdit3Click(Sender: TObject);
+begin
+  if (insert) then
+    begin
+    end
+  else
+    begin
+      ADOQuery1.Insert;
+      insert := true;
+    end;
+end;
+
+procedure Tcad.DBEdit2Click(Sender: TObject);
+begin
+  if (insert) then
+    begin
+    end
+  else
+    begin
+      ADOQuery1.Insert;
+      insert := true;
+    end;
+end;
+
+procedure Tcad.FormCreate(Sender: TObject);
+begin
+  insert := false;
 end;
 
 end.

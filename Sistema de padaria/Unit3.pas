@@ -19,6 +19,7 @@ type
     procedure Sair1Click(Sender: TObject);
     procedure Usuarios1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure Produtos1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -30,7 +31,7 @@ var
 
 implementation
 
-uses Unit1, Unit4;
+uses Unit1, Unit4, Unit5;
 
 {$R *.dfm}
 
@@ -68,6 +69,19 @@ begin
   else
     begin
       Usuarios1.Enabled := false;
+    end;
+end;
+
+procedure Tmmenu.Produtos1Click(Sender: TObject);
+begin
+  if (produ = NIL) then
+    begin
+      produ := Tprodu.Create(self);
+      produ.Show;
+    end
+  else
+    begin
+      produ.Show;
     end;
 end;
 

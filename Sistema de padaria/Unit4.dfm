@@ -1,10 +1,10 @@
 object cad: Tcad
-  Left = 373
-  Top = 131
+  Left = 360
+  Top = 380
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Manuten'#231#227'o de usu'#225'rios'
-  ClientHeight = 302
+  ClientHeight = 296
   ClientWidth = 780
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -15,6 +15,7 @@ object cad: Tcad
   Menu = MainMenu1
   OldCreateOrder = False
   OnClose = FormClose
+  OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
   object GroupBox1: TGroupBox
@@ -60,7 +61,8 @@ object cad: Tcad
       Height = 24
       DataField = 'login_usu'
       DataSource = DataSource1
-      TabOrder = 0
+      TabOrder = 2
+      OnClick = DBEdit2Click
     end
     object DBEdit3: TDBEdit
       Left = 72
@@ -70,6 +72,7 @@ object cad: Tcad
       DataField = 'tel_usu'
       DataSource = DataSource1
       TabOrder = 1
+      OnClick = DBEdit3Click
     end
     object DBEdit1: TDBEdit
       Left = 56
@@ -78,7 +81,8 @@ object cad: Tcad
       Height = 24
       DataField = 'nome_usu'
       DataSource = DataSource1
-      TabOrder = 2
+      TabOrder = 0
+      OnClick = DBEdit1Click
     end
   end
   object admin: TRadioGroup
@@ -97,7 +101,7 @@ object cad: Tcad
       'Administrador'
       'Vendedor')
     ParentFont = False
-    TabOrder = 1
+    TabOrder = 2
   end
   object Button1: TButton
     Left = 43
@@ -105,7 +109,7 @@ object cad: Tcad
     Width = 75
     Height = 25
     Caption = 'Cadastrar'
-    TabOrder = 2
+    TabOrder = 3
     OnClick = Button1Click
   end
   object DBGrid1: TDBGrid
@@ -114,7 +118,8 @@ object cad: Tcad
     Width = 497
     Height = 273
     DataSource = DataSource1
-    TabOrder = 3
+    ReadOnly = True
+    TabOrder = 5
     TitleFont.Charset = DEFAULT_CHARSET
     TitleFont.Color = clWindowText
     TitleFont.Height = -11
@@ -154,7 +159,7 @@ object cad: Tcad
         Expanded = False
         FieldName = 'tipo_usu'
         Title.Caption = 'Fun'#231#227'o'
-        Width = 68
+        Width = 65
         Visible = True
       end>
   end
@@ -179,7 +184,7 @@ object cad: Tcad
     Font.Name = 'MS Sans Serif'
     Font.Style = []
     ParentFont = False
-    TabOrder = 5
+    TabOrder = 1
     Visible = False
     object pid: TRadioButton
       Left = 8

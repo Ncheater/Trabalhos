@@ -1,6 +1,6 @@
 object mmenu: Tmmenu
-  Left = 278
-  Top = 193
+  Left = 241
+  Top = 181
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Menu'
@@ -827,6 +827,7 @@ object mmenu: Tmmenu
       end
       object Produtos1: TMenuItem
         Caption = 'Produtos'
+        OnClick = Produtos1Click
       end
       object N1: TMenuItem
         Caption = '-'

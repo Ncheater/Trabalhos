@@ -5,7 +5,8 @@ uses
   Unit1 in 'Unit1.pas' {log},
   Unit2 in 'Unit2.pas' {nsenha},
   Unit3 in 'Unit3.pas' {mmenu},
-  Unit4 in 'Unit4.pas' {Form4};
+  Unit4 in 'Unit4.pas' {cad},
+  Unit5 in 'Unit5.pas' {prod};
 
 {$R *.res}
 
@@ -14,6 +15,7 @@ begin
   Application.CreateForm(Tlog, log);
   Application.CreateForm(Tnsenha, nsenha);
   Application.CreateForm(Tmmenu, mmenu);
-  Application.CreateForm(TForm4, Form4);
+  Application.CreateForm(Tcad, cad);
+  Application.CreateForm(Tprod, prod);
   Application.Run;
 end.
