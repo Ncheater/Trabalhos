@@ -1,6 +1,6 @@
-object prod: Tprod
-  Left = 459
-  Top = 245
+object produ: Tprodu
+  Left = 419
+  Top = 263
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Cadastro de produtos'

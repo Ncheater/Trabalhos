@@ -7,7 +7,7 @@ uses
   Dialogs, StdCtrls, DB, ADODB, Menus, Grids, DBGrids, Mask, DBCtrls;
 
 type
-  Tprod = class(TForm)
+  Tprodu = class(TForm)
     ADOConnection1: TADOConnection;
     ADOQuery1: TADOQuery;
     Label2: TLabel;
@@ -37,18 +37,18 @@ type
   end;
 
 var
-  prod: Tprod;
+  produ: Tprodu;
 
 implementation
 
 {$R *.dfm}
 
-procedure Tprod.btnCancelarClick(Sender: TObject);
+procedure Tprodu.btnCancelarClick(Sender: TObject);
 begin
   ADOQuery1.Cancel;
 end;
 
-procedure Tprod.btnDeletarClick(Sender: TObject);
+procedure Tprodu.btnDeletarClick(Sender: TObject);
 begin
   if (sure) then
     begin
@@ -57,38 +57,41 @@ begin
       ADOQuery1.Close;
       ADOQuery1.SQL.Text := 'select * from padaria.tb_produto order by id_prod';
       ADOQuery1.Open;
+      ADOQuery1.Cancel;
     end;
   ShowMessage('Clique novamente para remover o produto '+ADOQuery1nome_prod.AsString);
   sure := True;
 end;
 
-procedure Tprod.FormShow(Sender: TObject);
+procedure Tprodu.FormShow(Sender: TObject);
 begin
  // ADOQuery1.Open;
 end;
 
-procedure Tprod.FormClose(Sender: TObject; var Action: TCloseAction);
+procedure Tprodu.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   ADOQuery1.Close;
 end;
 
-procedure Tprod.btnInserirClick(Sender: TObject);
+procedure Tprodu.btnInserirClick(Sender: TObject);
 begin
+  ADOQuery1.Append;
+  ADOQuery1.Close;
+  ADOQuery1.SQL.Text := 'select * from padaria.tb_produto order by id_prod';
+  ADOQuery1.Open;
+  ADOQuery1.Insert;
+end;
+
+procedure Tprodu.btnEditarClick(Sender: TObject);
+begin
+  ADOQuery1.Edit;
   ADOQuery1.Append;
   ADOQuery1.Close;
   ADOQuery1.SQL.Text := 'select * from padaria.tb_produto order by id_prod';
   ADOQuery1.Open;
 end;
 
-procedure Tprod.btnEditarClick(Sender: TObject);
-begin
-  ADOQuery1.Edit;
-  ADOQuery1.Close;
-  ADOQuery1.SQL.Text := 'select * from padaria.tb_produto order by id_prod';
-  ADOQuery1.Open;
-end;
-
-procedure Tprod.DBGrid1CellClick(Column: TColumn);
+procedure Tprodu.DBGrid1CellClick(Column: TColumn);
 begin
   sure := false;
 end;

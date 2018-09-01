@@ -77,6 +77,7 @@ begin
   if (edicao) then
     begin
       ADOQuery1.Edit;
+      ADOQuery1.Append;
       edicao := false;
       admin.Enabled := true;
       admin.ItemIndex := -1;
@@ -135,10 +136,14 @@ begin
           ADOQuery1.Close;
           ADOQuery1.SQL.Text := 'select * from padaria.tb_produto order by id_prod';
           ADOQuery1.Open;
+          ADOQuery1.Cancel;
           admin.ItemIndex := -1;
+        end
+      else
+        begin
+          ShowMessage('Clique novamente para remover o usuário '+ADOQuery1nome_usu.AsString);
+          sure := True;
         end;
-      ShowMessage('Clique novamente para remover o usuário '+ADOQuery1nome_usu.AsString);
-      sure := True;
     end;
 end;
 
@@ -248,7 +253,7 @@ begin
       with ADOQuery1 do
         begin
           Close;
-          SQL.Text := 'SELECT * FROM padaria.tb_usuario WHERE lower(nome_usu) = '+QuotedStr(LowerCase(cnome.Text)+'%')+' ORDER BY id_usu';
+          SQL.Text := 'SELECT * FROM padaria.tb_usuario WHERE lower(nome_usu) LIKE '+QuotedStr(LowerCase(cnome.Text)+'%')+' ORDER BY id_usu';
           Open;
         end;
     end
@@ -257,7 +262,7 @@ begin
       with ADOQuery1 do
         begin
           Close;
-          SQL.Text := 'SELECT * FROM padaria.tb_usuario WHERE lower(login_usu) = '+QuotedStr(LowerCase(clogin.Text)+'%')+' ORDER BY id_usu';
+          SQL.Text := 'SELECT * FROM padaria.tb_usuario WHERE lower(login_usu) LIKE '+QuotedStr(LowerCase(clogin.Text)+'%')+' ORDER BY id_usu';
           Open;
         end;
     end;
@@ -265,37 +270,55 @@ end;
 
 procedure Tcad.DBEdit1Click(Sender: TObject);
 begin
-  if (insert) then
+  if (edicao) then
     begin
     end
   else
     begin
-      ADOQuery1.Insert;
-      insert := true;
+      if (insert) then
+        begin
+        end
+      else
+        begin
+          ADOQuery1.Insert;
+          insert := true;
+        end;
     end;
 end;
 
 procedure Tcad.DBEdit3Click(Sender: TObject);
 begin
-  if (insert) then
+  if (edicao) then
     begin
     end
   else
     begin
-      ADOQuery1.Insert;
-      insert := true;
+      if (insert) then
+        begin
+        end
+      else
+        begin
+          ADOQuery1.Insert;
+          insert := true;
+        end;
     end;
 end;
 
 procedure Tcad.DBEdit2Click(Sender: TObject);
 begin
-  if (insert) then
+  if (edicao) then
     begin
     end
   else
     begin
-      ADOQuery1.Insert;
-      insert := true;
+      if (insert) then
+        begin
+        end
+      else
+        begin
+          ADOQuery1.Insert;
+          insert := true;
+        end;
     end;
 end;
 

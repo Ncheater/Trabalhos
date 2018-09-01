@@ -1,6 +1,6 @@
 object produ: Tprodu
-  Left = 459
-  Top = 245
+  Left = 419
+  Top = 263
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Cadastro de produtos'
@@ -147,7 +147,7 @@ object produ: Tprodu
     object ADOQuery1preco_prod: TBCDField
       Alignment = taLeftJustify
       FieldName = 'preco_prod'
-      DisplayFormat = 'R$ #0,00'
+      DisplayFormat = 'R$ #0.00'
       Precision = 32
       Size = 2
     end

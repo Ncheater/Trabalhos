@@ -1,6 +1,6 @@
 object cad: Tcad
-  Left = 520
-  Top = 172
+  Left = 560
+  Top = 383
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Manuten'#231#227'o de usu'#225'rios'

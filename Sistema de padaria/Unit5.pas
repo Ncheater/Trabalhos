@@ -57,9 +57,13 @@ begin
       ADOQuery1.Close;
       ADOQuery1.SQL.Text := 'select * from padaria.tb_produto order by id_prod';
       ADOQuery1.Open;
+      ADOQuery1.Cancel;
+    end
+  else
+    begin
+      ShowMessage('Clique novamente para remover o produto '+ADOQuery1nome_prod.AsString);
+      sure := True;
     end;
-  ShowMessage('Clique novamente para remover o produto '+ADOQuery1nome_prod.AsString);
-  sure := True;
 end;
 
 procedure Tprodu.FormShow(Sender: TObject);
@@ -78,11 +82,13 @@ begin
   ADOQuery1.Close;
   ADOQuery1.SQL.Text := 'select * from padaria.tb_produto order by id_prod';
   ADOQuery1.Open;
+  ADOQuery1.Insert;
 end;
 
 procedure Tprodu.btnEditarClick(Sender: TObject);
 begin
   ADOQuery1.Edit;
+  ADOQuery1.Append;
   ADOQuery1.Close;
   ADOQuery1.SQL.Text := 'select * from padaria.tb_produto order by id_prod';
   ADOQuery1.Open;
