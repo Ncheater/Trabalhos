@@ -1,6 +1,6 @@
 object cad: Tcad
-  Left = 560
-  Top = 383
+  Left = 193
+  Top = 129
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Manuten'#231#227'o de usu'#225'rios'
@@ -114,7 +114,7 @@ object cad: Tcad
   end
   object DBGrid1: TDBGrid
     Left = 272
-    Top = 16
+    Top = 8
     Width = 497
     Height = 273
     DataSource = DataSource1

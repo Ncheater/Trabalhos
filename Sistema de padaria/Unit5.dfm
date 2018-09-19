@@ -1,6 +1,6 @@
 object produ: Tprodu
-  Left = 419
-  Top = 263
+  Left = 53
+  Top = 149
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Cadastro de produtos'

@@ -7,7 +7,8 @@ uses
   Unit3 in 'Unit3.pas' {mmenu},
   Unit4 in 'Unit4.pas' {cad},
   Unit5 in 'Unit5.pas' {produ},
-  uCadastroProduto in 'uCadastroProduto.pas' {prod};
+  uCadastroProduto in 'uCadastroProduto.pas' {prod},
+  Unit6 in 'Unit6.pas' {f_consulta};
 
 {$R *.res}
 
@@ -20,5 +21,6 @@ begin
   Application.CreateForm(Tcad, cad);
   Application.CreateForm(Tprodu, produ);
   Application.CreateForm(Tprod, prod);
+  Application.CreateForm(Tf_consulta, f_consulta);
   Application.Run;
 end.

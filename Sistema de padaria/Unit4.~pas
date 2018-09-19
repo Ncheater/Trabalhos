@@ -138,9 +138,12 @@ begin
           ADOQuery1.Open;
           ADOQuery1.Cancel;
           admin.ItemIndex := -1;
+        end
+      else
+        begin
+          ShowMessage('Clique novamente para remover o usuário '+ADOQuery1nome_usu.AsString);
+          sure := True;
         end;
-      ShowMessage('Clique novamente para remover o usuário '+ADOQuery1nome_usu.AsString);
-      sure := True;
     end;
 end;
 

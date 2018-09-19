@@ -15,11 +15,14 @@ type
     N1: TMenuItem;
     Sair1: TMenuItem;
     Image1: TImage;
+    Produtos2: TMenuItem;
+    Consulta1: TMenuItem;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure Sair1Click(Sender: TObject);
     procedure Usuarios1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure Produtos1Click(Sender: TObject);
+    procedure Consulta1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -31,7 +34,7 @@ var
 
 implementation
 
-uses Unit1, Unit4, Unit5;
+uses Unit1, Unit4, Unit5, Unit6;
 
 {$R *.dfm}
 
@@ -83,6 +86,19 @@ begin
     begin
       produ.Show;
     end;
+end;
+
+procedure Tmmenu.Consulta1Click(Sender: TObject);
+begin
+  if f_consulta = NIL then
+    begin
+      f_consulta := Tf_consulta.Create(Self);
+      f_consulta.Show;
+    end
+  else
+    begin
+      f_consulta.Show;
+    end
 end;
 
 end.

@@ -74,14 +74,14 @@ end;
 
 procedure Tmmenu.Produtos1Click(Sender: TObject);
 begin
-  if (prod = NIL) then
+  if (produ = NIL) then
     begin
-      prod := Tprod.Create(self);
-      prod.Show;
+      produ := Tprodu.Create(self);
+      produ.Show;
     end
   else
     begin
-      prod.Show;
+      produ.Show;
     end;
 end;
 
