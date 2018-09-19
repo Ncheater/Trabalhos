@@ -65,7 +65,7 @@ end;
 
 procedure Tmmenu.FormCreate(Sender: TObject);
 begin
-  if (UpperCase(log.tipo) = 'ADMN') then
+  if (UpperCase(log.tipo) = 'ADMN') or (UpperCase(log.tipo) = 'SUPR') then
     begin
       Usuarios1.Enabled := true;
     end
