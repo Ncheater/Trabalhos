@@ -5,12 +5,15 @@
  */
 package br.com.projetocss.view;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Beatriz
  */
 public class JFProduto extends javax.swing.JFrame {
-
+    
+    private static int qtd = 0;
     /**
      * Creates new form JFProduto
      */
@@ -27,21 +30,344 @@ public class JFProduto extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        t_consultar = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        cid = new javax.swing.JTextField();
+        pid = new javax.swing.JRadioButton();
+        pnome = new javax.swing.JRadioButton();
+        pcat = new javax.swing.JRadioButton();
+        cnome = new javax.swing.JTextField();
+        dcat = new javax.swing.JComboBox<>();
+        consultar = new javax.swing.JButton();
+        t_cadastrar = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        t_nome = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        t_desc = new javax.swing.JTextArea();
+        jLabel5 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        t_qtd = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        t_valor = new javax.swing.JFormattedTextField();
+        jLabel7 = new javax.swing.JLabel();
+        t_cat = new javax.swing.JTextField();
+        inserir = new javax.swing.JButton();
+        remover = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        m_consultar = new javax.swing.JMenu();
+        m_cadastrar = new javax.swing.JMenu();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Produtos");
+        setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 20, -1, 340));
+
+        t_consultar.setName(""); // NOI18N
+        t_consultar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Consultar produto");
+        t_consultar.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 11, -1, -1));
+
+        cid.setName(""); // NOI18N
+        t_consultar.add(cid, new org.netbeans.lib.awtextra.AbsoluteConstraints(74, 47, 140, -1));
+
+        pid.setText("ID");
+        pid.setName(""); // NOI18N
+        pid.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pidActionPerformed(evt);
+            }
+        });
+        t_consultar.add(pid, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 46, -1, -1));
+
+        pnome.setText("Nome");
+        pnome.setName(""); // NOI18N
+        t_consultar.add(pnome, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 87, -1, -1));
+
+        pcat.setText("Categoria");
+        pcat.setName(""); // NOI18N
+        t_consultar.add(pcat, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 128, -1, -1));
+
+        cnome.setName(""); // NOI18N
+        cnome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cnomeActionPerformed(evt);
+            }
+        });
+        t_consultar.add(cnome, new org.netbeans.lib.awtextra.AbsoluteConstraints(74, 88, 140, -1));
+
+        dcat.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        dcat.setName(""); // NOI18N
+        t_consultar.add(dcat, new org.netbeans.lib.awtextra.AbsoluteConstraints(91, 129, 120, -1));
+
+        consultar.setText("Consultar");
+        consultar.setName(""); // NOI18N
+        t_consultar.add(consultar, new org.netbeans.lib.awtextra.AbsoluteConstraints(74, 169, -1, -1));
+
+        getContentPane().add(t_consultar, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 30, 220, 360));
+        t_consultar.getAccessibleContext().setAccessibleName("");
+
+        t_cadastrar.setName(""); // NOI18N
+        t_cadastrar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Cadastrar produto");
+        t_cadastrar.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(75, 10, -1, -1));
+
+        t_nome.setName(""); // NOI18N
+        t_cadastrar.add(t_nome, new org.netbeans.lib.awtextra.AbsoluteConstraints(75, 47, 190, -1));
+
+        jLabel3.setText("Nome");
+        t_cadastrar.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 50, -1));
+
+        jLabel4.setText("Descrição");
+        t_cadastrar.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, -1, -1));
+
+        t_desc.setColumns(20);
+        t_desc.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        t_desc.setRows(5);
+        jScrollPane2.setViewportView(t_desc);
+
+        t_cadastrar.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(76, 90, 190, 90));
+
+        jLabel5.setText("Quantidade");
+        t_cadastrar.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, -1, -1));
+
+        jButton1.setText("-");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        t_cadastrar.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 190, 40, 20));
+
+        jButton2.setText("-10");
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton2MouseClicked(evt);
+            }
+        });
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        t_cadastrar.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(71, 210, -1, 20));
+
+        t_qtd.setEditable(false);
+        t_qtd.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        t_qtd.setText("0");
+        t_qtd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                t_qtdActionPerformed(evt);
+            }
+        });
+        t_qtd.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                t_qtdPropertyChange(evt);
+            }
+        });
+        t_cadastrar.add(t_qtd, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 200, 40, -1));
+
+        jLabel6.setText("Valor");
+        t_cadastrar.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, -1, -1));
+
+        t_valor.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getCurrencyInstance())));
+        t_cadastrar.add(t_valor, new org.netbeans.lib.awtextra.AbsoluteConstraints(75, 240, 70, -1));
+
+        jLabel7.setText("Categoria");
+        t_cadastrar.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 278, -1, -1));
+        t_cadastrar.add(t_cat, new org.netbeans.lib.awtextra.AbsoluteConstraints(75, 275, 127, -1));
+
+        inserir.setText("Inserir");
+        inserir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inserirActionPerformed(evt);
+            }
+        });
+        t_cadastrar.add(inserir, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 310, -1, -1));
+
+        remover.setText("Remover");
+        t_cadastrar.add(remover, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 310, -1, -1));
+
+        jButton3.setText("+");
+        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton3MouseClicked(evt);
+            }
+        });
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        t_cadastrar.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 190, -1, 20));
+
+        jButton4.setText("+10");
+        jButton4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton4MouseClicked(evt);
+            }
+        });
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        t_cadastrar.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 210, -1, 20));
+
+        getContentPane().add(t_cadastrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 280, 340));
+
+        m_consultar.setText("Consultar");
+        m_consultar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                m_consultarMouseClicked(evt);
+            }
+        });
+        m_consultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                m_consultarActionPerformed(evt);
+            }
+        });
+        jMenuBar1.add(m_consultar);
+
+        m_cadastrar.setText("Cadastrar");
+        m_cadastrar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                m_cadastrarMouseClicked(evt);
+            }
+        });
+        m_cadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                m_cadastrarActionPerformed(evt);
+            }
+        });
+        jMenuBar1.add(m_cadastrar);
+
+        setJMenuBar(jMenuBar1);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void pidActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pidActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pidActionPerformed
+
+    private void cnomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cnomeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cnomeActionPerformed
+
+    private void m_consultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_consultarActionPerformed
+
+    }//GEN-LAST:event_m_consultarActionPerformed
+
+    private void m_cadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_cadastrarActionPerformed
+
+    }//GEN-LAST:event_m_cadastrarActionPerformed
+
+    private void m_consultarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_m_consultarMouseClicked
+        t_consultar.setVisible(true);
+        t_cadastrar.setVisible(false);
+    }//GEN-LAST:event_m_consultarMouseClicked
+
+    private void m_cadastrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_m_cadastrarMouseClicked
+        t_consultar.setVisible(false);
+        t_cadastrar.setVisible(true);
+    }//GEN-LAST:event_m_cadastrarMouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if(qtd > 0){
+            qtd--;
+            t_qtd.setText(Integer.toString(qtd));
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        if(qtd <= 10){
+            qtd = 0;
+        }
+        else if(qtd > 10){
+            qtd -= 10;
+        }
+        t_qtd.setText(Integer.toString(qtd));
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void t_qtdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t_qtdActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_t_qtdActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        t_cadastrar.setVisible(false);
+    }//GEN-LAST:event_formWindowOpened
+
+    private void t_qtdPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_t_qtdPropertyChange
+        
+    }//GEN-LAST:event_t_qtdPropertyChange
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+
+    }//GEN-LAST:event_jButton1MouseClicked
+
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+
+    }//GEN-LAST:event_jButton2MouseClicked
+
+    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3MouseClicked
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        qtd++;
+        t_qtd.setText(Integer.toString(qtd));
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseClicked
+
+    }//GEN-LAST:event_jButton4MouseClicked
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        qtd += 10;
+        t_qtd.setText(Integer.toString(qtd));
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void inserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserirActionPerformed
+    
+    }//GEN-LAST:event_inserirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -79,5 +405,38 @@ public class JFProduto extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField cid;
+    private javax.swing.JTextField cnome;
+    private javax.swing.JButton consultar;
+    private javax.swing.JComboBox<String> dcat;
+    private javax.swing.JButton inserir;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JMenu m_cadastrar;
+    private javax.swing.JMenu m_consultar;
+    private javax.swing.JRadioButton pcat;
+    private javax.swing.JRadioButton pid;
+    private javax.swing.JRadioButton pnome;
+    private javax.swing.JButton remover;
+    private javax.swing.JPanel t_cadastrar;
+    private javax.swing.JTextField t_cat;
+    private javax.swing.JPanel t_consultar;
+    private javax.swing.JTextArea t_desc;
+    private javax.swing.JTextField t_nome;
+    private javax.swing.JTextField t_qtd;
+    private javax.swing.JFormattedTextField t_valor;
     // End of variables declaration//GEN-END:variables
 }
