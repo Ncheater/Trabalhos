@@ -6,6 +6,19 @@
 package br.com.projetocss.view;
 
 import javax.swing.JOptionPane;
+import br.com.ProjetoCSS.model.*;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
+import java.text.ParseException;
+import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.text.DefaultFormatterFactory;
+import javax.swing.text.MaskFormatter;
+import javax.swing.text.NumberFormatter;
+import br.com.ProjetoCSS.controller.ProdutoDAO;
 
 /**
  *
@@ -14,11 +27,13 @@ import javax.swing.JOptionPane;
 public class JFProduto extends javax.swing.JFrame {
     
     private static int qtd = 0;
+    private static ProdutoDAO pd;
     /**
      * Creates new form JFProduto
      */
     public JFProduto() {
         initComponents();
+        this.pd = new ProdutoDAO();
     }
 
     /**
@@ -31,7 +46,7 @@ public class JFProduto extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        grade = new javax.swing.JTable();
         t_consultar = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         cid = new javax.swing.JTextField();
@@ -53,13 +68,14 @@ public class JFProduto extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         t_qtd = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        t_valor = new javax.swing.JFormattedTextField();
         jLabel7 = new javax.swing.JLabel();
         t_cat = new javax.swing.JTextField();
         inserir = new javax.swing.JButton();
         remover = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        t_valor = new javax.swing.JFormattedTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         m_consultar = new javax.swing.JMenu();
         m_cadastrar = new javax.swing.JMenu();
@@ -74,20 +90,33 @@ public class JFProduto extends javax.swing.JFrame {
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        grade.setAutoCreateRowSorter(true);
+        grade.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "ID", "Nome", "Descrição", "Quantidade", "Valor", "Categoria"
             }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Float.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, true, true, true, true, true
+            };
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 20, -1, 340));
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(grade);
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 20, 530, 340));
 
         t_consultar.setName(""); // NOI18N
         t_consultar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -131,9 +160,14 @@ public class JFProduto extends javax.swing.JFrame {
 
         consultar.setText("Consultar");
         consultar.setName(""); // NOI18N
+        consultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                consultarActionPerformed(evt);
+            }
+        });
         t_consultar.add(consultar, new org.netbeans.lib.awtextra.AbsoluteConstraints(74, 169, -1, -1));
 
-        getContentPane().add(t_consultar, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 30, 220, 360));
+        getContentPane().add(t_consultar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 260, 310));
         t_consultar.getAccessibleContext().setAccessibleName("");
 
         t_cadastrar.setName(""); // NOI18N
@@ -155,7 +189,8 @@ public class JFProduto extends javax.swing.JFrame {
 
         t_desc.setColumns(20);
         t_desc.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        t_desc.setRows(5);
+        t_desc.setLineWrap(true);
+        t_desc.setRows(1);
         jScrollPane2.setViewportView(t_desc);
 
         t_cadastrar.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(76, 90, 190, 90));
@@ -207,14 +242,16 @@ public class JFProduto extends javax.swing.JFrame {
         jLabel6.setText("Valor");
         t_cadastrar.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, -1, -1));
 
-        t_valor.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getCurrencyInstance())));
-        t_cadastrar.add(t_valor, new org.netbeans.lib.awtextra.AbsoluteConstraints(75, 240, 70, -1));
-
         jLabel7.setText("Categoria");
         t_cadastrar.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 278, -1, -1));
         t_cadastrar.add(t_cat, new org.netbeans.lib.awtextra.AbsoluteConstraints(75, 275, 127, -1));
 
         inserir.setText("Inserir");
+        inserir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                inserirMouseClicked(evt);
+            }
+        });
         inserir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 inserirActionPerformed(evt);
@@ -250,6 +287,10 @@ public class JFProduto extends javax.swing.JFrame {
             }
         });
         t_cadastrar.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 210, -1, 20));
+
+        jLabel8.setText("R$");
+        t_cadastrar.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(75, 243, -1, -1));
+        t_cadastrar.add(t_valor, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 240, 90, -1));
 
         getContentPane().add(t_cadastrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 280, 340));
 
@@ -333,6 +374,11 @@ public class JFProduto extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         t_cadastrar.setVisible(false);
+        DecimalFormat d = new DecimalFormat("#.00", DecimalFormatSymbols.getInstance(Locale.US));
+        NumberFormatter format = new NumberFormatter(d);
+        format.setFormat(d);
+        format.setAllowsInvalid(false);
+        t_valor.setFormatterFactory(new DefaultFormatterFactory(format));
     }//GEN-LAST:event_formWindowOpened
 
     private void t_qtdPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_t_qtdPropertyChange
@@ -366,8 +412,28 @@ public class JFProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void inserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserirActionPerformed
-    
+        Produto p = new Produto();
+        p.setNome_prod(t_nome.getText());
+        p.setDesc_prod(t_desc.getText());
+        p.setQtd_prod(qtd);
+        p.setValor_prod(Float.parseFloat(t_valor.getText()));
+        p.setCat_prod(t_cat.getText());
+        
+        
+//        JOptionPane.showMessageDialog(null, p.getNome_prod()+' '+p.getDesc_prod()+' '+p.getQtd_prod()+' '+p.getValor_prod()+' '+p.getCat_prod());
+        DefaultTableModel model = (DefaultTableModel) grade.getModel();
+        model.addRow(p.getProduto());
+        
     }//GEN-LAST:event_inserirActionPerformed
+
+    private void inserirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inserirMouseClicked
+
+    }//GEN-LAST:event_inserirMouseClicked
+
+    private void consultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultarActionPerformed
+        DefaultTableModel model = (DefaultTableModel) grade.getModel();
+        model.addRow(this.pd.SelectAll());
+    }//GEN-LAST:event_consultarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -409,6 +475,7 @@ public class JFProduto extends javax.swing.JFrame {
     private javax.swing.JTextField cnome;
     private javax.swing.JButton consultar;
     private javax.swing.JComboBox<String> dcat;
+    private javax.swing.JTable grade;
     private javax.swing.JButton inserir;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -421,10 +488,10 @@ public class JFProduto extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
     private javax.swing.JMenu m_cadastrar;
     private javax.swing.JMenu m_consultar;
     private javax.swing.JRadioButton pcat;
