@@ -412,17 +412,7 @@ public class JFProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void inserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserirActionPerformed
-        Produto p = new Produto();
-        p.setNome_prod(t_nome.getText());
-        p.setDesc_prod(t_desc.getText());
-        p.setQtd_prod(qtd);
-        p.setValor_prod(Float.parseFloat(t_valor.getText()));
-        p.setCat_prod(t_cat.getText());
-        
-        
-//        JOptionPane.showMessageDialog(null, p.getNome_prod()+' '+p.getDesc_prod()+' '+p.getQtd_prod()+' '+p.getValor_prod()+' '+p.getCat_prod());
-        DefaultTableModel model = (DefaultTableModel) grade.getModel();
-        model.addRow(p.getProduto());
+        pd.InsereUsu(t_nome.getText(), t_desc.getText(), qtd, Float.parseFloat(t_valor.getText()), t_cat.getText());
         
     }//GEN-LAST:event_inserirActionPerformed
 
@@ -431,8 +421,7 @@ public class JFProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_inserirMouseClicked
 
     private void consultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultarActionPerformed
-        DefaultTableModel model = (DefaultTableModel) grade.getModel();
-        model.addRow(this.pd.SelectAll());
+
     }//GEN-LAST:event_consultarActionPerformed
 
     /**

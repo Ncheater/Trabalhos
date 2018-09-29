@@ -18,41 +18,116 @@ import javax.swing.JOptionPane;
  * @author yagog
  */
 public class ProdutoDAO {
-    
-    private Connection conexao;
-    private PreparedStatement pst;
-    private ResultSet rs;
-    
-    Conexao conn = new Conexao();
-    
-    public Object[] SelectAll(){
-        
-        String sql = "SELECT * FROM produto";
-        
-        try{
-            this.conexao = conn.conector();
-            this.pst = conexao.prepareStatement(sql);
-            this.rs = pst.executeQuery();
-            
-            while(rs.next()){
-                int id = rs.getInt(1);
-                String nome = rs.getString(2);
-                String desc = rs.getString(3);
-                int qtd = rs.getInt(4);
-                float valor = rs.getFloat(5);
-                String cat = rs.getString(6);
-                
-                Object[] obj = {id, nome, desc, qtd, valor, cat};
-                
-                return obj;
-            }
-            
+
+    Connection conexao = null;
+    PreparedStatement pst = null;
+    ResultSet rs = null;
+
+    Conexao con = new Conexao();
+    Produto prd = new Produto();
+
+    public void InsereUsu(String nome, String desc, int qtd, float valor, String cat) {
+        String sql = "INSERT INTO produto(nome_prod, desc_produto, qtd_prod, valor_prod, cat_prod) VALUES (?, ?, ?, ? ,?)";
+        conexao = con.conector();
+
+        prd.setNome_prod(nome);
+        prd.setDesc_prod(desc);
+        prd.setQtd_prod(qtd);
+        prd.setValor_prod(valor);
+        prd.setCat_prod(cat);
+
+        try {
+
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, prd.getNome_prod());
+            pst.setString(2, prd.getDesc_prod());
+            pst.setInt(3, prd.getQtd_prod());
+            pst.setFloat(4, prd.getValor_prod());
+            pst.setString(5, prd.getCat_prod());
+
+            pst.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Inserido com sucesso!");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao inserir! "+e);
         }
-        catch(SQLException e){
-            JOptionPane.showMessageDialog(null, "Erro 001: "+e);
+    }
+
+    public void DeletaUsu(int id) {
+        String sql = "DELETE FROM produto WHERE id_prod = ?";
+        conexao = con.conector();
+
+        prd.setId_prod(id);
+        try {
+            pst = conexao.prepareStatement(sql);
+            pst.setInt(1, prd.getId_prod());
+
+            pst.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Deletado com sucesso!");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao Deletar! "+e);
         }
-        finally{
-            return null;
+
+    }
+
+    public void AlterarUsu(int id, String nome, String desc, int qtd, float valor, String cat) {
+        String sql = "UPDATE produto SET nome_prod = ?, desc_produto = ?, qtd_prod = ?,  valor_prod = ?, cat_prod = ? WHERE id_prod = ?";
+        conexao = con.conector();
+
+        prd.setId_prod(id);
+        prd.setNome_prod(nome);
+        prd.setDesc_prod(desc);
+        prd.setQtd_prod(qtd);
+        prd.setValor_prod(valor);
+        prd.setCat_prod(cat);
+
+        try {
+            pst.setInt(1, prd.getId_prod());
+            pst.setString(2, prd.getNome_prod());
+            pst.setString(3, prd.getDesc_prod());
+            pst.setInt(4, prd.getQtd_prod());
+            pst.setFloat(4, prd.getValor_prod());
+            pst.setString(5, prd.getCat_prod());
+
+            pst.execute();
+
+            JOptionPane.showMessageDialog(null, "Alterado com Sucesso");
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao alterar: "+e);
         }
+    }
+
+    public ResultSet ConsultarID(int id) {
+
+        String sql = "SELECT id_prod AS ID, nome_prod AS Nome, desc_produto AS Desc, qtd_prod AS Qtd, valor_prod AS Valor, cat_prod AS Cat FROM produto WHERE id_prod = ?";
+        conexao = con.conector();
+        try {
+            pst = conexao.prepareStatement(sql);
+            pst.setInt(1, id);
+            rs = pst.executeQuery();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+
+        return rs;
+
+    }
+
+    public ResultSet ConsultarNome(String nome) {
+
+        String sql = "SELECT id_prod AS ID, nome_prod AS Nome, desc_produto AS Desc, qtd_prod AS Qtd, valor_prod AS Valor, cat_prod AS Cat FROM produto WHERE nome_prod LIKE ?";
+        conexao = con.conector();
+        try {
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, "%"+nome+"%");
+            rs = pst.executeQuery();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+
+        return rs;
+
     }
 }
