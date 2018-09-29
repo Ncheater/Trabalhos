@@ -19,6 +19,10 @@ import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
 import javax.swing.text.NumberFormatter;
 import br.com.ProjetoCSS.controller.ProdutoDAO;
+import static com.sun.corba.se.impl.util.Utility.printStackTrace;
+import java.sql.*;
+import java.util.Vector;
+import javax.swing.JTable;
 
 /**
  *
@@ -28,6 +32,9 @@ public class JFProduto extends javax.swing.JFrame {
     
     private static int qtd = 0;
     private static ProdutoDAO pd;
+    private static int pflag = 0;
+    private static int iflag = 0;
+
     /**
      * Creates new form JFProduto
      */
@@ -45,6 +52,7 @@ public class JFProduto extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jScrollPane1 = new javax.swing.JScrollPane();
         grade = new javax.swing.JTable();
         t_consultar = new javax.swing.JPanel();
@@ -103,7 +111,7 @@ public class JFProduto extends javax.swing.JFrame {
                 java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Float.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, true, true, true, true, true
+                false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -112,6 +120,11 @@ public class JFProduto extends javax.swing.JFrame {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        grade.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                gradeMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(grade);
@@ -129,6 +142,7 @@ public class JFProduto extends javax.swing.JFrame {
         cid.setName(""); // NOI18N
         t_consultar.add(cid, new org.netbeans.lib.awtextra.AbsoluteConstraints(74, 47, 140, -1));
 
+        buttonGroup1.add(pid);
         pid.setText("ID");
         pid.setName(""); // NOI18N
         pid.addActionListener(new java.awt.event.ActionListener() {
@@ -138,12 +152,24 @@ public class JFProduto extends javax.swing.JFrame {
         });
         t_consultar.add(pid, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 46, -1, -1));
 
+        buttonGroup1.add(pnome);
         pnome.setText("Nome");
         pnome.setName(""); // NOI18N
+        pnome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pnomeActionPerformed(evt);
+            }
+        });
         t_consultar.add(pnome, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 87, -1, -1));
 
+        buttonGroup1.add(pcat);
         pcat.setText("Categoria");
         pcat.setName(""); // NOI18N
+        pcat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pcatActionPerformed(evt);
+            }
+        });
         t_consultar.add(pcat, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 128, -1, -1));
 
         cnome.setName(""); // NOI18N
@@ -154,8 +180,13 @@ public class JFProduto extends javax.swing.JFrame {
         });
         t_consultar.add(cnome, new org.netbeans.lib.awtextra.AbsoluteConstraints(74, 88, 140, -1));
 
-        dcat.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        dcat.setSelectedIndex(-1);
         dcat.setName(""); // NOI18N
+        dcat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dcatActionPerformed(evt);
+            }
+        });
         t_consultar.add(dcat, new org.netbeans.lib.awtextra.AbsoluteConstraints(91, 129, 120, -1));
 
         consultar.setText("Consultar");
@@ -260,6 +291,11 @@ public class JFProduto extends javax.swing.JFrame {
         t_cadastrar.add(inserir, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 310, -1, -1));
 
         remover.setText("Remover");
+        remover.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removerActionPerformed(evt);
+            }
+        });
         t_cadastrar.add(remover, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 310, -1, -1));
 
         jButton3.setText("+");
@@ -307,7 +343,7 @@ public class JFProduto extends javax.swing.JFrame {
         });
         jMenuBar1.add(m_consultar);
 
-        m_cadastrar.setText("Cadastrar");
+        m_cadastrar.setText("Cadastrar/Editar");
         m_cadastrar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 m_cadastrarMouseClicked(evt);
@@ -326,52 +362,68 @@ public class JFProduto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void pidActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pidActionPerformed
-        // TODO add your handling code here:
+        consultar.setEnabled(true);
+        cid.setEnabled(true);
+        cnome.setEnabled(false);
+        cnome.setText("");
+        dcat.setEnabled(false);
+        dcat.setSelectedIndex(-1);
+        this.pflag = 1;
     }//GEN-LAST:event_pidActionPerformed
-
+    
     private void cnomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cnomeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cnomeActionPerformed
-
+    
     private void m_consultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_consultarActionPerformed
-
+        
     }//GEN-LAST:event_m_consultarActionPerformed
-
+    
     private void m_cadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_cadastrarActionPerformed
-
+        
     }//GEN-LAST:event_m_cadastrarActionPerformed
-
+    
     private void m_consultarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_m_consultarMouseClicked
         t_consultar.setVisible(true);
         t_cadastrar.setVisible(false);
+        reset();
     }//GEN-LAST:event_m_consultarMouseClicked
-
+    
     private void m_cadastrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_m_cadastrarMouseClicked
         t_consultar.setVisible(false);
         t_cadastrar.setVisible(true);
+        buttonGroup1.clearSelection();
+        cid.setEnabled(false);
+        cid.setText("");
+        cnome.setEnabled(false);
+        cnome.setText("");
+        dcat.setEnabled(false);
+        dcat.setSelectedIndex(-1);
+        consultar.setEnabled(false);
+        insertMode();
+        reset();
     }//GEN-LAST:event_m_cadastrarMouseClicked
-
+    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if(qtd > 0){
+        if (qtd > 0) {
             qtd--;
             t_qtd.setText(Integer.toString(qtd));
         }
     }//GEN-LAST:event_jButton1ActionPerformed
-
+    
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        if(qtd <= 10){
+        if (qtd <= 10) {
             qtd = 0;
-        }
-        else if(qtd > 10){
+        } else if (qtd > 10) {
             qtd -= 10;
         }
         t_qtd.setText(Integer.toString(qtd));
     }//GEN-LAST:event_jButton2ActionPerformed
-
+    
     private void t_qtdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t_qtdActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_t_qtdActionPerformed
-
+    
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         t_cadastrar.setVisible(false);
         DecimalFormat d = new DecimalFormat("#.00", DecimalFormatSymbols.getInstance(Locale.US));
@@ -379,50 +431,119 @@ public class JFProduto extends javax.swing.JFrame {
         format.setFormat(d);
         format.setAllowsInvalid(false);
         t_valor.setFormatterFactory(new DefaultFormatterFactory(format));
+        grade.setDefaultEditor(Object.class, null);
+        grade.setSelectionMode(0);
+        consultar.setEnabled(false);
+        cid.setEnabled(false);
+        cnome.setEnabled(false);
+        dcat.setEnabled(false);
+        reset();
     }//GEN-LAST:event_formWindowOpened
-
+    
     private void t_qtdPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_t_qtdPropertyChange
         
     }//GEN-LAST:event_t_qtdPropertyChange
-
+    
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-
+        
     }//GEN-LAST:event_jButton1MouseClicked
-
+    
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
-
+        
     }//GEN-LAST:event_jButton2MouseClicked
-
+    
     private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3MouseClicked
-
+    
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         qtd++;
         t_qtd.setText(Integer.toString(qtd));
     }//GEN-LAST:event_jButton3ActionPerformed
-
+    
     private void jButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseClicked
-
+        
     }//GEN-LAST:event_jButton4MouseClicked
-
+    
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         qtd += 10;
         t_qtd.setText(Integer.toString(qtd));
     }//GEN-LAST:event_jButton4ActionPerformed
-
+    
     private void inserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserirActionPerformed
-        pd.InsereUsu(t_nome.getText(), t_desc.getText(), qtd, Float.parseFloat(t_valor.getText()), t_cat.getText());
-        
+        if(this.iflag == 2){
+            Produto p = new Produto();
+            
+            p.setNome_prod(t_nome.getText()); 
+            p.setDesc_prod(t_desc.getText());
+            p.setQtd_prod(qtd);
+            p.setValor_prod(Float.parseFloat(t_valor.getText()));
+            p.setCat_prod(t_cat.getText());
+            
+            pd.InsereProd(p);
+            reset();
+        }
+        else{
+            Produto p = new Produto();
+            
+            p.setId_prod(Integer.parseInt(grade.getValueAt(grade.getSelectedRow(), 1).toString()));
+            p.setNome_prod(t_nome.getText()); 
+            p.setDesc_prod(t_desc.getText());
+            p.setQtd_prod(qtd);
+            p.setValor_prod(Float.parseFloat(t_valor.getText()));
+            p.setCat_prod(t_cat.getText());
+            
+            pd.AlterarProd(p);
+            reset();
+            insertMode();
+        }
     }//GEN-LAST:event_inserirActionPerformed
-
+    
     private void inserirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inserirMouseClicked
-
+        
     }//GEN-LAST:event_inserirMouseClicked
-
+    
     private void consultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultarActionPerformed
-
+        select(this.pflag);
     }//GEN-LAST:event_consultarActionPerformed
+    
+    private void pnomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pnomeActionPerformed
+        consultar.setEnabled(true);
+        cid.setEnabled(false);
+        cid.setText("");
+        cnome.setEnabled(true);
+        dcat.setEnabled(false);
+        dcat.setSelectedIndex(-1);
+        this.pflag = 2;
+    }//GEN-LAST:event_pnomeActionPerformed
+    
+    private void pcatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pcatActionPerformed
+        consultar.setEnabled(true);
+        cid.setEnabled(false);
+        cnome.setEnabled(false);
+        dcat.setEnabled(true);
+        fetchItems();
+        this.pflag = 3;
+    }//GEN-LAST:event_pcatActionPerformed
+    
+    private void dcatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dcatActionPerformed
+        
+    }//GEN-LAST:event_dcatActionPerformed
+
+    private void gradeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gradeMouseClicked
+        if(grade.getSelectedRow() != -1){
+            editMode();
+        }
+    }//GEN-LAST:event_gradeMouseClicked
+
+    private void removerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerActionPerformed
+        if(this.iflag == 2){
+            
+        }
+        else{
+            insertMode();
+        }
+    }//GEN-LAST:event_removerActionPerformed
 
     /**
      * @param args the command line arguments
@@ -458,8 +579,95 @@ public class JFProduto extends javax.swing.JFrame {
             }
         });
     }
+    
+    public static DefaultTableModel fill(ResultSet rs) throws SQLException {
+        ResultSetMetaData metaData = rs.getMetaData();
+        int count = metaData.getColumnCount();
+        
+        Vector<String> names = new Vector<String>();
+        for (int i = 1; i <= count; i++) {
+            names.add(metaData.getColumnName(i));
+        }
+        
+        Vector<Vector<Object>> data = new Vector<Vector<Object>>();
+        while (rs.next()) {
+            Vector<Object> vector = new Vector<Object>();
+            for (int i = 1; i <= count; i++) {
+                vector.add(rs.getObject(i));
+            }
+            data.add(vector);
+        }
+        
+        return new DefaultTableModel(data, names);
+    }
+    
+    public void reset() {
+        try {
+            grade.setModel(fill(pd.ConsultarAll()));
+        } catch (SQLException ex) {
+            printStackTrace();
+        }
+    }
+    
+    public void select(int f) {
+        try {
+            if (f == 1) {
+                grade.setModel(fill(pd.ConsultarID(Integer.parseInt(cid.getText()))));
+            } else if (f == 2) {
+                grade.setModel(fill(pd.ConsultarNome(cnome.getText())));
+            } else if (f == 3) {
+                grade.setModel(fill(pd.ConsultarCat(dcat.getSelectedItem().toString())));
+            } else {
+                JOptionPane.showMessageDialog(null, "Tipo de pesquisa inválida");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao retornar valores: " + e);
+        }
+    }
+    
+    public void fetchItems() {
+        try {
+            ResultSet rs = pd.ConsultarAll();
+            while (rs.next()) {
+                dcat.addItem(rs.getString(6));
+                for (int i = 0; i < dcat.getItemCount(); i++) {
+                    for (int x = i + 1; x < dcat.getItemCount(); x++) {
+                        if (dcat.getItemAt(i).toString().equals(dcat.getItemAt(x).toString())) {
+                            dcat.removeItemAt(x);
+                        }
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao recuperar categorias: " + e);
+        }
+    }
+    
+    public void editMode(){
+        inserir.setText("Aplicar");
+        remover.setText("Cancelar");
+        t_qtd.setText(Integer.toString(this.qtd));
+        iflag = 1;
+        t_nome.setText(grade.getValueAt(grade.getSelectedRow(), 1).toString());
+        t_desc.setText(grade.getValueAt(grade.getSelectedRow(), 2).toString());
+        this.qtd = Integer.parseInt(grade.getValueAt(grade.getSelectedRow(), 3).toString());
+        t_valor.setText(grade.getValueAt(grade.getSelectedRow(), 4).toString());
+        t_cat.setText(grade.getValueAt(grade.getSelectedRow(), 5).toString());
+    }
+    
+    public void insertMode(){
+        inserir.setText("Inserir");
+        remover.setText("Remover");
+        iflag = 2;
+        t_nome.setText("");
+        t_desc.setText("");
+        this.qtd = 0;
+        t_valor.setText("");
+        t_cat.setText("");
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JTextField cid;
     private javax.swing.JTextField cnome;
     private javax.swing.JButton consultar;

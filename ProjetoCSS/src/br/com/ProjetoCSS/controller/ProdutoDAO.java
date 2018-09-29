@@ -26,15 +26,9 @@ public class ProdutoDAO {
     Conexao con = new Conexao();
     Produto prd = new Produto();
 
-    public void InsereUsu(String nome, String desc, int qtd, float valor, String cat) {
+    public void InsereProd(Produto prd) {
         String sql = "INSERT INTO produto(nome_prod, desc_produto, qtd_prod, valor_prod, cat_prod) VALUES (?, ?, ?, ? ,?)";
         conexao = con.conector();
-
-        prd.setNome_prod(nome);
-        prd.setDesc_prod(desc);
-        prd.setQtd_prod(qtd);
-        prd.setValor_prod(valor);
-        prd.setCat_prod(cat);
 
         try {
 
@@ -44,15 +38,16 @@ public class ProdutoDAO {
             pst.setInt(3, prd.getQtd_prod());
             pst.setFloat(4, prd.getValor_prod());
             pst.setString(5, prd.getCat_prod());
-
+            
             pst.executeUpdate();
             JOptionPane.showMessageDialog(null, "Inserido com sucesso!");
+            ConsultarAll();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao inserir! "+e);
         }
     }
 
-    public void DeletaUsu(int id) {
+    public void DeletaProd(int id) {
         String sql = "DELETE FROM produto WHERE id_prod = ?";
         conexao = con.conector();
 
@@ -69,24 +64,18 @@ public class ProdutoDAO {
 
     }
 
-    public void AlterarUsu(int id, String nome, String desc, int qtd, float valor, String cat) {
+    public void AlterarProd(Produto prd) {
         String sql = "UPDATE produto SET nome_prod = ?, desc_produto = ?, qtd_prod = ?,  valor_prod = ?, cat_prod = ? WHERE id_prod = ?";
         conexao = con.conector();
 
-        prd.setId_prod(id);
-        prd.setNome_prod(nome);
-        prd.setDesc_prod(desc);
-        prd.setQtd_prod(qtd);
-        prd.setValor_prod(valor);
-        prd.setCat_prod(cat);
-
         try {
-            pst.setInt(1, prd.getId_prod());
-            pst.setString(2, prd.getNome_prod());
-            pst.setString(3, prd.getDesc_prod());
-            pst.setInt(4, prd.getQtd_prod());
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, prd.getNome_prod());
+            pst.setString(2, prd.getDesc_prod());
+            pst.setInt(3, prd.getQtd_prod());
             pst.setFloat(4, prd.getValor_prod());
             pst.setString(5, prd.getCat_prod());
+            pst.setInt(6, prd.getId_prod());
 
             pst.execute();
 
@@ -99,7 +88,7 @@ public class ProdutoDAO {
 
     public ResultSet ConsultarID(int id) {
 
-        String sql = "SELECT id_prod AS ID, nome_prod AS Nome, desc_produto AS Desc, qtd_prod AS Qtd, valor_prod AS Valor, cat_prod AS Cat FROM produto WHERE id_prod = ?";
+        String sql = "SELECT id_prod AS ID, nome_prod AS Nome, desc_produto AS Descrição, qtd_prod AS Qtd, valor_prod AS Valor, cat_prod AS Categoria FROM produto WHERE id_prod = ?";
         conexao = con.conector();
         try {
             pst = conexao.prepareStatement(sql);
@@ -116,11 +105,11 @@ public class ProdutoDAO {
 
     public ResultSet ConsultarNome(String nome) {
 
-        String sql = "SELECT id_prod AS ID, nome_prod AS Nome, desc_produto AS Desc, qtd_prod AS Qtd, valor_prod AS Valor, cat_prod AS Cat FROM produto WHERE nome_prod LIKE ?";
+        String sql = "SELECT id_prod AS ID, nome_prod AS Nome, desc_produto AS Descrição, qtd_prod AS Qtd, valor_prod AS Valor, cat_prod AS Categoria FROM produto WHERE nome_prod LIKE ?";
         conexao = con.conector();
         try {
             pst = conexao.prepareStatement(sql);
-            pst.setString(1, "%"+nome+"%");
+            pst.setString(1, nome+"%");
             rs = pst.executeQuery();
 
         } catch (Exception e) {
@@ -129,5 +118,38 @@ public class ProdutoDAO {
 
         return rs;
 
+    }
+    
+    public ResultSet ConsultarCat(String cat) {
+
+        String sql = "SELECT id_prod AS ID, nome_prod AS Nome, desc_produto AS Descrição, qtd_prod AS Qtd, valor_prod AS Valor, cat_prod AS Categoria FROM produto WHERE cat_prod LIKE ?";
+        conexao = con.conector();
+        try {
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, cat);
+            rs = pst.executeQuery();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+
+        return rs;
+
+    }
+    
+    public ResultSet ConsultarAll() {
+
+        String sql = "SELECT id_prod AS ID, nome_prod AS Nome, desc_produto AS Descrição , qtd_prod AS Qtd, valor_prod AS Valor, cat_prod AS Categoria FROM produto";
+        conexao = con.conector();
+        try {
+            pst = conexao.prepareStatement(sql);
+            rs = pst.executeQuery();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+
+        return rs;
+        
     }
 }
