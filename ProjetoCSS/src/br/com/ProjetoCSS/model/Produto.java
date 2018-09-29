@@ -65,16 +65,4 @@ public class Produto {
     public void setCat_prod(String cat_prod) {
         this.cat_prod = cat_prod;
     }
-    
-    public Object[] getProduto(){
-        int id = this.getId_prod();
-        String nome = this.getNome_prod();
-        String desc = this.getDesc_prod();
-        int qtd = this.getQtd_prod();
-        float valor = this.getValor_prod();
-        String cat = this.getCat_prod();
-        Object[] p = {id, nome, desc, qtd, valor, cat};
-        
-        return p;
-    }
 }

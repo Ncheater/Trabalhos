@@ -1,15 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.ProjetoCSS.controller;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 import br.com.projetocss.model.Usuario;
 import br.com.projetocss.view.JFLogin;
 import java.sql.*;
@@ -32,10 +22,7 @@ public class UsuDAO {
     Conexao con = new Conexao();
     Usuario usu = new Usuario();
 
-    public void Acesso(JTextField login, JTextField senha, JFrame prin, JFrame flog) {
-        
-        
-        
+    public void Acesso(JTextField login, JTextField senha, JFrame prin, JFrame flog) {      
         usu.setUsu_login(login.getText());
         usu.setUsu_senha(senha.getText());
 
