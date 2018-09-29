@@ -16,21 +16,25 @@ public class Conexao {
     public static Connection conector(){
         
         Connection conexao;
-        String driver = "com.mysql.jdbc.Driver";
         
         try {
           
-            Class.forName(driver);
-            conexao = DriverManager.getConnection("jdbc:mysql://localhost/bd_css","root","");
+            Class.forName("com.mysql.jdbc.Driver");
+            conexao = DriverManager.getConnection("jdbc:mysql://localhost/bd_css","root","123456");
             System.out.println("Conectado com sucesso!");
             return conexao;
             
-        } catch (Exception e) {
+        }   catch(ClassNotFoundException e){
             
             System.out.println("Error ao conectar: "+e);
             return null;
             
-        }            
+        }   catch(SQLException e){
+            
+            System.out.println("Erro ao conectar: "+e);
+            return null;
+        }
+        
         
     }
     

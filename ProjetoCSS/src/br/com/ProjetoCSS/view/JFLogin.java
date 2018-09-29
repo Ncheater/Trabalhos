@@ -24,8 +24,9 @@ public class JFLogin extends javax.swing.JFrame {
      
 public JFLogin() {
     initComponents();
-    con = conexao.conector();
-//    conexao.desconector(con);        
+    con = conexao.conector();;
+    conexao.desconector(con);
+        
     }
 
     /**

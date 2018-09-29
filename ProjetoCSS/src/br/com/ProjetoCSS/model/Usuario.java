@@ -22,7 +22,6 @@ public class Usuario {
     private String usu_login;
     private String usu_senha;
     private String usu_tipo;
-    private String usu_email;
 
     /**
      * @return the usu_id
@@ -92,20 +91,6 @@ public class Usuario {
      */
     public void setUsu_tipo(String usu_tipo) {
         this.usu_tipo = usu_tipo;
-    }
-    
-       /**
-     * @return the usu_tipo
-     */
-    public String getUsu_email() {
-        return usu_email;
-    }
-
-    /**
-     * @param usu_email the usu_tipo to set
-     */
-    public void setUsu_email(String usu_email) {
-        this.usu_email = usu_email;
     }
     
    
