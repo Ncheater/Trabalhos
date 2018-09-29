@@ -4,9 +4,12 @@
  * and open the template in the editor.
  */
 package br.com.projetocss.view;
+
+import br.com.ProjetoCSS.controller.Conexao;
 import br.com.ProjetoCSS.view.JFCliente;
 
 import java.awt.Color;
+import java.sql.Connection;
 
 /**
  *
@@ -14,12 +17,15 @@ import java.awt.Color;
  */
 public class JFPrincipal extends javax.swing.JFrame {
 
+    Conexao con = new Conexao();
+
     /**
      * Creates new form JFPrincipal
      */
     public JFPrincipal() {
+
         initComponents();
-  //      this.getContentPane().setBackground(Color.WHITE);
+        //      this.getContentPane().setBackground(Color.WHITE);
     }
 
     /**
@@ -153,7 +159,7 @@ public class JFPrincipal extends javax.swing.JFrame {
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         // TODO add your handling code here:
-      JFProduto login = new JFProduto();
+        JFProduto login = new JFProduto();
         login.setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
@@ -163,30 +169,31 @@ public class JFPrincipal extends javax.swing.JFrame {
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_formWindowActivated
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
-        
-        
+
+
     }//GEN-LAST:event_formWindowOpened
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         // TODO add your handling code here:
-        
+
         JFLogin login = new JFLogin();
         login.setVisible(true);
     }//GEN-LAST:event_formWindowClosed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
+        Connection conexao = con.conector();
         JFCliente cliente = new JFCliente();
         cliente.setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        JFProduto produto = new  JFProduto();
+        JFProduto produto = new JFProduto();
         produto.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -201,8 +208,8 @@ public class JFPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        JFUsuario usuario = new JFUsuario();
-        usuario.setVisible(true);
+
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

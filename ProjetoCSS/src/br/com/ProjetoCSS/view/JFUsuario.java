@@ -17,27 +17,25 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import net.proteanit.sql.DbUtils;
 
-
 /**
  *
  * @author Beatriz
  */
 public class JFUsuario extends javax.swing.JFrame {
-   Connection conexao = null;
-   PreparedStatement pst = null;
-   ResultSet rs = null;  
-   int flag;
-   int btnAtivo; 
-     
+
+    Connection conexao = null;
+    PreparedStatement pst = null;
+    ResultSet rs = null;
+    int flag;
+    int btnAtivo;
+
     /**
      * Creates new form JFCliente
      */
     public JFUsuario() {
         initComponents();
-        
-        
+
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -200,198 +198,155 @@ public class JFUsuario extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void StatusBotao (int btnAtivo ) {
-    
-    if (btnAtivo == 0) {
-        
-         edtNome.setEnabled(true);
-        edtLogin.setEnabled(true);
-        edtSenha.setEnabled(true);
-        edtSenhaE.setEnabled(true);
-        CB_Perfil.setEnabled(true);
+    public void StatusBotao(int btnAtivo) {
 
-        edtId.setText("");
-        edtNome.setText("");
-        edtLogin.setText("");
-        edtSenha.setText("");
-        edtSenhaE.setText("");
+        if (btnAtivo == 0) {
 
-        btnAlterar.setEnabled(false);
-        btnSalvar.setEnabled(true);
-        btnDeletar.setEnabled(false);
-        btnCancelar.setEnabled(true);
-        btnInserir.setEnabled(false);
-        
-        
+            edtNome.setEnabled(true);
+            edtLogin.setEnabled(true);
+            edtSenha.setEnabled(true);
+            edtSenhaE.setEnabled(true);
+            CB_Perfil.setEnabled(true);
+
+            edtId.setText("");
+            edtNome.setText("");
+            edtLogin.setText("");
+            edtSenha.setText("");
+            edtSenhaE.setText("");
+
+            btnAlterar.setEnabled(false);
+            btnSalvar.setEnabled(true);
+            btnDeletar.setEnabled(false);
+            btnCancelar.setEnabled(true);
+            btnInserir.setEnabled(false);
+
+        }
+
+        if (btnAtivo == 1) {
+            edtNome.setEnabled(false);
+            edtLogin.setEnabled(false);
+            edtSenha.setEnabled(false);
+            edtSenhaE.setEnabled(false);
+            CB_Perfil.setEnabled(false);
+
+            btnAlterar.setEnabled(true);
+            btnSalvar.setEnabled(false);
+            btnDeletar.setEnabled(true);
+            btnCancelar.setEnabled(false);
+            btnInserir.setEnabled(true);
+            // atualizaID();
+
+        }
+
+        if (btnAtivo == 2) {
+            edtNome.setEnabled(false);;
+            edtLogin.setEnabled(false);
+            edtSenha.setEnabled(false);
+            edtSenhaE.setEnabled(false);
+            CB_Perfil.setEnabled(false);
+
+            btnInserir.setEnabled(true);
+            btnCancelar.setEnabled(false);
+            btnSalvar.setEnabled(false);
+            btnDeletar.setEnabled(false);
+            btnCancelar.setEnabled(false);
+        }
+
+        if (btnAtivo == 3) {
+
+            edtNome.setEnabled(true);;
+            edtLogin.setEnabled(true);
+            edtSenha.setEnabled(true);
+            edtSenhaE.setEnabled(true);
+            CB_Perfil.setEnabled(true);
+
+            btnInserir.setEnabled(false);
+            btnSalvar.setEnabled(true);
+            btnDeletar.setEnabled(false);
+            btnCancelar.setEnabled(true);
+
+        }
     }
-    
-    if (btnAtivo == 1) {
-                        edtNome.setEnabled(false);
-                edtLogin.setEnabled(false);
-                edtSenha.setEnabled(false);
-                edtSenhaE.setEnabled(false);
-                CB_Perfil.setEnabled(false);
 
-                btnAlterar.setEnabled(true);
-                btnSalvar.setEnabled(false);
-                btnDeletar.setEnabled(true);
-                btnCancelar.setEnabled(false);
-                btnInserir.setEnabled(true);
-                // atualizaID();
-        
-    }
-    
-    if (btnAtivo == 2){
-        edtNome.setEnabled(false);;
-        edtLogin.setEnabled(false);
-        edtSenha.setEnabled(false);
-        edtSenhaE.setEnabled(false);
-        CB_Perfil.setEnabled(false);
 
-        btnInserir.setEnabled(true);
-        btnCancelar.setEnabled(false);
-        btnSalvar.setEnabled(false);
-        btnDeletar.setEnabled(false);
-        btnCancelar.setEnabled(false);
-    }
-    
-    if (btnAtivo == 3){
-    
-        edtNome.setEnabled(true);;
-        edtLogin.setEnabled(true);
-        edtSenha.setEnabled(true);
-        edtSenhaE.setEnabled(true);
-        CB_Perfil.setEnabled(true);
-
-        btnInserir.setEnabled(false);
-        btnSalvar.setEnabled(true);
-        btnDeletar.setEnabled(false);
-        btnCancelar.setEnabled(true);
-    
-        
-        
-    }
-}
-    
-    
     private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
         // TODO add your handling code here:
         StatusBotao(0);
         flag = 0;
-//
-//        edtNome.setEnabled(true);
-//        edtLogin.setEnabled(true);
-//        edtSenha.setEnabled(true);
-//        edtSenhaE.setEnabled(true);
-//        CB_Perfil.setEnabled(true);
-//
-//        edtId.setText("");
-//        edtNome.setText("");
-//        edtLogin.setText("");
-//        edtSenha.setText("");
-//        edtSenhaE.setText("");
-//
-//        btnAlterar.setEnabled(false);
-//        btnSalvar.setEnabled(true);
-//        btnDeletar.setEnabled(false);
-//        btnCancelar.setEnabled(true);
-//        btnInserir.setEnabled(false);
+
 
     }//GEN-LAST:event_btnInserirActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         UsuarioDAO usuariodao = new UsuarioDAO();
         int i = CB_Perfil.getSelectedIndex();
-        String Tipo = CB_Perfil.getItemAt(i).toString(); 
-        usuariodao.AlterarUsu(edtId ,edtLogin, edtSenha, edtemail, edtNome, Tipo, this);
-        
-       
+        String Tipo = CB_Perfil.getItemAt(i).toString();
+        usuariodao.AlterarUsu(edtId, edtLogin, edtSenha, edtemail, edtNome, Tipo, this);
+
         flag = 1;
-        
+
         btnAtivo = 3;
         StatusBotao(3);
-//
-//        edtNome.setEnabled(true);;
-//        edtLogin.setEnabled(true);
-//        edtSenha.setEnabled(true);
-//        edtSenhaE.setEnabled(true);
-//        CB_Perfil.setEnabled(true);
-//
-//        btnInserir.setEnabled(false);
-//        btnSalvar.setEnabled(true);
-//        btnDeletar.setEnabled(false);
-//        btnCancelar.setEnabled(true);
 
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
         UsuarioDAO usuariodao = new UsuarioDAO();
-           
-        usuariodao.DeletaUsu(edtId, this);   
-       
+
+        usuariodao.DeletaUsu(edtId, this);
+
     }//GEN-LAST:event_btnDeletarActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         // TODO add your handling code here:
 
-        if (edtNome.getText().equals("")){
+        if (edtNome.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Insira um Nome para o Usuário");
             return;
         }
-        if(edtLogin.getText().equals("")){
+        if (edtLogin.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Insira um Login para o Usuário");
             return;
         }
-        if (edtSenha.getText().equals("")){
+        if (edtSenha.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Insira a Senha para o Usuário");
             return;
         }
-        if (edtSenhaE.getText().equals("")){
+        if (edtSenhaE.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Confirme a Senha");
             return;
         }
-        if (CB_Perfil.getSelectedIndex()==0){
+        if (CB_Perfil.getSelectedIndex() == 0) {
             JOptionPane.showMessageDialog(this, "Selecione um Tipo para Usuário");
             return;
         }
 
-        if (flag==0){
+        if (flag == 0) {
 
-            if (edtSenha.getText().equals(edtSenhaE.getText())){
+            if (edtSenha.getText().equals(edtSenhaE.getText())) {
 
                 UsuarioDAO usuariodao = new UsuarioDAO();
                 int i = CB_Perfil.getSelectedIndex();
-               String Tipo = CB_Perfil.getItemAt(i).toString();
-               
+                String Tipo = CB_Perfil.getItemAt(i).toString();
+
                 usuariodao.InsereUsu(edtLogin, edtSenha, edtemail, edtNome, Tipo, this);
                 btnAtivo = 1;
                 StatusBotao(1);
-//                edtNome.setEnabled(false);
-//                edtLogin.setEnabled(false);
-//                edtSenha.setEnabled(false);
-//                edtSenhaE.setEnabled(false);
-//                CB_Perfil.setEnabled(false);
-//
-//                btnAlterar.setEnabled(true);
-//                btnSalvar.setEnabled(false);
-//                btnDeletar.setEnabled(true);
-//                btnCancelar.setEnabled(false);
-//                btnInserir.setEnabled(true);
-//                // atualizaID();
 
+//                // atualizaID();
             } else {
-                JOptionPane.showMessageDialog(this,"As senhas não conferem. Digite novamente");
+                JOptionPane.showMessageDialog(this, "As senhas não conferem. Digite novamente");
                 edtSenha.setText(null);
                 edtSenhaE.setText(null);
                 edtSenha.requestFocus();
             }
 
-        }else{
+        } else {
 
-            if (edtSenha.getText().equals(edtSenhaE.getText())){
+            if (edtSenha.getText().equals(edtSenhaE.getText())) {
                 alteraUsu();
             } else {
-                JOptionPane.showMessageDialog(this,"As senhas não conferem. Digite novamente");
+                JOptionPane.showMessageDialog(this, "As senhas não conferem. Digite novamente");
                 edtSenha.setText(null);
                 edtSenhaE.setText(null);
                 edtSenha.requestFocus();
@@ -402,19 +357,7 @@ public class JFUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        // TODO add your handling code here:
-//        edtNome.setEnabled(false);;
-//        edtLogin.setEnabled(false);
-//        edtSenha.setEnabled(false);
-//        edtSenhaE.setEnabled(false);
-//        CB_Perfil.setEnabled(false);
-//
-//        btnInserir.setEnabled(true);
-//        btnCancelar.setEnabled(false);
-//        btnSalvar.setEnabled(false);
-//        btnDeletar.setEnabled(false);
-//        btnCancelar.setEnabled(false);
-       btnAtivo = 2;
+        btnAtivo = 2;
         StatusBotao(2);
         edtId.setText("");
         edtNome.setText("");
@@ -430,23 +373,25 @@ public class JFUsuario extends javax.swing.JFrame {
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
 
-        if (radID.isSelected()){
-            
-          UsuarioDAO usuariodao = new UsuarioDAO();          
-          tbUsuario.setModel(DbUtils.resultSetToTableModel( usuariodao.ConsultarID(edtPesquisa, this)));
+        if (radID.isSelected()) {
 
-            if (tbUsuario.getRowCount()==0){
-                
+            UsuarioDAO usuariodao = new UsuarioDAO();
+            tbUsuario.setModel(DbUtils.resultSetToTableModel(usuariodao.ConsultarID(edtPesquisa, this)));
+
+            if (tbUsuario.getRowCount() == 0) {
+
                 JOptionPane.showMessageDialog(this, "Registro não encontrado");
-            }}
+            }
+        }
 
-            if (RadNome.isSelected()){
-                UsuarioDAO usuariodao = new UsuarioDAO();
-                tbUsuario.setModel(DbUtils.resultSetToTableModel( usuariodao.ConsultarNome(edtPesquisa, this)));
+        if (RadNome.isSelected()) {
+            UsuarioDAO usuariodao = new UsuarioDAO();
+            tbUsuario.setModel(DbUtils.resultSetToTableModel(usuariodao.ConsultarNome(edtPesquisa, this)));
 
-                if (tbUsuario.getRowCount()==0){
-                    JOptionPane.showMessageDialog(this, "Registro não encontrado");
-                }}
+            if (tbUsuario.getRowCount() == 0) {
+                JOptionPane.showMessageDialog(this, "Registro não encontrado");
+            }
+        }
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void tbUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbUsuarioMouseClicked
