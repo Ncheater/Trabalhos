@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author yagog
+ * @author Yago
  */
 public class ProdutoDAO {
 
@@ -47,11 +47,10 @@ public class ProdutoDAO {
         }
     }
 
-    public void DeletaProd(int id) {
-        String sql = "DELETE FROM produto WHERE id_prod = ?";
+    public void DeletaProd(Produto prd) {
+        String sql = "UPDATE select_active SET status_prod = 0 WHERE id_prod = ?";
         conexao = con.conector();
 
-        prd.setId_prod(id);
         try {
             pst = conexao.prepareStatement(sql);
             pst.setInt(1, prd.getId_prod());
@@ -65,7 +64,7 @@ public class ProdutoDAO {
     }
 
     public void AlterarProd(Produto prd) {
-        String sql = "UPDATE produto SET nome_prod = ?, desc_produto = ?, qtd_prod = ?,  valor_prod = ?, cat_prod = ? WHERE id_prod = ?";
+        String sql = "UPDATE select_active SET nome_prod = ?, desc_produto = ?, qtd_prod = ?,  valor_prod = ?, cat_prod = ? WHERE id_prod = ?";
         conexao = con.conector();
 
         try {
@@ -88,7 +87,7 @@ public class ProdutoDAO {
 
     public ResultSet ConsultarID(int id) {
 
-        String sql = "SELECT id_prod AS ID, nome_prod AS Nome, desc_produto AS Descrição, qtd_prod AS Qtd, valor_prod AS Valor, cat_prod AS Categoria FROM produto WHERE id_prod = ?";
+        String sql = "SELECT id_prod AS ID, nome_prod AS Nome, desc_produto AS Descrição, qtd_prod AS Qtd, valor_prod AS Valor, cat_prod AS Categoria FROM select_active WHERE id_prod = ?";
         conexao = con.conector();
         try {
             pst = conexao.prepareStatement(sql);
@@ -105,7 +104,7 @@ public class ProdutoDAO {
 
     public ResultSet ConsultarNome(String nome) {
 
-        String sql = "SELECT id_prod AS ID, nome_prod AS Nome, desc_produto AS Descrição, qtd_prod AS Qtd, valor_prod AS Valor, cat_prod AS Categoria FROM produto WHERE nome_prod LIKE ?";
+        String sql = "SELECT id_prod AS ID, nome_prod AS Nome, desc_produto AS Descrição, qtd_prod AS Qtd, valor_prod AS Valor, cat_prod AS Categoria FROM select_active WHERE nome_prod LIKE ?";
         conexao = con.conector();
         try {
             pst = conexao.prepareStatement(sql);
@@ -139,7 +138,7 @@ public class ProdutoDAO {
     
     public ResultSet ConsultarAll() {
 
-        String sql = "SELECT id_prod AS ID, nome_prod AS Nome, desc_produto AS Descrição , qtd_prod AS Qtd, valor_prod AS Valor, cat_prod AS Categoria FROM produto";
+        String sql = "SELECT id_prod AS ID, nome_prod AS Nome, desc_produto AS Descrição , qtd_prod AS Qtd, valor_prod AS Valor, cat_prod AS Categoria FROM select_active";
         conexao = con.conector();
         try {
             pst = conexao.prepareStatement(sql);

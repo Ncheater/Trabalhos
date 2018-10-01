@@ -7,7 +7,7 @@ package br.com.ProjetoCSS.model;
 
 /**
  *
- * @author yagog
+ * @author Yago
  */
 public class Produto {
     

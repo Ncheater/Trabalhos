@@ -22,14 +22,15 @@ import br.com.ProjetoCSS.controller.ProdutoDAO;
 import static com.sun.corba.se.impl.util.Utility.printStackTrace;
 import java.sql.*;
 import java.util.Vector;
+import static javax.swing.JOptionPane.YES_NO_OPTION;
 import javax.swing.JTable;
 
 /**
  *
- * @author Beatriz
+ * @author Yago
  */
 public class JFProduto extends javax.swing.JFrame {
-    
+
     private static int qtd = 0;
     private static ProdutoDAO pd;
     private static int pflag = 0;
@@ -79,11 +80,12 @@ public class JFProduto extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         t_cat = new javax.swing.JTextField();
         inserir = new javax.swing.JButton();
-        remover = new javax.swing.JButton();
+        cancelar = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         t_valor = new javax.swing.JFormattedTextField();
+        exluir = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         m_consultar = new javax.swing.JMenu();
         m_cadastrar = new javax.swing.JMenu();
@@ -180,7 +182,6 @@ public class JFProduto extends javax.swing.JFrame {
         });
         t_consultar.add(cnome, new org.netbeans.lib.awtextra.AbsoluteConstraints(74, 88, 140, -1));
 
-        dcat.setSelectedIndex(-1);
         dcat.setName(""); // NOI18N
         dcat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -288,15 +289,15 @@ public class JFProduto extends javax.swing.JFrame {
                 inserirActionPerformed(evt);
             }
         });
-        t_cadastrar.add(inserir, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 310, -1, -1));
+        t_cadastrar.add(inserir, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, -1, -1));
 
-        remover.setText("Remover");
-        remover.addActionListener(new java.awt.event.ActionListener() {
+        cancelar.setText("Cancelar");
+        cancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                removerActionPerformed(evt);
+                cancelarActionPerformed(evt);
             }
         });
-        t_cadastrar.add(remover, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 310, -1, -1));
+        t_cadastrar.add(cancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 310, -1, -1));
 
         jButton3.setText("+");
         jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -327,6 +328,14 @@ public class JFProduto extends javax.swing.JFrame {
         jLabel8.setText("R$");
         t_cadastrar.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(75, 243, -1, -1));
         t_cadastrar.add(t_valor, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 240, 90, -1));
+
+        exluir.setText("Excluir");
+        exluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exluirActionPerformed(evt);
+            }
+        });
+        t_cadastrar.add(exluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 310, -1, -1));
 
         getContentPane().add(t_cadastrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 280, 340));
 
@@ -370,25 +379,25 @@ public class JFProduto extends javax.swing.JFrame {
         dcat.setSelectedIndex(-1);
         this.pflag = 1;
     }//GEN-LAST:event_pidActionPerformed
-    
+
     private void cnomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cnomeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cnomeActionPerformed
-    
+
     private void m_consultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_consultarActionPerformed
-        
+
     }//GEN-LAST:event_m_consultarActionPerformed
-    
+
     private void m_cadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_cadastrarActionPerformed
-        
+
     }//GEN-LAST:event_m_cadastrarActionPerformed
-    
+
     private void m_consultarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_m_consultarMouseClicked
         t_consultar.setVisible(true);
         t_cadastrar.setVisible(false);
         reset();
     }//GEN-LAST:event_m_consultarMouseClicked
-    
+
     private void m_cadastrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_m_cadastrarMouseClicked
         t_consultar.setVisible(false);
         t_cadastrar.setVisible(true);
@@ -403,14 +412,14 @@ public class JFProduto extends javax.swing.JFrame {
         insertMode();
         reset();
     }//GEN-LAST:event_m_cadastrarMouseClicked
-    
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if (qtd > 0) {
             qtd--;
             t_qtd.setText(Integer.toString(qtd));
         }
     }//GEN-LAST:event_jButton1ActionPerformed
-    
+
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         if (qtd <= 10) {
             qtd = 0;
@@ -419,11 +428,11 @@ public class JFProduto extends javax.swing.JFrame {
         }
         t_qtd.setText(Integer.toString(qtd));
     }//GEN-LAST:event_jButton2ActionPerformed
-    
+
     private void t_qtdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t_qtdActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_t_qtdActionPerformed
-    
+
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         t_cadastrar.setVisible(false);
         DecimalFormat d = new DecimalFormat("#.00", DecimalFormatSymbols.getInstance(Locale.US));
@@ -439,74 +448,77 @@ public class JFProduto extends javax.swing.JFrame {
         dcat.setEnabled(false);
         reset();
     }//GEN-LAST:event_formWindowOpened
-    
+
     private void t_qtdPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_t_qtdPropertyChange
-        
+
     }//GEN-LAST:event_t_qtdPropertyChange
-    
+
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-        
+
     }//GEN-LAST:event_jButton1MouseClicked
-    
+
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
-        
+
     }//GEN-LAST:event_jButton2MouseClicked
-    
+
     private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3MouseClicked
-    
+
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         qtd++;
         t_qtd.setText(Integer.toString(qtd));
     }//GEN-LAST:event_jButton3ActionPerformed
-    
+
     private void jButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseClicked
-        
+
     }//GEN-LAST:event_jButton4MouseClicked
-    
+
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         qtd += 10;
         t_qtd.setText(Integer.toString(qtd));
     }//GEN-LAST:event_jButton4ActionPerformed
-    
+
     private void inserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserirActionPerformed
-        if(this.iflag == 2){
-            Produto p = new Produto();
-            
-            p.setNome_prod(t_nome.getText()); 
-            p.setDesc_prod(t_desc.getText());
-            p.setQtd_prod(qtd);
-            p.setValor_prod(Float.parseFloat(t_valor.getText()));
-            p.setCat_prod(t_cat.getText());
-            
-            pd.InsereProd(p);
-            reset();
-        }
-        else{
-            Produto p = new Produto();
-            
-            p.setId_prod(Integer.parseInt(grade.getValueAt(grade.getSelectedRow(), 1).toString()));
-            p.setNome_prod(t_nome.getText()); 
-            p.setDesc_prod(t_desc.getText());
-            p.setQtd_prod(qtd);
-            p.setValor_prod(Float.parseFloat(t_valor.getText()));
-            p.setCat_prod(t_cat.getText());
-            
-            pd.AlterarProd(p);
-            reset();
-            insertMode();
+        if (!getCadastroNulo()) {
+            if (this.iflag == 2) {
+                Produto p = new Produto();
+
+                p.setNome_prod(t_nome.getText());
+                p.setDesc_prod(t_desc.getText());
+                p.setQtd_prod(qtd);
+                p.setValor_prod(Float.parseFloat(t_valor.getText()));
+                p.setCat_prod(t_cat.getText());
+
+                pd.InsereProd(p);
+                reset();
+            } else {
+                Produto p = new Produto();
+
+                p.setId_prod(Integer.parseInt(grade.getValueAt(grade.getSelectedRow(), 0).toString()));
+                p.setNome_prod(t_nome.getText());
+                p.setDesc_prod(t_desc.getText());
+                p.setQtd_prod(qtd);
+                p.setValor_prod(Float.parseFloat(t_valor.getText()));
+                p.setCat_prod(t_cat.getText());
+
+                pd.AlterarProd(p);
+                reset();
+                insertMode();
+            }
         }
     }//GEN-LAST:event_inserirActionPerformed
-    
+
     private void inserirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inserirMouseClicked
-        
+
     }//GEN-LAST:event_inserirMouseClicked
-    
+
     private void consultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultarActionPerformed
-        select(this.pflag);
+        if (!getConsultaNula()) {
+            select(this.pflag);
+        }
     }//GEN-LAST:event_consultarActionPerformed
-    
+
     private void pnomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pnomeActionPerformed
         consultar.setEnabled(true);
         cid.setEnabled(false);
@@ -516,7 +528,7 @@ public class JFProduto extends javax.swing.JFrame {
         dcat.setSelectedIndex(-1);
         this.pflag = 2;
     }//GEN-LAST:event_pnomeActionPerformed
-    
+
     private void pcatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pcatActionPerformed
         consultar.setEnabled(true);
         cid.setEnabled(false);
@@ -525,25 +537,36 @@ public class JFProduto extends javax.swing.JFrame {
         fetchItems();
         this.pflag = 3;
     }//GEN-LAST:event_pcatActionPerformed
-    
+
     private void dcatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dcatActionPerformed
-        
+
     }//GEN-LAST:event_dcatActionPerformed
 
     private void gradeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gradeMouseClicked
-        if(grade.getSelectedRow() != -1){
+        if (grade.getSelectedRow() != -1) {
             editMode();
         }
     }//GEN-LAST:event_gradeMouseClicked
 
-    private void removerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerActionPerformed
-        if(this.iflag == 2){
-            
+    private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed
+        insertMode();
+    }//GEN-LAST:event_cancelarActionPerformed
+
+    private void exluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exluirActionPerformed
+        Produto p = new Produto();
+
+        p.setId_prod(Integer.parseInt(grade.getValueAt(grade.getSelectedRow(), 0).toString()));
+        p.setNome_prod(t_nome.getText());
+        p.setDesc_prod(t_desc.getText());
+        p.setQtd_prod(qtd);
+        p.setValor_prod(Float.parseFloat(t_valor.getText()));
+        p.setCat_prod(t_cat.getText());
+
+        if (JOptionPane.showConfirmDialog(null, "Deseja realmente deletar o item " + p.getId_prod() + " - " + p.getNome_prod() + "?", "Confirmação", YES_NO_OPTION) == 0) {
+            pd.DeletaProd(p);
+            reset();
         }
-        else{
-            insertMode();
-        }
-    }//GEN-LAST:event_removerActionPerformed
+    }//GEN-LAST:event_exluirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -579,16 +602,16 @@ public class JFProduto extends javax.swing.JFrame {
             }
         });
     }
-    
+
     public static DefaultTableModel fill(ResultSet rs) throws SQLException {
         ResultSetMetaData metaData = rs.getMetaData();
         int count = metaData.getColumnCount();
-        
+
         Vector<String> names = new Vector<String>();
         for (int i = 1; i <= count; i++) {
             names.add(metaData.getColumnName(i));
         }
-        
+
         Vector<Vector<Object>> data = new Vector<Vector<Object>>();
         while (rs.next()) {
             Vector<Object> vector = new Vector<Object>();
@@ -597,10 +620,10 @@ public class JFProduto extends javax.swing.JFrame {
             }
             data.add(vector);
         }
-        
+
         return new DefaultTableModel(data, names);
     }
-    
+
     public void reset() {
         try {
             grade.setModel(fill(pd.ConsultarAll()));
@@ -608,7 +631,7 @@ public class JFProduto extends javax.swing.JFrame {
             printStackTrace();
         }
     }
-    
+
     public void select(int f) {
         try {
             if (f == 1) {
@@ -624,7 +647,7 @@ public class JFProduto extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Erro ao retornar valores: " + e);
         }
     }
-    
+
     public void fetchItems() {
         try {
             ResultSet rs = pd.ConsultarAll();
@@ -642,10 +665,10 @@ public class JFProduto extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Erro ao recuperar categorias: " + e);
         }
     }
-    
-    public void editMode(){
+
+    public void editMode() {
         inserir.setText("Aplicar");
-        remover.setText("Cancelar");
+        cancelar.setEnabled(true);
         t_qtd.setText(Integer.toString(this.qtd));
         iflag = 1;
         t_nome.setText(grade.getValueAt(grade.getSelectedRow(), 1).toString());
@@ -654,10 +677,10 @@ public class JFProduto extends javax.swing.JFrame {
         t_valor.setText(grade.getValueAt(grade.getSelectedRow(), 4).toString());
         t_cat.setText(grade.getValueAt(grade.getSelectedRow(), 5).toString());
     }
-    
-    public void insertMode(){
+
+    public void insertMode() {
         inserir.setText("Inserir");
-        remover.setText("Remover");
+        cancelar.setEnabled(false);
         iflag = 2;
         t_nome.setText("");
         t_desc.setText("");
@@ -666,12 +689,64 @@ public class JFProduto extends javax.swing.JFrame {
         t_cat.setText("");
     }
 
+    public boolean getCadastroNulo() {
+        boolean nomeNull = t_nome.getText().isEmpty();
+        boolean descNull = t_desc.getText().isEmpty();
+        boolean valorNull = t_valor.getText().isEmpty();
+        boolean catNull = t_cat.getText().isEmpty();
+        boolean campoNull = false;
+        String alert = "Os campos a seguir devem ser preenchidos:";
+
+        if (nomeNull || descNull || valorNull || catNull) {
+            if (nomeNull) {
+                alert += "\nNome";
+            }
+            if (descNull) {
+                alert += "\nDescrição";
+            }
+            if (valorNull) {
+                alert += "\nValor";
+            }
+            if (catNull) {
+                alert += "\nCategoria";
+            }
+            JOptionPane.showMessageDialog(null, alert);
+            campoNull = true;
+        }
+
+        return campoNull;
+    }
+
+    public boolean getConsultaNula() {
+        boolean idNull = cid.getText().isEmpty();
+        boolean nomeNull = cnome.getText().isEmpty();
+        boolean catNull = dcat.getSelectedIndex() == -1;
+        boolean campoNull = false;
+
+        if (this.pflag == 1 && idNull) {
+            JOptionPane.showMessageDialog(null, "Favor preencher o campo ID");
+            campoNull = true;
+        }
+        if (this.pflag == 2 && nomeNull) {
+            JOptionPane.showMessageDialog(null, "Favor preencher o campo nome");
+            campoNull = true;
+        }
+        if (this.pflag == 3 && catNull) {
+            JOptionPane.showMessageDialog(null, "Favor selecionar uma categoria");
+            campoNull = true;
+        }
+
+        return campoNull;
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JButton cancelar;
     private javax.swing.JTextField cid;
     private javax.swing.JTextField cnome;
     private javax.swing.JButton consultar;
     private javax.swing.JComboBox<String> dcat;
+    private javax.swing.JButton exluir;
     private javax.swing.JTable grade;
     private javax.swing.JButton inserir;
     private javax.swing.JButton jButton1;
@@ -694,7 +769,6 @@ public class JFProduto extends javax.swing.JFrame {
     private javax.swing.JRadioButton pcat;
     private javax.swing.JRadioButton pid;
     private javax.swing.JRadioButton pnome;
-    private javax.swing.JButton remover;
     private javax.swing.JPanel t_cadastrar;
     private javax.swing.JTextField t_cat;
     private javax.swing.JPanel t_consultar;
