@@ -491,6 +491,7 @@ public class JFProduto extends javax.swing.JFrame {
                 p.setCat_prod(t_cat.getText());
 
                 pd.InsereProd(p);
+                insertMode();
                 reset();
             } else {
                 Produto p = new Produto();
@@ -685,6 +686,7 @@ public class JFProduto extends javax.swing.JFrame {
         t_nome.setText("");
         t_desc.setText("");
         this.qtd = 0;
+        t_qtd.setText(Integer.toString(this.qtd));
         t_valor.setText("");
         t_cat.setText("");
     }
