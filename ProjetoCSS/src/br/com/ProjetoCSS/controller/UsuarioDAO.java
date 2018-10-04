@@ -3,10 +3,9 @@ package br.com.ProjetoCSS.controller;
  * @author Beatriz
  */
 import br.com.projetocss.model.Usuario;
+import java.awt.HeadlessException;
 import javax.swing.*;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.Collection;
 
 public class UsuarioDAO {
     
@@ -23,7 +22,7 @@ public class UsuarioDAO {
 
   public void InsereUsu(JTextField login_usu, JTextField senha_usu, JTextField email_usu, JTextField nome_usu, String tipo_usu, JFrame flog ) {
     String sql = "insert into usuarios (login_usu, email_usu, senha_usu, nome_usu, tipo_usu) values (?,?,?,?,?)";
-    conexao = con.conector();
+    conexao = Conexao.conector();
 
     usu.setUsu_login(login_usu.getText());
     usu.setUsu_senha(senha_usu.getText()); 
@@ -43,14 +42,14 @@ public class UsuarioDAO {
             
         pst.execute();
           JOptionPane.showMessageDialog(null, " Inserido com sucesso! ");
-        } catch (Exception e) {
+        } catch (SQLException | HeadlessException e) {
            JOptionPane.showMessageDialog(null," Erro ao inserir! "+e);
         }
     }
   
   public void DeletaUsu(JTextField usu_id, JFrame flog){
       String sql = "delete from usuarios where id_usu = ?";
-      conexao = con.conector();
+      conexao = Conexao.conector();
  
    
         usu.setUsu_id(Integer.parseInt(usu_id.getText()));
@@ -60,7 +59,7 @@ public class UsuarioDAO {
         
         pst.execute();
            JOptionPane.showMessageDialog(null, " Deletado com sucesso! ");
-        } catch (Exception e) {
+        } catch (SQLException | HeadlessException e) {
            JOptionPane.showMessageDialog(null," Erro ao Deletar! "+e);
         }
         
@@ -69,7 +68,7 @@ public class UsuarioDAO {
       
   public void AlterarUsu(JTextField usu_id, JTextField login_usu, JTextField senha_usu, JTextField email_usu, JTextField nome_usu, String tipo_usu, JFrame flog){
       String sql = "update usuarios set login_usu = ?, email_usu = ?, senha_usu = ?,  nome_usu = ?, tipo_usu = ? where id_usu = ?";
-      conexao = con.conector();
+      conexao = Conexao.conector();
       
       usu.setUsu_id(Integer.parseInt(usu_id.getText()));
       usu.setUsu_login(login_usu.getText());
@@ -91,7 +90,7 @@ public class UsuarioDAO {
             JOptionPane.showMessageDialog(null, "Alterado com Sucesso");
             
             
-        } catch (Exception e) {
+        } catch (SQLException | HeadlessException e) {
             JOptionPane.showMessageDialog(null, "Alterado com Sucesso"+e);
         }     
     }
@@ -99,7 +98,7 @@ public class UsuarioDAO {
   public ResultSet ConsultarID (JTextField usu_id, JFrame flog){
        
     String sql = " select id_usu as ID, nome_usu as Nome, login_usu as Login, tipo_usu as Tipo from usuarios where id_usu = ? ";
-    conexao = con.conector();
+    conexao = Conexao.conector();
             try{
                 pst = conexao.prepareStatement(sql);
                 pst.setString(1, usu_id.getText()); 
@@ -115,7 +114,7 @@ public class UsuarioDAO {
   public ResultSet ConsultarNome (JTextField usu_nome, JFrame Fflog) {
       
       String sql = " select id_usu as ID, nome_usu as Nome, login_usu as Login, tipo_usu as Tipo from usuarios where nome_usu like ? ";
-      conexao = con.conector();
+      conexao = Conexao.conector();
         try{
             pst = conexao.prepareStatement(sql);
             pst.setString(1,"%"+ usu_nome.getText()+"%");

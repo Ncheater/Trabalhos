@@ -32,10 +32,8 @@ public class UsuDAO {
     Conexao con = new Conexao();
     Usuario usu = new Usuario();
 
-    public void Acesso(JTextField login, JTextField senha, JFrame prin, JFrame flog) {
-        
-        
-        
+    public int Acesso(JTextField login, JTextField senha, JFrame prin, JFrame flog) {
+
         usu.setUsu_login(login.getText());
         usu.setUsu_senha(senha.getText());
 
@@ -52,19 +50,16 @@ public class UsuDAO {
                 JOptionPane.showMessageDialog(null, "Acesso Permitido!");
                 prin.setVisible(true);
                 flog.setVisible(false);
-                
-                con.desconector(conexao);
+
+                return rs.getInt(6);
 
             } else {
                 JOptionPane.showMessageDialog(null, "Acesso Negado!");
-                con.desconector(conexao);
             }
 
-        } catch (Exception e) {
+        }   catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Ocorreu um erro: " + e);
         }
-
+        return 0;
     }
-
 }
-

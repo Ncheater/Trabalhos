@@ -9,21 +9,15 @@ import javax.swing.JOptionPane;
 import br.com.ProjetoCSS.model.*;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
-import java.text.NumberFormat;
-import java.text.ParseException;
 import java.util.Locale;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.DefaultFormatterFactory;
-import javax.swing.text.MaskFormatter;
 import javax.swing.text.NumberFormatter;
 import br.com.ProjetoCSS.controller.ProdutoDAO;
 import static com.sun.corba.se.impl.util.Utility.printStackTrace;
 import java.sql.*;
 import java.util.Vector;
 import static javax.swing.JOptionPane.YES_NO_OPTION;
-import javax.swing.JTable;
 
 /**
  *
@@ -41,7 +35,7 @@ public class JFProduto extends javax.swing.JFrame {
      */
     public JFProduto() {
         initComponents();
-        this.pd = new ProdutoDAO();
+        JFProduto.pd = new ProdutoDAO();
     }
 
     /**
@@ -90,10 +84,14 @@ public class JFProduto extends javax.swing.JFrame {
         m_consultar = new javax.swing.JMenu();
         m_cadastrar = new javax.swing.JMenu();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Produtos");
+        setAlwaysOnTop(true);
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
             }
@@ -377,7 +375,7 @@ public class JFProduto extends javax.swing.JFrame {
         cnome.setText("");
         dcat.setEnabled(false);
         dcat.setSelectedIndex(-1);
-        this.pflag = 1;
+        JFProduto.pflag = 1;
     }//GEN-LAST:event_pidActionPerformed
 
     private void cnomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cnomeActionPerformed
@@ -481,7 +479,7 @@ public class JFProduto extends javax.swing.JFrame {
 
     private void inserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserirActionPerformed
         if (!getCadastroNulo()) {
-            if (this.iflag == 2) {
+            if (JFProduto.iflag == 2) {
                 Produto p = new Produto();
 
                 p.setNome_prod(t_nome.getText());
@@ -516,7 +514,7 @@ public class JFProduto extends javax.swing.JFrame {
 
     private void consultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultarActionPerformed
         if (!getConsultaNula()) {
-            select(this.pflag);
+            select(JFProduto.pflag);
         }
     }//GEN-LAST:event_consultarActionPerformed
 
@@ -527,7 +525,7 @@ public class JFProduto extends javax.swing.JFrame {
         cnome.setEnabled(true);
         dcat.setEnabled(false);
         dcat.setSelectedIndex(-1);
-        this.pflag = 2;
+        JFProduto.pflag = 2;
     }//GEN-LAST:event_pnomeActionPerformed
 
     private void pcatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pcatActionPerformed
@@ -536,7 +534,7 @@ public class JFProduto extends javax.swing.JFrame {
         cnome.setEnabled(false);
         dcat.setEnabled(true);
         fetchItems();
-        this.pflag = 3;
+        JFProduto.pflag = 3;
     }//GEN-LAST:event_pcatActionPerformed
 
     private void dcatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dcatActionPerformed
@@ -569,6 +567,10 @@ public class JFProduto extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_exluirActionPerformed
 
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+    
+    }//GEN-LAST:event_formWindowClosed
+
     /**
      * @param args the command line arguments
      */
@@ -585,22 +587,16 @@ public class JFProduto extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JFProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JFProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JFProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(JFProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        
+        //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new JFProduto().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new JFProduto().setVisible(true);
         });
     }
 
@@ -608,14 +604,14 @@ public class JFProduto extends javax.swing.JFrame {
         ResultSetMetaData metaData = rs.getMetaData();
         int count = metaData.getColumnCount();
 
-        Vector<String> names = new Vector<String>();
+        Vector<String> names = new Vector<>();
         for (int i = 1; i <= count; i++) {
             names.add(metaData.getColumnName(i));
         }
 
-        Vector<Vector<Object>> data = new Vector<Vector<Object>>();
+        Vector<Vector<Object>> data = new Vector<>();
         while (rs.next()) {
-            Vector<Object> vector = new Vector<Object>();
+            Vector<Object> vector = new Vector<>();
             for (int i = 1; i <= count; i++) {
                 vector.add(rs.getObject(i));
             }
@@ -635,14 +631,19 @@ public class JFProduto extends javax.swing.JFrame {
 
     public void select(int f) {
         try {
-            if (f == 1) {
-                grade.setModel(fill(pd.ConsultarID(Integer.parseInt(cid.getText()))));
-            } else if (f == 2) {
-                grade.setModel(fill(pd.ConsultarNome(cnome.getText())));
-            } else if (f == 3) {
-                grade.setModel(fill(pd.ConsultarCat(dcat.getSelectedItem().toString())));
-            } else {
-                JOptionPane.showMessageDialog(null, "Tipo de pesquisa inválida");
+            switch (f) {
+                case 1:
+                    grade.setModel(fill(pd.ConsultarID(Integer.parseInt(cid.getText()))));
+                    break;
+                case 2:
+                    grade.setModel(fill(pd.ConsultarNome(cnome.getText())));
+                    break;
+                case 3:
+                    grade.setModel(fill(pd.ConsultarCat(dcat.getSelectedItem().toString())));
+                    break;
+                default:
+                    JOptionPane.showMessageDialog(null, "Tipo de pesquisa inválida");
+                    break;
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Erro ao retornar valores: " + e);
@@ -656,7 +657,7 @@ public class JFProduto extends javax.swing.JFrame {
                 dcat.addItem(rs.getString(6));
                 for (int i = 0; i < dcat.getItemCount(); i++) {
                     for (int x = i + 1; x < dcat.getItemCount(); x++) {
-                        if (dcat.getItemAt(i).toString().equals(dcat.getItemAt(x).toString())) {
+                        if (dcat.getItemAt(i).equals(dcat.getItemAt(x))) {
                             dcat.removeItemAt(x);
                         }
                     }
@@ -670,11 +671,11 @@ public class JFProduto extends javax.swing.JFrame {
     public void editMode() {
         inserir.setText("Aplicar");
         cancelar.setEnabled(true);
-        t_qtd.setText(Integer.toString(this.qtd));
         iflag = 1;
         t_nome.setText(grade.getValueAt(grade.getSelectedRow(), 1).toString());
         t_desc.setText(grade.getValueAt(grade.getSelectedRow(), 2).toString());
-        this.qtd = Integer.parseInt(grade.getValueAt(grade.getSelectedRow(), 3).toString());
+        JFProduto.qtd = Integer.parseInt(grade.getValueAt(grade.getSelectedRow(), 3).toString());
+        t_qtd.setText(Integer.toString(JFProduto.qtd));
         t_valor.setText(grade.getValueAt(grade.getSelectedRow(), 4).toString());
         t_cat.setText(grade.getValueAt(grade.getSelectedRow(), 5).toString());
     }
@@ -685,8 +686,8 @@ public class JFProduto extends javax.swing.JFrame {
         iflag = 2;
         t_nome.setText("");
         t_desc.setText("");
-        this.qtd = 0;
-        t_qtd.setText(Integer.toString(this.qtd));
+        JFProduto.qtd = 0;
+        t_qtd.setText(Integer.toString(JFProduto.qtd));
         t_valor.setText("");
         t_cat.setText("");
     }
@@ -725,15 +726,15 @@ public class JFProduto extends javax.swing.JFrame {
         boolean catNull = dcat.getSelectedIndex() == -1;
         boolean campoNull = false;
 
-        if (this.pflag == 1 && idNull) {
+        if (JFProduto.pflag == 1 && idNull) {
             JOptionPane.showMessageDialog(null, "Favor preencher o campo ID");
             campoNull = true;
         }
-        if (this.pflag == 2 && nomeNull) {
+        if (JFProduto.pflag == 2 && nomeNull) {
             JOptionPane.showMessageDialog(null, "Favor preencher o campo nome");
             campoNull = true;
         }
-        if (this.pflag == 3 && catNull) {
+        if (JFProduto.pflag == 3 && catNull) {
             JOptionPane.showMessageDialog(null, "Favor selecionar uma categoria");
             campoNull = true;
         }
