@@ -34,8 +34,8 @@ public class UsuarioDAO {
 
             pst = conexao.prepareStatement(sql);
             pst.setString(1, usu.getUsu_login());
-            pst.setString(2, usu.getUsu_senha());
-            pst.setString(3, usu.getUsu_email());
+            pst.setString(2, usu.getUsu_email());
+            pst.setString(3, usu.getUsu_senha());
             pst.setString(4, usu.getUsu_nome());
             pst.setInt(5, usu.getUsu_tipo());
 

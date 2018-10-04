@@ -8,7 +8,6 @@ package br.com.projetocss.view;
 import br.com.ProjetoCSS.controller.Conexao;
 import br.com.ProjetoCSS.controller.UsuDAO;
 import java.sql.Connection;
-import javax.swing.JFrame;
 
 /**
  *
@@ -25,8 +24,9 @@ public class JFLogin extends javax.swing.JFrame {
 
     public JFLogin() {
         initComponents();
-        con = conexao.conector();;
+        con = Conexao.conector();
         conexao.desconector(con);
+        setLocationRelativeTo(null);
 
     }
 
@@ -112,22 +112,16 @@ public class JFLogin extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JFLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JFLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JFLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(JFLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        
+        //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new JFLogin().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new JFLogin().setVisible(true);
         });
     }
 

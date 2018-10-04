@@ -36,6 +36,7 @@ public class JFProduto extends javax.swing.JFrame {
     public JFProduto() {
         initComponents();
         JFProduto.pd = new ProdutoDAO();
+        setLocationRelativeTo(null);
     }
 
     /**

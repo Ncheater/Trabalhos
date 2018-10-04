@@ -35,6 +35,7 @@ public class JFUsuario extends javax.swing.JFrame {
      */
     public JFUsuario() {
         initComponents();
+        setLocationRelativeTo(null);
 
     }
 
@@ -74,6 +75,7 @@ public class JFUsuario extends javax.swing.JFrame {
         edtSenhaE = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Usuarios");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
@@ -225,6 +227,7 @@ public class JFUsuario extends javax.swing.JFrame {
             edtLogin.setText("");
             edtSenha.setText("");
             edtSenhaE.setText("");
+            edtemail.setText("");
 
             btnAlterar.setEnabled(false);
             btnSalvar.setEnabled(true);
@@ -323,6 +326,7 @@ public class JFUsuario extends javax.swing.JFrame {
                 int Tipo = CB_Perfil.getSelectedIndex() - 1;
 
                 usuariodao.InsereUsu(edtLogin, edtSenha, edtemail, edtNome, Tipo, this);
+                StatusBotao(0);
                 StatusBotao(1);
 
 //                // atualizaID();
