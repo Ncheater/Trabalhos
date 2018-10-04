@@ -3,9 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/yagog/Desktop/Faculdade/Arquivos%20GitHub/trunk/ProjetoCSS/src/br/com/ProjetoCSS/controller/ProdutoDAO.java</file>
+            <file>file:/C:/Users/yagog/Desktop/Faculdade/Arquivos%20GitHub/trunk/ProjetoCSS/src/br/com/ProjetoCSS/view/JFLogin.java</file>
             <file>file:/C:/Users/yagog/Desktop/Faculdade/Arquivos%20GitHub/trunk/ProjetoCSS/src/br/com/ProjetoCSS/view/JFProduto.java</file>
-            <file>file:/C:/Users/yagog/Desktop/Faculdade/Arquivos%20GitHub/trunk/ProjetoCSS/src/br/com/ProjetoCSS/model/Produto.java</file>
+            <file>file:/C:/Users/yagog/Desktop/Faculdade/Arquivos%20GitHub/trunk/ProjetoCSS/src/br/com/ProjetoCSS/view/JFPrincipal.java</file>
+            <file>file:/C:/Users/yagog/Desktop/Faculdade/Arquivos%20GitHub/trunk/ProjetoCSS/src/br/com/ProjetoCSS/view/JFUsuario.java</file>
         </group>
     </open-files>
 </project-private>
