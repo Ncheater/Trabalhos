@@ -53,6 +53,7 @@ public class JFLogin extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Módulo de Acesso - Sistema de Venda de Roupas");
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         getContentPane().add(txt_usuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 30, 220, 30));
         getContentPane().add(txt_senha, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 70, 220, 30));
@@ -84,7 +85,7 @@ public class JFLogin extends javax.swing.JFrame {
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 550, 160));
         getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 80, -1, -1));
 
-        setBounds(0, 0, 563, 238);
+        setBounds(0, 0, 555, 238);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_acessoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_acessoActionPerformed
