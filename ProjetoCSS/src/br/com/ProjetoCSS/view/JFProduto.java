@@ -86,7 +86,6 @@ public class JFProduto extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Produtos");
-        setAlwaysOnTop(true);
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
@@ -197,7 +196,7 @@ public class JFProduto extends javax.swing.JFrame {
         });
         t_consultar.add(consultar, new org.netbeans.lib.awtextra.AbsoluteConstraints(74, 169, -1, -1));
 
-        getContentPane().add(t_consultar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 260, 310));
+        getContentPane().add(t_consultar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 260, 340));
         t_consultar.getAccessibleContext().setAccessibleName("");
 
         t_cadastrar.setName(""); // NOI18N
@@ -568,7 +567,7 @@ public class JFProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_exluirActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-    
+
     }//GEN-LAST:event_formWindowClosed
 
     /**
@@ -591,7 +590,7 @@ public class JFProduto extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(JFProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        
+
         //</editor-fold>
 
         /* Create and display the form */

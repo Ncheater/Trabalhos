@@ -38,17 +38,19 @@ public class ProdutoDAO {
             pst.setInt(3, prd.getQtd_prod());
             pst.setFloat(4, prd.getValor_prod());
             pst.setString(5, prd.getCat_prod());
-            
+
             pst.executeUpdate();
             JOptionPane.showMessageDialog(null, "Inserido com sucesso!");
             ConsultarAll();
         } catch (SQLException | HeadlessException e) {
-            JOptionPane.showMessageDialog(null, "Erro ao inserir! "+e);
+            JOptionPane.showMessageDialog(null, "Erro ao inserir! " + e);
         }
+        con.desconector(conexao);
+
     }
 
     public void DeletaProd(Produto prd) {
-        String sql = "UPDATE select_active SET status_prod = 0 WHERE id_prod = ?";
+        String sql = "UPDATE select_active SET status_prod = 0 WHERE ID = ?";
         conexao = Conexao.conector();
 
         try {
@@ -58,13 +60,14 @@ public class ProdutoDAO {
             pst.executeUpdate();
             JOptionPane.showMessageDialog(null, "Deletado com sucesso!");
         } catch (SQLException | HeadlessException e) {
-            JOptionPane.showMessageDialog(null, "Erro ao Deletar! "+e);
+            JOptionPane.showMessageDialog(null, "Erro ao Deletar! " + e);
         }
+        con.desconector(conexao);
 
     }
 
     public void AlterarProd(Produto prd) {
-        String sql = "UPDATE select_active SET nome_prod = ?, desc_produto = ?, qtd_prod = ?,  valor_prod = ?, cat_prod = ? WHERE id_prod = ?";
+        String sql = "UPDATE select_active SET Nome = ?, Descrição = ?, Quantidade = ?,  Valor = ?, Categoria = ?, status_prod = ? WHERE ID = ?";
         conexao = Conexao.conector();
 
         try {
@@ -74,81 +77,94 @@ public class ProdutoDAO {
             pst.setInt(3, prd.getQtd_prod());
             pst.setFloat(4, prd.getValor_prod());
             pst.setString(5, prd.getCat_prod());
-            pst.setInt(6, prd.getId_prod());
+            if (prd.getQtd_prod() == 0) {
+                int confirm = JOptionPane.showConfirmDialog(null, "Item com estoque vazio, deseja removê-lo?", "Estoque vazio", JOptionPane.YES_NO_OPTION);
+                if (confirm == 0) {
+                    pst.setInt(6, 0);
+                }
+            } else {
+                pst.setInt(6, 1);
+            }
+            pst.setInt(7, prd.getId_prod());
 
             pst.execute();
 
             JOptionPane.showMessageDialog(null, "Alterado com Sucesso");
+            con.desconector(conexao);
 
         } catch (SQLException | HeadlessException e) {
-            JOptionPane.showMessageDialog(null, "Erro ao alterar: "+e);
+            JOptionPane.showMessageDialog(null, "Erro ao alterar: " + e);
         }
     }
 
     public ResultSet ConsultarID(int id) {
 
-        String sql = "SELECT id_prod AS ID, nome_prod AS Nome, desc_produto AS Descrição, qtd_prod AS Qtd, valor_prod AS Valor, cat_prod AS Categoria FROM select_active WHERE id_prod = ?";
+        String sql = "SELECT ID, Nome, Descrição, Quantidade, Valor, Categoria FROM select_active WHERE ID = ?";
         conexao = Conexao.conector();
         try {
             pst = conexao.prepareStatement(sql);
             pst.setInt(1, id);
             rs = pst.executeQuery();
+            return rs;
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
-
-        return rs;
+        con.desconector(conexao);
+        return null;
 
     }
 
     public ResultSet ConsultarNome(String nome) {
 
-        String sql = "SELECT id_prod AS ID, nome_prod AS Nome, desc_produto AS Descrição, qtd_prod AS Qtd, valor_prod AS Valor, cat_prod AS Categoria FROM select_active WHERE nome_prod LIKE ?";
+        String sql = "SELECT ID, Nome, Descrição, Quantidade, Valor, Categoria FROM select_active WHERE Nome LIKE ?";
         conexao = Conexao.conector();
         try {
             pst = conexao.prepareStatement(sql);
-            pst.setString(1, nome+"%");
+            pst.setString(1, nome + "%");
             rs = pst.executeQuery();
+            return rs;
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
-
-        return rs;
+        con.desconector(conexao);
+        return null;
 
     }
-    
+
     public ResultSet ConsultarCat(String cat) {
 
-        String sql = "SELECT id_prod AS ID, nome_prod AS Nome, desc_produto AS Descrição, qtd_prod AS Qtd, valor_prod AS Valor, cat_prod AS Categoria FROM produto WHERE cat_prod LIKE ?";
+        String sql = "SELECT ID, Nome, Descrição, Quantidade, Valor, Categoria FROM produto WHERE Categoria LIKE ?";
         conexao = Conexao.conector();
         try {
             pst = conexao.prepareStatement(sql);
             pst.setString(1, cat);
             rs = pst.executeQuery();
+            return rs;
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
-
-        return rs;
+        con.desconector(conexao);
+        return null;
 
     }
-    
+
     public ResultSet ConsultarAll() {
 
-        String sql = "SELECT id_prod AS ID, nome_prod AS Nome, desc_produto AS Descrição , qtd_prod AS Qtd, valor_prod AS Valor, cat_prod AS Categoria FROM select_active";
+        String sql = "SELECT ID, Nome, Descrição, Quantidade, Valor, Categoria FROM select_active";
         conexao = Conexao.conector();
         try {
             pst = conexao.prepareStatement(sql);
             rs = pst.executeQuery();
+            return rs;
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
+        con.desconector(conexao);
+        return null;
 
-        return rs;
-        
     }
 }

@@ -22,12 +22,12 @@ public class JFLogin extends javax.swing.JFrame {
     Connection con;
     Conexao conexao = new Conexao();
     public static int type;
-     
-public JFLogin() {
-    initComponents();
-    con = conexao.conector();;
-    conexao.desconector(con);
-        
+
+    public JFLogin() {
+        initComponents();
+        con = conexao.conector();;
+        conexao.desconector(con);
+
     }
 
     /**
@@ -91,11 +91,10 @@ public JFLogin() {
         // TODO add your handling code here:
         UsuDAO usudao = new UsuDAO();
         JFPrincipal principal = new JFPrincipal();
-        
-        type = usudao.Acesso(txt_usuario, txt_senha, principal, this);    
+
+        type = usudao.Acesso(txt_usuario, txt_senha, principal, this);
         conexao.desconector(con);
     }//GEN-LAST:event_btn_acessoActionPerformed
-                                         
 
     /**
      * @param args the command line arguments

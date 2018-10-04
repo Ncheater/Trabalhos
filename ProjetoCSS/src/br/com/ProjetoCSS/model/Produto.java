@@ -10,14 +10,14 @@ package br.com.ProjetoCSS.model;
  * @author Yago
  */
 public class Produto {
-    
+
     private int id_prod;
     private String nome_prod;
     private String desc_prod;
     private int qtd_prod;
     private float valor_prod;
     private String cat_prod;
-    
+
     public int getId_prod() {
         return id_prod;
     }
@@ -65,8 +65,8 @@ public class Produto {
     public void setCat_prod(String cat_prod) {
         this.cat_prod = cat_prod;
     }
-    
-    public Object[] getProduto(){
+
+    public Object[] getProduto() {
         int id = this.getId_prod();
         String nome = this.getNome_prod();
         String desc = this.getDesc_prod();
@@ -74,7 +74,7 @@ public class Produto {
         float valor = this.getValor_prod();
         String cat = this.getCat_prod();
         Object[] p = {id, nome, desc, qtd, valor, cat};
-        
+
         return p;
     }
 }

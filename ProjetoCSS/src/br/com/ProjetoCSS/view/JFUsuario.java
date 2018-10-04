@@ -12,7 +12,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 import java.util.*;
-import java.lang.*;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -30,7 +29,6 @@ public class JFUsuario extends javax.swing.JFrame {
     ResultSet rs = null;
     UsuarioDAO usuariodao = new UsuarioDAO();
     int flag;
-    int btnAtivo;
 
     /**
      * Creates new form JFCliente
@@ -49,6 +47,7 @@ public class JFUsuario extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -79,6 +78,9 @@ public class JFUsuario extends javax.swing.JFrame {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
             }
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -103,7 +105,7 @@ public class JFUsuario extends javax.swing.JFrame {
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, -1, -1));
         getContentPane().add(edtLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 140, 180, -1));
 
-        CB_Perfil.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione sua Opção", "Administrador", "Usuário" }));
+        CB_Perfil.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione sua Opção", "Usuário", "Administrador" }));
         getContentPane().add(CB_Perfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 130, 260, -1));
 
         btnInserir.setText("Inserir");
@@ -146,9 +148,11 @@ public class JFUsuario extends javax.swing.JFrame {
         });
         getContentPane().add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 260, -1, -1));
 
+        buttonGroup1.add(radID);
         radID.setText("ID");
         getContentPane().add(radID, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 340, -1, -1));
 
+        buttonGroup1.add(RadNome);
         RadNome.setText("Nome");
         getContentPane().add(RadNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 340, -1, -1));
 
@@ -212,14 +216,15 @@ public class JFUsuario extends javax.swing.JFrame {
             edtNome.setEnabled(true);
             edtLogin.setEnabled(true);
             edtSenha.setEnabled(true);
-            edtSenha.setEnabled(true);
+            edtSenhaE.setEnabled(true);
+            edtemail.setEnabled(true);
             CB_Perfil.setEnabled(true);
 
             edtId.setText("");
             edtNome.setText("");
             edtLogin.setText("");
             edtSenha.setText("");
-            edtSenha.setText("");
+            edtSenhaE.setText("");
 
             btnAlterar.setEnabled(false);
             btnSalvar.setEnabled(true);
@@ -233,7 +238,8 @@ public class JFUsuario extends javax.swing.JFrame {
             edtNome.setEnabled(false);
             edtLogin.setEnabled(false);
             edtSenha.setEnabled(false);
-            edtSenha.setEnabled(false);
+            edtSenhaE.setEnabled(false);
+            edtemail.setEnabled(false);
             CB_Perfil.setEnabled(false);
 
             btnAlterar.setEnabled(true);
@@ -246,25 +252,12 @@ public class JFUsuario extends javax.swing.JFrame {
         }
 
         if (btnAtivo == 2) {
-            edtNome.setEnabled(false);;
-            edtLogin.setEnabled(false);
-            edtSenha.setEnabled(false);
-            edtSenha.setEnabled(false);
-            CB_Perfil.setEnabled(false);
 
-            btnInserir.setEnabled(true);
-            btnCancelar.setEnabled(false);
-            btnSalvar.setEnabled(false);
-            btnDeletar.setEnabled(false);
-            btnCancelar.setEnabled(false);
-        }
-
-        if (btnAtivo == 3) {
-
-            edtNome.setEnabled(true);;
+            edtNome.setEnabled(true);
             edtLogin.setEnabled(true);
             edtSenha.setEnabled(true);
-            edtSenha.setEnabled(true);
+            edtSenhaE.setEnabled(true);
+            edtemail.setEnabled(true);
             CB_Perfil.setEnabled(true);
 
             btnInserir.setEnabled(false);
@@ -275,33 +268,27 @@ public class JFUsuario extends javax.swing.JFrame {
         }
     }
 
-
     private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
         // TODO add your handling code here:
         StatusBotao(0);
         flag = 0;
-
+        Logger log;
 
     }//GEN-LAST:event_btnInserirActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-        UsuarioDAO usuariodao = new UsuarioDAO();
-        int i = CB_Perfil.getSelectedIndex();
-        String Tipo = CB_Perfil.getItemAt(i).toString();
-        usuariodao.AlterarUsu(edtId, edtLogin, edtSenha, edtemail, edtNome, Tipo, this);
-
         flag = 1;
-
-        btnAtivo = 3;
-        StatusBotao(3);
+        StatusBotao(2);
 
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
-        UsuarioDAO usuariodao = new UsuarioDAO();
-
         usuariodao.DeletaUsu(edtId, this);
-
+        try {
+            tbUsuario.setModel(fill(usuariodao.ConsultarAll()));
+        } catch (SQLException ex) {
+            Logger.getLogger(JFUsuario.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnDeletarActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
@@ -332,12 +319,10 @@ public class JFUsuario extends javax.swing.JFrame {
 
             if (edtSenha.getText().equals(edtSenha.getText())) {
 
-                UsuarioDAO usuariodao = new UsuarioDAO();
                 int i = CB_Perfil.getSelectedIndex();
-                String Tipo = CB_Perfil.getItemAt(i).toString();
+                int Tipo = CB_Perfil.getSelectedIndex() - 1;
 
                 usuariodao.InsereUsu(edtLogin, edtSenha, edtemail, edtNome, Tipo, this);
-                btnAtivo = 1;
                 StatusBotao(1);
 
 //                // atualizaID();
@@ -348,29 +333,29 @@ public class JFUsuario extends javax.swing.JFrame {
                 edtSenha.requestFocus();
             }
 
+        } else if (flag == 1 && edtSenha.getText().equals(edtSenha.getText())) {
+                usuariodao.AlterarUsu(edtId, edtLogin, edtSenha, edtemail, edtNome, CB_Perfil.getSelectedIndex() - 1, this);
         } else {
-
-            if (edtSenha.getText().equals(edtSenha.getText())) {
-//                usuariodao.AlterarUsu(edtId, edtLogin, edtSenha, edtemail, edtNome, CB_Perfil.getSelectedItem().toString(), this);
-            } else {
-                JOptionPane.showMessageDialog(this, "As senhas não conferem. Digite novamente");
-                edtSenha.setText(null);
-                edtSenha.setText(null);
-                edtSenha.requestFocus();
-            }
-
+            JOptionPane.showMessageDialog(this, "As senhas não conferem. Digite novamente");
+            edtSenha.setText(null);
+            edtSenha.setText(null);
+            edtSenha.requestFocus();
+        }
+        try {
+            tbUsuario.setModel(fill(usuariodao.ConsultarAll()));
+        } catch (SQLException ex) {
+            Logger.getLogger(JFUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        btnAtivo = 2;
-        StatusBotao(2);
+        StatusBotao(1);
         edtId.setText("");
         edtNome.setText("");
         edtLogin.setText("");
         edtSenha.setText("");
-        edtSenha.setText("");
+        edtSenhaE.setText("");
 
     }//GEN-LAST:event_btnCancelarActionPerformed
 
@@ -382,9 +367,8 @@ public class JFUsuario extends javax.swing.JFrame {
 
         if (radID.isSelected()) {
 
-            
             try {
-                tbUsuario.setModel(fill(usuariodao.ConsultarID(edtId, this)));
+                tbUsuario.setModel(fill(usuariodao.ConsultarID(edtPesquisa, this)));
             } catch (SQLException ex) {
                 printStackTrace();
             }
@@ -416,8 +400,17 @@ public class JFUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_tbUsuarioMouseClicked
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-    
+
     }//GEN-LAST:event_formWindowClosed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        StatusBotao(1);
+        try {
+            tbUsuario.setModel(fill(usuariodao.ConsultarAll()));
+        } catch (SQLException ex) {
+            Logger.getLogger(JFUsuario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
@@ -435,26 +428,21 @@ public class JFUsuario extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JFUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JFUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JFUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(JFUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
 
+        //</editor-fold>
+        //</editor-fold>
+
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new JFUsuario().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new JFUsuario().setVisible(true);
         });
     }
-    
+
     public static DefaultTableModel fill(ResultSet rs) throws SQLException {
         ResultSetMetaData metaData = rs.getMetaData();
         int count = metaData.getColumnCount();
@@ -475,14 +463,15 @@ public class JFUsuario extends javax.swing.JFrame {
 
         return new DefaultTableModel(data, names);
     }
-    
+
     public void editMode() {
         btnAlterar.setEnabled(true);
         btnDeletar.setEnabled(true);
-        edtId.setText(tbUsuario.getValueAt(tbUsuario.getSelectedRow(), 1).toString());
-        edtNome.setText(tbUsuario.getValueAt(tbUsuario.getSelectedRow(), 2).toString());
-        edtLogin.setText(tbUsuario.getValueAt(tbUsuario.getSelectedRow(), 3).toString());
-        CB_Perfil.setSelectedItem(tbUsuario.getValueAt(tbUsuario.getSelectedRow(), 5));
+        btnSalvar.setEnabled(true);
+        btnCancelar.setEnabled(true);
+        edtId.setText(tbUsuario.getValueAt(tbUsuario.getSelectedRow(), 0).toString());
+        edtNome.setText(tbUsuario.getValueAt(tbUsuario.getSelectedRow(), 1).toString());
+        edtLogin.setText(tbUsuario.getValueAt(tbUsuario.getSelectedRow(), 2).toString());
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -494,6 +483,7 @@ public class JFUsuario extends javax.swing.JFrame {
     private javax.swing.JButton btnInserir;
     private javax.swing.JButton btnPesquisar;
     private javax.swing.JButton btnSalvar;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JTextField edtId;
     private javax.swing.JTextField edtLogin;
     private javax.swing.JTextField edtNome;

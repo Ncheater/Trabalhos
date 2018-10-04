@@ -10,5 +10,5 @@ package br.com.projetocss.view;
  * @author Beatriz
  */
 class fjlogin {
-    
+
 }

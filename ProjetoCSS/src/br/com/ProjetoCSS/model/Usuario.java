@@ -10,18 +10,17 @@ package br.com.projetocss.model;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
- 
+ *
  * @author diegomoraes
  */
 public class Usuario {
-    
+
     private int usu_id;
     private String usu_nome;
     private String usu_login;
     private String usu_senha;
-    private String usu_tipo;
+    private int usu_tipo;
     private String usu_email;
 
     /**
@@ -83,18 +82,18 @@ public class Usuario {
     /**
      * @return the usu_tipo
      */
-    public String getUsu_tipo() {
+    public int getUsu_tipo() {
         return usu_tipo;
     }
 
     /**
      * @param usu_tipo the usu_tipo to set
      */
-    public void setUsu_tipo(String usu_tipo) {
+    public void setUsu_tipo(int usu_tipo) {
         this.usu_tipo = usu_tipo;
     }
-    
-       /**
+
+    /**
      * @return the usu_tipo
      */
     public String getUsu_email() {
@@ -107,7 +106,5 @@ public class Usuario {
     public void setUsu_email(String usu_email) {
         this.usu_email = usu_email;
     }
-    
-   
-    
+
 }

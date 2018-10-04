@@ -12,39 +12,38 @@ import java.sql.*;
  * @author Beatriz
  */
 public class Conexao {
-    
-    public static Connection conector(){
-        
+
+    public static Connection conector() {
+
         Connection conexao;
-        
+
         try {
-          
+
             Class.forName("com.mysql.jdbc.Driver");
-            conexao = DriverManager.getConnection("jdbc:mysql://localhost/bd_css","root","123456");
+            conexao = DriverManager.getConnection("jdbc:mysql://localhost/bd_css", "root", "123456");
             System.out.println("Conectado com sucesso!");
             return conexao;
-            
-        }   catch(ClassNotFoundException e){
-            
-            System.out.println("Error ao conectar: "+e);
+
+        } catch (ClassNotFoundException e) {
+
+            System.out.println("Error ao conectar: " + e);
             return null;
-            
-        }   catch(SQLException e){
-            
-            System.out.println("Erro ao conectar: "+e);
+
+        } catch (SQLException e) {
+
+            System.out.println("Erro ao conectar: " + e);
             return null;
         }
-        
-        
+
     }
-    
-    public void desconector (Connection con){
+
+    public void desconector(Connection con) {
         try {
             con.close();
             System.out.println("Desconectado com Sucesso!");
         } catch (Exception e) {
-            System.out.println("Erro ao desconectar: "+e);
+            System.out.println("Erro ao desconectar: " + e);
         }
     }
-    
+
 }
