@@ -15,96 +15,88 @@ package br.com.projetocss.model;
  * @author diegomoraes
  */
 public class Usuario {
+    
+    private int usu_id, usu_cpf, usu_rg, usu_tel;
+    private String usu_nome, usu_endereco, usu_login, usu_senha, usu_email;
+    private boolean usu_admin;
 
-    private int usu_id;
-    private String usu_nome;
-    private String usu_login;
-    private String usu_senha;
-    private int usu_tipo;
-    private String usu_email;
-
-    /**
-     * @return the usu_id
-     */
     public int getUsu_id() {
         return usu_id;
     }
 
-    /**
-     * @param usu_id the usu_id to set
-     */
     public void setUsu_id(int usu_id) {
         this.usu_id = usu_id;
     }
 
-    /**
-     * @return the usu_nome
-     */
+    public int getUsu_cpf() {
+        return usu_cpf;
+    }
+
+    public void setUsu_cpf(int usu_cpf) {
+        this.usu_cpf = usu_cpf;
+    }
+
+    public int getUsu_rg() {
+        return usu_rg;
+    }
+
+    public void setUsu_rg(int usu_rg) {
+        this.usu_rg = usu_rg;
+    }
+
+    public int getUsu_tel() {
+        return usu_tel;
+    }
+
+    public void setUsu_tel(int usu_tel) {
+        this.usu_tel = usu_tel;
+    }
+
     public String getUsu_nome() {
         return usu_nome;
     }
 
-    /**
-     * @param usu_nome the usu_nome to set
-     */
     public void setUsu_nome(String usu_nome) {
         this.usu_nome = usu_nome;
     }
 
-    /**
-     * @return the usu_login
-     */
+    public String getUsu_endereco() {
+        return usu_endereco;
+    }
+
+    public void setUsu_endereco(String usu_endereco) {
+        this.usu_endereco = usu_endereco;
+    }
+
     public String getUsu_login() {
         return usu_login;
     }
 
-    /**
-     * @param usu_login the usu_login to set
-     */
     public void setUsu_login(String usu_login) {
         this.usu_login = usu_login;
     }
 
-    /**
-     * @return the usu_senha
-     */
     public String getUsu_senha() {
         return usu_senha;
     }
 
-    /**
-     * @param usu_senha the usu_senha to set
-     */
     public void setUsu_senha(String usu_senha) {
         this.usu_senha = usu_senha;
     }
 
-    /**
-     * @return the usu_tipo
-     */
-    public int getUsu_tipo() {
-        return usu_tipo;
-    }
-
-    /**
-     * @param usu_tipo the usu_tipo to set
-     */
-    public void setUsu_tipo(int usu_tipo) {
-        this.usu_tipo = usu_tipo;
-    }
-
-    /**
-     * @return the usu_tipo
-     */
     public String getUsu_email() {
         return usu_email;
     }
 
-    /**
-     * @param usu_email the usu_tipo to set
-     */
     public void setUsu_email(String usu_email) {
         this.usu_email = usu_email;
     }
 
+    public boolean isUsu_admin() {
+        return usu_admin;
+    }
+
+    public void setUsu_admin(boolean usu_admin) {
+        this.usu_admin = usu_admin;
+    }
 }

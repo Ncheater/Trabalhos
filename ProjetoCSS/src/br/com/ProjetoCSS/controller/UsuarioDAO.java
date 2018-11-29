@@ -20,24 +20,31 @@ public class UsuarioDAO {
     Conexao con = new Conexao();
     Usuario usu = new Usuario();
 
-    public void InsereUsu(JTextField login_usu, JTextField senha_usu, JTextField email_usu, JTextField nome_usu, int tipo_usu, JFrame flog) {
-        String sql = "insert into usuarios (login_usu, email_usu, senha_usu, nome_usu, tipo_usu) values (?,?,?,?,?)";
+    public void InsereUsu(String nome, String end, int cpf, int rg, int tel, String login, String email, String senha, boolean admin) {
+        String sql = "CALL new_cliente(?,?,?,?,?,?,?,?,?)";
         conexao = Conexao.conector();
 
-        usu.setUsu_login(login_usu.getText());
-        usu.setUsu_senha(senha_usu.getText());
-        usu.setUsu_email(email_usu.getText());
-        usu.setUsu_nome(nome_usu.getText());
-        usu.setUsu_tipo(tipo_usu);
+        usu.setUsu_cpf(cpf);
+        usu.setUsu_rg(rg);
+        usu.setUsu_tel(tel);
+        usu.setUsu_nome(nome);
+        usu.setUsu_endereco(end);
+        usu.setUsu_login(login);
+        usu.setUsu_senha(senha);
+        usu.setUsu_email(email);
+        usu.setUsu_admin(admin);
 
         try {
-
             pst = conexao.prepareStatement(sql);
-            pst.setString(1, usu.getUsu_login());
-            pst.setString(2, usu.getUsu_email());
-            pst.setString(3, usu.getUsu_senha());
-            pst.setString(4, usu.getUsu_nome());
-            pst.setInt(5, usu.getUsu_tipo());
+            pst.setString(1, usu.getUsu_nome());
+            pst.setString(2, usu.getUsu_endereco());
+            pst.setInt(3, usu.getUsu_cpf());
+            pst.setInt(4, usu.getUsu_rg());
+            pst.setInt(5, usu.getUsu_tel());
+            pst.setString(6, usu.getUsu_login());
+            pst.setString(7, usu.getUsu_email());
+            pst.setString(8, usu.getUsu_senha());
+            pst.setBoolean(9, usu.isUsu_admin());
 
             pst.execute();
             JOptionPane.showMessageDialog(null, " Inserido com sucesso!");
@@ -46,14 +53,13 @@ public class UsuarioDAO {
         }
     }
 
-    public void DeletaUsu(JTextField usu_id, JFrame flog) {
-        String sql = "delete from usuarios where id_usu = ?";
+    public void DeletaUsu(int id) {
+        String sql = "CALL deleta_cliente(?)";
         conexao = Conexao.conector();
 
-        usu.setUsu_id(Integer.parseInt(usu_id.getText()));
         try {
             pst = conexao.prepareStatement(sql);
-            pst.setInt(1, usu.getUsu_id());
+            pst.setInt(1, id);
 
             pst.execute();
             JOptionPane.showMessageDialog(null, " Deletado com sucesso!");
@@ -63,25 +69,33 @@ public class UsuarioDAO {
 
     }
 
-    public void AlterarUsu(JTextField usu_id, JTextField login_usu, JTextField senha_usu, JTextField email_usu, JTextField nome_usu, int tipo_usu, JFrame flog) {
-        String sql = "update usuarios set login_usu = ?, email_usu = ?, senha_usu = ?,  nome_usu = ?, tipo_usu = ? where id_usu = ?";
+    public void AlterarUsu(int id, String nome, String end, int cpf, int rg, int tel, String login, String email, String senha, boolean admin) {
+        String sql = "CALL update_cliente(?,?,?,?,?,?,?,?,?,?)";
         conexao = Conexao.conector();
-
-        usu.setUsu_id(Integer.parseInt(usu_id.getText()));
-        usu.setUsu_login(login_usu.getText());
-        usu.setUsu_senha(senha_usu.getText());
-        usu.setUsu_email(email_usu.getText());
-        usu.setUsu_nome(nome_usu.getText());
-        usu.setUsu_tipo(tipo_usu);
+        
+        usu.setUsu_id(id);
+        usu.setUsu_cpf(cpf);
+        usu.setUsu_rg(rg);
+        usu.setUsu_tel(tel);
+        usu.setUsu_nome(nome);
+        usu.setUsu_endereco(end);
+        usu.setUsu_login(login);
+        usu.setUsu_senha(senha);
+        usu.setUsu_email(email);
+        usu.setUsu_admin(admin);
 
         try {
             pst = conexao.prepareStatement(sql);
-            pst.setString(1, login_usu.getText());
-            pst.setString(2, email_usu.getText());
-            pst.setString(3, senha_usu.getText());
-            pst.setString(4, nome_usu.getText());
-            pst.setInt(5, usu.getUsu_tipo());
-            pst.setInt(6, usu.getUsu_id());
+            pst.setInt(1,usu.getUsu_id());
+            pst.setString(2, usu.getUsu_nome());
+            pst.setString(3, usu.getUsu_endereco());
+            pst.setInt(4, usu.getUsu_cpf());
+            pst.setInt(5, usu.getUsu_rg());
+            pst.setInt(6, usu.getUsu_tel());
+            pst.setString(7, usu.getUsu_login());
+            pst.setString(8, usu.getUsu_email());
+            pst.setString(9, usu.getUsu_senha());
+            pst.setBoolean(10, usu.isUsu_admin());
 
             pst.execute();
 
@@ -101,7 +115,7 @@ public class UsuarioDAO {
             pst.setString(1, usu_id.getText());
             rs = pst.executeQuery();
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
 
@@ -118,7 +132,7 @@ public class UsuarioDAO {
             pst.setString(1, "%" + usu_nome.getText() + "%");
             rs = pst.executeQuery();
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
 
@@ -135,7 +149,7 @@ public class UsuarioDAO {
             rs = pst.executeQuery();
             return rs;
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
         con.desconector(conexao);

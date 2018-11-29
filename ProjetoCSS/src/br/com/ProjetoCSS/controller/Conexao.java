@@ -20,7 +20,7 @@ public class Conexao {
         try {
 
             Class.forName("com.mysql.jdbc.Driver");
-            conexao = DriverManager.getConnection("jdbc:mysql://localhost/bd_css", "root", "123456");
+            conexao = DriverManager.getConnection("jdbc:mysql://localhost/bd_css", "root", "");
             System.out.println("Conectado com sucesso!");
             return conexao;
 

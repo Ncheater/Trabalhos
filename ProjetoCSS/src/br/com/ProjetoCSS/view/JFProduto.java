@@ -17,6 +17,7 @@ import br.com.ProjetoCSS.controller.ProdutoDAO;
 import static com.sun.corba.se.impl.util.Utility.printStackTrace;
 import java.sql.*;
 import java.util.Vector;
+import javax.swing.JComboBox;
 import static javax.swing.JOptionPane.YES_NO_OPTION;
 
 /**
@@ -534,7 +535,7 @@ public class JFProduto extends javax.swing.JFrame {
         cid.setEnabled(false);
         cnome.setEnabled(false);
         dcat.setEnabled(true);
-        fetchItems();
+        fetchItems(dcat);
         JFProduto.pflag = 3;
     }//GEN-LAST:event_pcatActionPerformed
 
@@ -651,15 +652,16 @@ public class JFProduto extends javax.swing.JFrame {
         }
     }
 
-    public void fetchItems() {
+    public static void fetchItems(JComboBox ccat) {
         try {
             ResultSet rs = pd.ConsultarAll();
             while (rs.next()) {
-                dcat.addItem(rs.getString(6));
-                for (int i = 0; i < dcat.getItemCount(); i++) {
-                    for (int x = i + 1; x < dcat.getItemCount(); x++) {
-                        if (dcat.getItemAt(i).equals(dcat.getItemAt(x))) {
-                            dcat.removeItemAt(x);
+                ccat.addItem(rs.getString(6));
+                for (int i = 0; i < ccat.getItemCount(); i++) {
+                    for (int x = i + 1; x < ccat.getItemCount(); x++) {
+                        if (ccat.getItemAt(i).equals(ccat.getItemAt(x))) {
+                            
+                            ccat.removeItemAt(x);
                         }
                     }
                 }
