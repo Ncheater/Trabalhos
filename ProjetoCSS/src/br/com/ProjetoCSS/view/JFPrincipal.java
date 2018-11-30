@@ -67,7 +67,7 @@ public class JFPrincipal extends javax.swing.JFrame {
 
         btnUsuario.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
         btnUsuario.setForeground(new java.awt.Color(51, 153, 255));
-        btnUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/ProjetoCSS/view/user.png"))); // NOI18N
+        btnUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/user.png"))); // NOI18N
         btnUsuario.setText("Usuário");
         btnUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -78,7 +78,7 @@ public class JFPrincipal extends javax.swing.JFrame {
 
         btnProduto.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
         btnProduto.setForeground(new java.awt.Color(51, 153, 255));
-        btnProduto.setIcon(new javax.swing.ImageIcon("C:\\Users\\Beatriz\\Desktop\\icons CSS\\item.png")); // NOI18N
+        btnProduto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/item.png"))); // NOI18N
         btnProduto.setText("Produto");
         btnProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -89,7 +89,7 @@ public class JFPrincipal extends javax.swing.JFrame {
 
         btnCarrinho.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
         btnCarrinho.setForeground(new java.awt.Color(51, 153, 255));
-        btnCarrinho.setIcon(new javax.swing.ImageIcon("C:\\Users\\Beatriz\\Desktop\\icons CSS\\if_Cart_605508.png")); // NOI18N
+        btnCarrinho.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/if_Cart_605508.png"))); // NOI18N
         btnCarrinho.setText("Carrinho");
         btnCarrinho.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
