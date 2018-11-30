@@ -13,14 +13,10 @@ import javax.swing.JOptionPane;
 import java.util.*;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
-import java.text.NumberFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.text.DefaultFormatterFactory;
-import javax.swing.text.NumberFormatter;
 
 /**
  *
@@ -175,10 +171,20 @@ public class JFUsuario extends javax.swing.JFrame {
 
         buttonGroup1.add(radID);
         radID.setText("ID");
+        radID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radIDActionPerformed(evt);
+            }
+        });
         getContentPane().add(radID, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 360, -1, -1));
 
         buttonGroup1.add(RadNome);
         RadNome.setText("Nome");
+        RadNome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RadNomeActionPerformed(evt);
+            }
+        });
         getContentPane().add(RadNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 360, -1, -1));
 
         edtPesquisa.addActionListener(new java.awt.event.ActionListener() {
@@ -223,7 +229,7 @@ public class JFUsuario extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tbUsuario);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 410, 700, 100));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 410, 700, 170));
         getContentPane().add(edtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 220, 371, -1));
 
         jLabel6.setText("Senha");
@@ -243,6 +249,17 @@ public class JFUsuario extends javax.swing.JFrame {
 
         jLabel8.setText("CPF");
         getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 150, -1, -1));
+
+        edtCpf.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                edtCpfPropertyChange(evt);
+            }
+        });
+        edtCpf.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                edtCpfKeyTyped(evt);
+            }
+        });
         getContentPane().add(edtCpf, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 170, 100, -1));
 
         jLabel9.setText("RG");
@@ -251,6 +268,16 @@ public class JFUsuario extends javax.swing.JFrame {
         edtRg.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 edtRgActionPerformed(evt);
+            }
+        });
+        edtRg.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                edtRgPropertyChange(evt);
+            }
+        });
+        edtRg.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                edtRgKeyTyped(evt);
             }
         });
         getContentPane().add(edtRg, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 170, 80, -1));
@@ -283,8 +310,45 @@ public class JFUsuario extends javax.swing.JFrame {
         getContentPane().add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, -1, -1));
 
         edtTelDDD.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+        edtTelDDD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                edtTelDDDActionPerformed(evt);
+            }
+        });
+        edtTelDDD.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                edtTelDDDPropertyChange(evt);
+            }
+        });
+        edtTelDDD.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                edtTelDDDKeyTyped(evt);
+            }
+        });
         getContentPane().add(edtTelDDD, new org.netbeans.lib.awtextra.AbsoluteConstraints(327, 170, 30, -1));
+
+        edtTelId.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                edtTelIdPropertyChange(evt);
+            }
+        });
+        edtTelId.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                edtTelIdKeyTyped(evt);
+            }
+        });
         getContentPane().add(edtTelId, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 170, 50, -1));
+
+        edtTelNum.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                edtTelNumPropertyChange(evt);
+            }
+        });
+        edtTelNum.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                edtTelNumKeyTyped(evt);
+            }
+        });
         getContentPane().add(edtTelNum, new org.netbeans.lib.awtextra.AbsoluteConstraints(432, 170, 50, -1));
 
         pack();
@@ -298,15 +362,33 @@ public class JFUsuario extends javax.swing.JFrame {
             edtLogin.setEnabled(true);
             edtSenha.setEnabled(true);
             edtSenhaE.setEnabled(true);
+            edtTelDDD.setEnabled(true);
+            edtTelId.setEnabled(true);
+            edtTelNum.setEnabled(true);
+            edtCpf.setEnabled(true);
+            edtRg.setEnabled(true);
+            edtEnd.setEnabled(true);
             edtEmail.setEnabled(true);
             CB_Perfil.setEnabled(true);
+            edtPesquisa.setEnabled(false);
+            buttonGroup1.clearSelection();
 
             edtId.setText("");
             edtNome.setText("");
             edtLogin.setText("");
             edtSenha.setText("");
             edtSenhaE.setText("");
+            edtTelDDD.setText("");
+            edtTelId.setText("");
+            edtTelNum.setText("");
+            edtCpf.setText("");
+            edtRg.setText("");
+            edtEnd.setText("");
             edtEmail.setText("");
+            CB_Perfil.setSelectedIndex(0);
+            edtPesquisa.setText("");
+            
+            
 
             btnAlterar.setEnabled(false);
             btnSalvar.setEnabled(true);
@@ -321,8 +403,18 @@ public class JFUsuario extends javax.swing.JFrame {
             edtLogin.setEnabled(false);
             edtSenha.setEnabled(false);
             edtSenhaE.setEnabled(false);
+            edtTelDDD.setEnabled(false);
+            edtTelId.setEnabled(false);
+            edtTelNum.setEnabled(false);
+            edtCpf.setEnabled(false);
+            edtRg.setEnabled(false);
+            edtEnd.setEnabled(false);
             edtEmail.setEnabled(false);
             CB_Perfil.setEnabled(false);
+            CB_Perfil.setSelectedIndex(0);
+            edtPesquisa.setEnabled(false);
+            edtPesquisa.setText("");
+            buttonGroup1.clearSelection();
 
             btnAlterar.setEnabled(true);
             btnSalvar.setEnabled(false);
@@ -339,8 +431,18 @@ public class JFUsuario extends javax.swing.JFrame {
             edtLogin.setEnabled(true);
             edtSenha.setEnabled(true);
             edtSenhaE.setEnabled(true);
+            edtTelDDD.setEnabled(true);
+            edtTelId.setEnabled(true);
+            edtTelNum.setEnabled(true);
+            edtCpf.setEnabled(true);
+            edtRg.setEnabled(true);
+            edtEnd.setEnabled(true);
             edtEmail.setEnabled(true);
             CB_Perfil.setEnabled(true);
+            CB_Perfil.setSelectedIndex(0);
+            buttonGroup1.clearSelection();
+            edtPesquisa.setEnabled(false);
+            edtPesquisa.setText("");
 
             btnInserir.setEnabled(false);
             btnSalvar.setEnabled(true);
@@ -376,74 +478,65 @@ public class JFUsuario extends javax.swing.JFrame {
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         // TODO add your handling code here:
         String telefone = edtTelDDD.getText() + edtTelId.getText() + edtTelNum.getText();
-        boolean usuTipo;
-        
-        usuTipo = CB_Perfil.getSelectedIndex() - 2 != 0;
+        boolean usuTipo = (CB_Perfil.getSelectedIndex() - 2) != 0;
 
-        if (!(edtTelDDD.getText().equals("") && edtTelId.getText().equals("") && edtTelNum.getText().equals("")) || (edtTelDDD.getText().equals("") && edtTelId.getText().equals("") && edtTelNum.getText().equals("")) && edtSenha.getText().equals(edtSenhaE.getText()) && CB_Perfil.getSelectedIndex() > 0) {
-            if(!(edtSenha.getText().equals(edtSenhaE.getText()))){
-                JOptionPane.showMessageDialog(null, "As senhas devem ser iguais");
-            }
-            else if(CB_Perfil.getSelectedIndex() == 0){
-                JOptionPane.showMessageDialog(null, "Selecione um tipo de usuário");
-            }
-            else{
-                JOptionPane.showMessageDialog(null, "Insira o Telefone completo");
-            }
-        } else {
-            if (edtNome.getText().equals("")) {
-                JOptionPane.showMessageDialog(this, "Insira um Nome para o Usuário");
-                return;
-            }
-            if (edtLogin.getText().equals("")) {
-                JOptionPane.showMessageDialog(this, "Insira um Login para o Usuário");
-                return;
-            }
-            if (edtSenha.getText().equals("")) {
-                JOptionPane.showMessageDialog(this, "Insira a Senha para o Usuário");
-                return;
-            }
-            if (edtSenha.getText().equals("")) {
-                JOptionPane.showMessageDialog(this, "Confirme a Senha");
-                return;
-            }
-            if (CB_Perfil.getSelectedIndex() == 0) {
-                JOptionPane.showMessageDialog(this, "Selecione um Tipo para Usuário");
-                return;
-            }
+        if (edtNome.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Insira um Nome para o Usuário");
+            return;
+        }
+        if (edtLogin.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Insira um Login para o Usuário");
+            return;
+        }
+        if (edtSenha.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Insira a Senha para o Usuário");
+            return;
+        }
+        if (!(edtSenha.getText().equals(edtSenhaE.getText()))) {
+            JOptionPane.showMessageDialog(this, "Confirme a Senha");
+            return;
+        }
+        if (CB_Perfil.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(this, "Selecione um Tipo para Usuário");
+            return;
+        }
+        if (telefone.length() != 11 && telefone.length() != 0){
+            JOptionPane.showMessageDialog(this, "Coloque um telefone válido ((DDD) XXXXX-XXXX)");
+            return;
+        }
 
-            if (flag == 0) {
+        if (flag == 0) {
 
-                if (edtSenha.getText().equals(edtSenha.getText())) {
-
-                    int i = CB_Perfil.getSelectedIndex();
-                    int Tipo = CB_Perfil.getSelectedIndex() - 1;
-
-                    usuariodao.InsereUsu(edtNome.getText(), edtEnd.getText(), Integer.parseInt(edtCpf.getText()), Integer.parseInt(edtRg.getText()), Integer.parseInt(telefone), edtLogin.getText(), edtEmail.getText(), edtSenha.getText(), usuTipo);
-                    StatusBotao(0);
-                    StatusBotao(1);
+            if (edtSenha.getText().equals(edtSenha.getText())) {                
+                try{
+                usuariodao.InsereUsu(edtNome.getText(), edtEnd.getText(), Long.parseLong(edtCpf.getText()), Integer.parseInt(edtRg.getText()), Long.parseLong(telefone), edtLogin.getText(), edtEmail.getText(), edtSenha.getText(), usuTipo);
+                } catch (NumberFormatException ex){
+                    JOptionPane.showMessageDialog(null, "Telefone vazio/inválido - O cadastro será efetuado sem telefone");
+                    usuariodao.InsereUsu(edtNome.getText(), edtEnd.getText(), Long.parseLong(edtCpf.getText()), Integer.parseInt(edtRg.getText()), Long.parseLong("0"), edtLogin.getText(), edtEmail.getText(), edtSenha.getText(), usuTipo);
+                }
+                StatusBotao(0);
+                StatusBotao(1);
 
 //                // atualizaID();
-                } else {
-                    JOptionPane.showMessageDialog(this, "As senhas não conferem. Digite novamente");
-                    edtSenha.setText(null);
-                    edtSenha.setText(null);
-                    edtSenha.requestFocus();
-                }
-
-            } else if (flag == 1 && edtSenha.getText().equals(edtSenha.getText())) {
-                usuariodao.AlterarUsu(Integer.parseInt(edtId.getText()), edtNome.getText(), edtEnd.getText(), Integer.parseInt(edtCpf.getText()), Integer.parseInt(edtRg.getText()), Integer.parseInt(telefone), edtLogin.getText(), edtEmail.getText(), edtSenha.getText(), usuTipo);
-        } else {
-            JOptionPane.showMessageDialog(this, "As senhas não conferem. Digite novamente");
+            } else {
+                JOptionPane.showMessageDialog(this, "As senhas não conferem. Digite novamente");
                 edtSenha.setText(null);
                 edtSenha.setText(null);
                 edtSenha.requestFocus();
             }
-            try {
-                tbUsuario.setModel(fill(usuariodao.ConsultarAll()));
-            } catch (SQLException ex) {
-                Logger.getLogger(JFUsuario.class.getName()).log(Level.SEVERE, null, ex);
-            }
+
+        } else if (flag == 1 && edtSenha.getText().equals(edtSenha.getText())) {
+            usuariodao.AlterarUsu(Integer.parseInt(edtId.getText()), edtNome.getText(), edtEnd.getText(), Long.parseLong(edtCpf.getText()), Integer.parseInt(edtRg.getText()), Long.parseLong(telefone), edtLogin.getText(), edtEmail.getText(), edtSenha.getText(), usuTipo);
+        } else {
+            JOptionPane.showMessageDialog(this, "As senhas não conferem. Digite novamente");
+            edtSenha.setText(null);
+            edtSenha.setText(null);
+            edtSenha.requestFocus();
+        }
+        try {
+            tbUsuario.setModel(fill(usuariodao.ConsultarAll()));
+        } catch (SQLException ex) {
+            Logger.getLogger(JFUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }//GEN-LAST:event_btnSalvarActionPerformed
@@ -522,6 +615,58 @@ public class JFUsuario extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_edtRgActionPerformed
 
+    private void edtTelDDDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtTelDDDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_edtTelDDDActionPerformed
+
+    private void edtTelDDDPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_edtTelDDDPropertyChange
+        
+    }//GEN-LAST:event_edtTelDDDPropertyChange
+
+    private void edtTelIdPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_edtTelIdPropertyChange
+        
+    }//GEN-LAST:event_edtTelIdPropertyChange
+
+    private void edtTelNumPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_edtTelNumPropertyChange
+        
+    }//GEN-LAST:event_edtTelNumPropertyChange
+
+    private void edtCpfPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_edtCpfPropertyChange
+        
+    }//GEN-LAST:event_edtCpfPropertyChange
+
+    private void edtRgPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_edtRgPropertyChange
+        
+    }//GEN-LAST:event_edtRgPropertyChange
+
+    private void edtCpfKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_edtCpfKeyTyped
+        setSizeLimit(edtCpf, 11);
+    }//GEN-LAST:event_edtCpfKeyTyped
+
+    private void edtRgKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_edtRgKeyTyped
+        setSizeLimit(edtRg, 9);
+    }//GEN-LAST:event_edtRgKeyTyped
+
+    private void edtTelDDDKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_edtTelDDDKeyTyped
+        setSizeLimit(edtTelDDD, 2);
+    }//GEN-LAST:event_edtTelDDDKeyTyped
+
+    private void edtTelIdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_edtTelIdKeyTyped
+        setSizeLimit(edtTelId, 5);
+    }//GEN-LAST:event_edtTelIdKeyTyped
+
+    private void edtTelNumKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_edtTelNumKeyTyped
+        setSizeLimit(edtTelNum, 4);
+    }//GEN-LAST:event_edtTelNumKeyTyped
+
+    private void radIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radIDActionPerformed
+        edtPesquisa.setEnabled(true);
+    }//GEN-LAST:event_radIDActionPerformed
+
+    private void RadNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RadNomeActionPerformed
+        edtPesquisa.setEnabled(true);
+    }//GEN-LAST:event_RadNomeActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -582,6 +727,14 @@ public class JFUsuario extends javax.swing.JFrame {
         edtId.setText(tbUsuario.getValueAt(tbUsuario.getSelectedRow(), 0).toString());
         edtNome.setText(tbUsuario.getValueAt(tbUsuario.getSelectedRow(), 1).toString());
         edtLogin.setText(tbUsuario.getValueAt(tbUsuario.getSelectedRow(), 2).toString());
+    }
+    
+    public void setSizeLimit(JTextField tf, int size){
+        String subs;
+        if(tf.getText().length() == size){
+            subs = tf.getText().substring(0, size - 1);
+            tf.setText(subs);
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

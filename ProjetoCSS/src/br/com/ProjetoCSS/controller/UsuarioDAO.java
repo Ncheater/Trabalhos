@@ -20,7 +20,7 @@ public class UsuarioDAO {
     Conexao con = new Conexao();
     Usuario usu = new Usuario();
 
-    public void InsereUsu(String nome, String end, int cpf, int rg, int tel, String login, String email, String senha, boolean admin) {
+    public void InsereUsu(String nome, String end, Long cpf, int rg, Long tel, String login, String email, String senha, boolean admin) {
         String sql = "CALL new_cliente(?,?,?,?,?,?,?,?,?)";
         conexao = Conexao.conector();
 
@@ -38,9 +38,9 @@ public class UsuarioDAO {
             pst = conexao.prepareStatement(sql);
             pst.setString(1, usu.getUsu_nome());
             pst.setString(2, usu.getUsu_endereco());
-            pst.setInt(3, usu.getUsu_cpf());
+            pst.setLong(3, usu.getUsu_cpf());
             pst.setInt(4, usu.getUsu_rg());
-            pst.setInt(5, usu.getUsu_tel());
+            pst.setLong(5, usu.getUsu_tel());
             pst.setString(6, usu.getUsu_login());
             pst.setString(7, usu.getUsu_email());
             pst.setString(8, usu.getUsu_senha());
@@ -69,7 +69,7 @@ public class UsuarioDAO {
 
     }
 
-    public void AlterarUsu(int id, String nome, String end, int cpf, int rg, int tel, String login, String email, String senha, boolean admin) {
+    public void AlterarUsu(int id, String nome, String end, Long cpf, int rg, Long tel, String login, String email, String senha, boolean admin) {
         String sql = "CALL update_cliente(?,?,?,?,?,?,?,?,?,?)";
         conexao = Conexao.conector();
         
@@ -89,9 +89,9 @@ public class UsuarioDAO {
             pst.setInt(1,usu.getUsu_id());
             pst.setString(2, usu.getUsu_nome());
             pst.setString(3, usu.getUsu_endereco());
-            pst.setInt(4, usu.getUsu_cpf());
+            pst.setLong(4, usu.getUsu_cpf());
             pst.setInt(5, usu.getUsu_rg());
-            pst.setInt(6, usu.getUsu_tel());
+            pst.setLong(6, usu.getUsu_tel());
             pst.setString(7, usu.getUsu_login());
             pst.setString(8, usu.getUsu_email());
             pst.setString(9, usu.getUsu_senha());
@@ -108,7 +108,7 @@ public class UsuarioDAO {
 
     public ResultSet ConsultarID(int id) {
 
-            String sql = "SELECT * FROM select_cli WHERE id_cli = ? ";
+            String sql = "SELECT * FROM select_cli WHERE ID = ? ";
         conexao = Conexao.conector();
         try {
             pst = conexao.prepareStatement(sql);
@@ -125,7 +125,7 @@ public class UsuarioDAO {
 
     public ResultSet ConsultarNome(String nome) {
 
-        String sql = "SELECT * FROM select_cli WHERE nome_cli = ? ";
+        String sql = "SELECT * FROM select_cli WHERE Nome LIKE ? ";
         conexao = Conexao.conector();
         try {
             pst = conexao.prepareStatement(sql);
@@ -142,7 +142,7 @@ public class UsuarioDAO {
     
     public ResultSet ConsultarAll() {
 
-        String sql = "SELECT id_cli AS ID, nome_cli AS Nome, endereco_cli AS Endereço, cpf_cli AS CPF, rg_cli AS RG, telefone_cli AS Telefone, id_usu AS Usuário, email_usu AS Email, login_usu AS Login, senha_usu AS Senha, tipo_usu AS Administrador FROM select_cli";
+        String sql = "SELECT * FROM select_cli";
         conexao = Conexao.conector();
         try {
             pst = conexao.prepareStatement(sql);

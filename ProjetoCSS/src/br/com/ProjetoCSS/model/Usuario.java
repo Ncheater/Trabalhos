@@ -16,7 +16,8 @@ package br.com.projetocss.model;
  */
 public class Usuario {
     
-    private int usu_id, usu_cpf, usu_rg, usu_tel;
+    private int usu_id, usu_rg;
+    private Long usu_tel, usu_cpf;
     private String usu_nome, usu_endereco, usu_login, usu_senha, usu_email;
     private boolean usu_admin;
 
@@ -28,11 +29,11 @@ public class Usuario {
         this.usu_id = usu_id;
     }
 
-    public int getUsu_cpf() {
+    public Long getUsu_cpf() {
         return usu_cpf;
     }
 
-    public void setUsu_cpf(int usu_cpf) {
+    public void setUsu_cpf(Long usu_cpf) {
         this.usu_cpf = usu_cpf;
     }
 
@@ -44,11 +45,11 @@ public class Usuario {
         this.usu_rg = usu_rg;
     }
 
-    public int getUsu_tel() {
+    public Long getUsu_tel() {
         return usu_tel;
     }
 
-    public void setUsu_tel(int usu_tel) {
+    public void setUsu_tel(Long usu_tel) {
         this.usu_tel = usu_tel;
     }
 
