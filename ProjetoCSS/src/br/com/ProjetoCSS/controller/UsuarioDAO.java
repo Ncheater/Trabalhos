@@ -106,13 +106,13 @@ public class UsuarioDAO {
         }
     }
 
-    public ResultSet ConsultarID(JTextField usu_id, JFrame flog) {
+    public ResultSet ConsultarID(int id) {
 
-        String sql = " select id_usu as ID, nome_usu as Nome, login_usu as Login, tipo_usu as Tipo from usuarios where id_usu = ? ";
+            String sql = "SELECT * FROM select_cli WHERE id_cli = ? ";
         conexao = Conexao.conector();
         try {
             pst = conexao.prepareStatement(sql);
-            pst.setString(1, usu_id.getText());
+            pst.setInt(1, id);
             rs = pst.executeQuery();
 
         } catch (SQLException e) {
@@ -123,13 +123,13 @@ public class UsuarioDAO {
 
     }
 
-    public ResultSet ConsultarNome(JTextField usu_nome, JFrame Fflog) {
+    public ResultSet ConsultarNome(String nome) {
 
-        String sql = " select id_usu as ID, nome_usu as Nome, login_usu as Login, tipo_usu as Tipo from usuarios where nome_usu like ? ";
+        String sql = "SELECT * FROM select_cli WHERE nome_cli = ? ";
         conexao = Conexao.conector();
         try {
             pst = conexao.prepareStatement(sql);
-            pst.setString(1, "%" + usu_nome.getText() + "%");
+            pst.setString(1, "%" + nome + "%");
             rs = pst.executeQuery();
 
         } catch (SQLException e) {
@@ -142,7 +142,7 @@ public class UsuarioDAO {
     
     public ResultSet ConsultarAll() {
 
-        String sql = "select id_usu as ID, nome_usu as Nome, login_usu as Login, tipo_usu as Tipo from usuarios";
+        String sql = "SELECT id_cli AS ID, nome_cli AS Nome, endereco_cli AS Endereço, cpf_cli AS CPF, rg_cli AS RG, telefone_cli AS Telefone, id_usu AS Usuário, email_usu AS Email, login_usu AS Login, senha_usu AS Senha, tipo_usu AS Administrador FROM select_cli";
         conexao = Conexao.conector();
         try {
             pst = conexao.prepareStatement(sql);

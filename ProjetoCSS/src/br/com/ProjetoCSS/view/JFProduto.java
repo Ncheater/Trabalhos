@@ -14,9 +14,10 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.NumberFormatter;
 import br.com.ProjetoCSS.controller.ProdutoDAO;
-import static com.sun.corba.se.impl.util.Utility.printStackTrace;
 import java.sql.*;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import static javax.swing.JOptionPane.YES_NO_OPTION;
 
@@ -627,8 +628,9 @@ public class JFProduto extends javax.swing.JFrame {
         try {
             grade.setModel(fill(pd.ConsultarAll()));
         } catch (SQLException ex) {
-            printStackTrace();
+            Logger.getLogger(JFProduto.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
     }
 
     public void select(int f) {

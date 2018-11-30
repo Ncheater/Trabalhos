@@ -6,7 +6,6 @@
 package br.com.ProjetoCSS.view;
 
 import br.com.ProjetoCSS.controller.UsuarioDAO;
-import static com.sun.corba.se.impl.util.Utility.printStackTrace;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,9 +13,14 @@ import javax.swing.JOptionPane;
 import java.util.*;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.DefaultFormatterFactory;
+import javax.swing.text.NumberFormatter;
 
 /**
  *
@@ -69,10 +73,27 @@ public class JFUsuario extends javax.swing.JFrame {
         btnPesquisar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbUsuario = new javax.swing.JTable();
-        edtemail = new javax.swing.JTextField();
+        edtEmail = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         edtSenha = new javax.swing.JPasswordField();
         edtSenhaE = new javax.swing.JPasswordField();
+        edtEnd = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        edtCpf = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        edtRg = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        edtTelDDD = new javax.swing.JFormattedTextField();
+        edtTelId = new javax.swing.JFormattedTextField();
+        edtTelNum = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Usuarios");
@@ -89,28 +110,28 @@ public class JFUsuario extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setText("Confirmar Senha");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 170, -1, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 150, -1, -1));
 
         jLabel2.setText("ID");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 50, -1, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, -1, -1));
 
         jLabel3.setText("Nome");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 50, -1, -1));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 50, -1, -1));
 
         edtId.setEnabled(false);
         edtId.setFocusable(false);
-        getContentPane().add(edtId, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 70, 80, -1));
-        getContentPane().add(edtNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 70, 370, -1));
+        getContentPane().add(edtId, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 70, 40, -1));
+        getContentPane().add(edtNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 70, 371, -1));
 
         jLabel4.setText("Login");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 110, -1, -1));
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 50, -1, -1));
 
         jLabel5.setText("Email");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, -1, -1));
-        getContentPane().add(edtLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 140, 180, -1));
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 200, -1, -1));
+        getContentPane().add(edtLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 70, 180, -1));
 
         CB_Perfil.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione sua Opção", "Usuário", "Administrador" }));
-        getContentPane().add(CB_Perfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 130, 260, -1));
+        getContentPane().add(CB_Perfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 220, 180, -1));
 
         btnInserir.setText("Inserir");
         btnInserir.addActionListener(new java.awt.event.ActionListener() {
@@ -118,7 +139,7 @@ public class JFUsuario extends javax.swing.JFrame {
                 btnInserirActionPerformed(evt);
             }
         });
-        getContentPane().add(btnInserir, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 260, -1, -1));
+        getContentPane().add(btnInserir, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 260, -1, -1));
 
         btnAlterar.setText("Alterar");
         btnAlterar.addActionListener(new java.awt.event.ActionListener() {
@@ -126,7 +147,7 @@ public class JFUsuario extends javax.swing.JFrame {
                 btnAlterarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 260, -1, -1));
+        getContentPane().add(btnAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 260, -1, -1));
 
         btnDeletar.setText("Deletar");
         btnDeletar.addActionListener(new java.awt.event.ActionListener() {
@@ -134,7 +155,7 @@ public class JFUsuario extends javax.swing.JFrame {
                 btnDeletarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnDeletar, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 260, -1, -1));
+        getContentPane().add(btnDeletar, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 260, -1, -1));
 
         btnSalvar.setText("Salvar");
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
@@ -142,7 +163,7 @@ public class JFUsuario extends javax.swing.JFrame {
                 btnSalvarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnSalvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 260, -1, -1));
+        getContentPane().add(btnSalvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 260, -1, -1));
 
         btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -150,22 +171,22 @@ public class JFUsuario extends javax.swing.JFrame {
                 btnCancelarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 260, -1, -1));
+        getContentPane().add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 260, -1, -1));
 
         buttonGroup1.add(radID);
         radID.setText("ID");
-        getContentPane().add(radID, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 340, -1, -1));
+        getContentPane().add(radID, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 360, -1, -1));
 
         buttonGroup1.add(RadNome);
         RadNome.setText("Nome");
-        getContentPane().add(RadNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 340, -1, -1));
+        getContentPane().add(RadNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 360, -1, -1));
 
         edtPesquisa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 edtPesquisaActionPerformed(evt);
             }
         });
-        getContentPane().add(edtPesquisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 340, 190, -1));
+        getContentPane().add(edtPesquisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 360, 190, -1));
 
         btnPesquisar.setText("Pesquisar");
         btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
@@ -173,7 +194,7 @@ public class JFUsuario extends javax.swing.JFrame {
                 btnPesquisarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnPesquisar, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 340, -1, -1));
+        getContentPane().add(btnPesquisar, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 360, -1, -1));
 
         tbUsuario.setBackground(new java.awt.Color(0, 206, 209));
         tbUsuario.setModel(new javax.swing.table.DefaultTableModel(
@@ -202,13 +223,69 @@ public class JFUsuario extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tbUsuario);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 390, -1, 100));
-        getContentPane().add(edtemail, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 220, 420, -1));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 410, 700, 100));
+        getContentPane().add(edtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 220, 371, -1));
 
         jLabel6.setText("Senha");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 170, -1, 20));
-        getContentPane().add(edtSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 190, 180, -1));
-        getContentPane().add(edtSenhaE, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 190, 180, -1));
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 100, -1, 20));
+        getContentPane().add(edtSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 120, 180, -1));
+        getContentPane().add(edtSenhaE, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 170, 180, -1));
+
+        edtEnd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                edtEndActionPerformed(evt);
+            }
+        });
+        getContentPane().add(edtEnd, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 120, 371, -1));
+
+        jLabel7.setText("Endereço");
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 100, -1, -1));
+
+        jLabel8.setText("CPF");
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 150, -1, -1));
+        getContentPane().add(edtCpf, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 170, 100, -1));
+
+        jLabel9.setText("RG");
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 150, -1, -1));
+
+        edtRg.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                edtRgActionPerformed(evt);
+            }
+        });
+        getContentPane().add(edtRg, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 170, 80, -1));
+
+        jLabel10.setText("Telefone");
+        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 150, -1, -1));
+
+        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel11.setText("-");
+        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(423, 170, -1, -1));
+
+        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel12.setText("(");
+        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 170, -1, -1));
+
+        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel13.setText(")");
+        getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 170, -1, -1));
+
+        jLabel14.setText("Tipo");
+        getContentPane().add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 200, -1, -1));
+        getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 760, -1));
+
+        jLabel15.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel15.setText("Cadastrar");
+        getContentPane().add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+
+        jLabel16.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel16.setText("Consultar");
+        getContentPane().add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, -1, -1));
+
+        edtTelDDD.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+        getContentPane().add(edtTelDDD, new org.netbeans.lib.awtextra.AbsoluteConstraints(327, 170, 30, -1));
+        getContentPane().add(edtTelId, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 170, 50, -1));
+        getContentPane().add(edtTelNum, new org.netbeans.lib.awtextra.AbsoluteConstraints(432, 170, 50, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -221,7 +298,7 @@ public class JFUsuario extends javax.swing.JFrame {
             edtLogin.setEnabled(true);
             edtSenha.setEnabled(true);
             edtSenhaE.setEnabled(true);
-            edtemail.setEnabled(true);
+            edtEmail.setEnabled(true);
             CB_Perfil.setEnabled(true);
 
             edtId.setText("");
@@ -229,7 +306,7 @@ public class JFUsuario extends javax.swing.JFrame {
             edtLogin.setText("");
             edtSenha.setText("");
             edtSenhaE.setText("");
-            edtemail.setText("");
+            edtEmail.setText("");
 
             btnAlterar.setEnabled(false);
             btnSalvar.setEnabled(true);
@@ -244,7 +321,7 @@ public class JFUsuario extends javax.swing.JFrame {
             edtLogin.setEnabled(false);
             edtSenha.setEnabled(false);
             edtSenhaE.setEnabled(false);
-            edtemail.setEnabled(false);
+            edtEmail.setEnabled(false);
             CB_Perfil.setEnabled(false);
 
             btnAlterar.setEnabled(true);
@@ -262,7 +339,7 @@ public class JFUsuario extends javax.swing.JFrame {
             edtLogin.setEnabled(true);
             edtSenha.setEnabled(true);
             edtSenhaE.setEnabled(true);
-            edtemail.setEnabled(true);
+            edtEmail.setEnabled(true);
             CB_Perfil.setEnabled(true);
 
             btnInserir.setEnabled(false);
@@ -288,7 +365,7 @@ public class JFUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
-        usuariodao.DeletaUsu(edtId, this);
+        usuariodao.DeletaUsu(Integer.parseInt(edtId.getText()));
         try {
             tbUsuario.setModel(fill(usuariodao.ConsultarAll()));
         } catch (SQLException ex) {
@@ -298,59 +375,75 @@ public class JFUsuario extends javax.swing.JFrame {
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         // TODO add your handling code here:
+        String telefone = edtTelDDD.getText() + edtTelId.getText() + edtTelNum.getText();
+        boolean usuTipo;
+        
+        usuTipo = CB_Perfil.getSelectedIndex() - 2 != 0;
 
-        if (edtNome.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Insira um Nome para o Usuário");
-            return;
-        }
-        if (edtLogin.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Insira um Login para o Usuário");
-            return;
-        }
-        if (edtSenha.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Insira a Senha para o Usuário");
-            return;
-        }
-        if (edtSenha.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Confirme a Senha");
-            return;
-        }
-        if (CB_Perfil.getSelectedIndex() == 0) {
-            JOptionPane.showMessageDialog(this, "Selecione um Tipo para Usuário");
-            return;
-        }
+        if (!(edtTelDDD.getText().equals("") && edtTelId.getText().equals("") && edtTelNum.getText().equals("")) || (edtTelDDD.getText().equals("") && edtTelId.getText().equals("") && edtTelNum.getText().equals("")) && edtSenha.getText().equals(edtSenhaE.getText()) && CB_Perfil.getSelectedIndex() > 0) {
+            if(!(edtSenha.getText().equals(edtSenhaE.getText()))){
+                JOptionPane.showMessageDialog(null, "As senhas devem ser iguais");
+            }
+            else if(CB_Perfil.getSelectedIndex() == 0){
+                JOptionPane.showMessageDialog(null, "Selecione um tipo de usuário");
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Insira o Telefone completo");
+            }
+        } else {
+            if (edtNome.getText().equals("")) {
+                JOptionPane.showMessageDialog(this, "Insira um Nome para o Usuário");
+                return;
+            }
+            if (edtLogin.getText().equals("")) {
+                JOptionPane.showMessageDialog(this, "Insira um Login para o Usuário");
+                return;
+            }
+            if (edtSenha.getText().equals("")) {
+                JOptionPane.showMessageDialog(this, "Insira a Senha para o Usuário");
+                return;
+            }
+            if (edtSenha.getText().equals("")) {
+                JOptionPane.showMessageDialog(this, "Confirme a Senha");
+                return;
+            }
+            if (CB_Perfil.getSelectedIndex() == 0) {
+                JOptionPane.showMessageDialog(this, "Selecione um Tipo para Usuário");
+                return;
+            }
 
-        if (flag == 0) {
+            if (flag == 0) {
 
-            if (edtSenha.getText().equals(edtSenha.getText())) {
+                if (edtSenha.getText().equals(edtSenha.getText())) {
 
-                int i = CB_Perfil.getSelectedIndex();
-                int Tipo = CB_Perfil.getSelectedIndex() - 1;
+                    int i = CB_Perfil.getSelectedIndex();
+                    int Tipo = CB_Perfil.getSelectedIndex() - 1;
 
-                usuariodao.InsereUsu(edtLogin, edtSenha, edtemail, edtNome, Tipo, this);
-                StatusBotao(0);
-                StatusBotao(1);
+                    usuariodao.InsereUsu(edtNome.getText(), edtEnd.getText(), Integer.parseInt(edtCpf.getText()), Integer.parseInt(edtRg.getText()), Integer.parseInt(telefone), edtLogin.getText(), edtEmail.getText(), edtSenha.getText(), usuTipo);
+                    StatusBotao(0);
+                    StatusBotao(1);
 
 //                // atualizaID();
-            } else {
-                JOptionPane.showMessageDialog(this, "As senhas não conferem. Digite novamente");
+                } else {
+                    JOptionPane.showMessageDialog(this, "As senhas não conferem. Digite novamente");
+                    edtSenha.setText(null);
+                    edtSenha.setText(null);
+                    edtSenha.requestFocus();
+                }
+
+            } else if (flag == 1 && edtSenha.getText().equals(edtSenha.getText())) {
+                usuariodao.AlterarUsu(Integer.parseInt(edtId.getText()), edtNome.getText(), edtEnd.getText(), Integer.parseInt(edtCpf.getText()), Integer.parseInt(edtRg.getText()), Integer.parseInt(telefone), edtLogin.getText(), edtEmail.getText(), edtSenha.getText(), usuTipo);
+        } else {
+            JOptionPane.showMessageDialog(this, "As senhas não conferem. Digite novamente");
                 edtSenha.setText(null);
                 edtSenha.setText(null);
                 edtSenha.requestFocus();
             }
-
-        } else if (flag == 1 && edtSenha.getText().equals(edtSenha.getText())) {
-                usuariodao.AlterarUsu(edtId, edtLogin, edtSenha, edtemail, edtNome, CB_Perfil.getSelectedIndex() - 1, this);
-        } else {
-            JOptionPane.showMessageDialog(this, "As senhas não conferem. Digite novamente");
-            edtSenha.setText(null);
-            edtSenha.setText(null);
-            edtSenha.requestFocus();
-        }
-        try {
-            tbUsuario.setModel(fill(usuariodao.ConsultarAll()));
-        } catch (SQLException ex) {
-            Logger.getLogger(JFUsuario.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                tbUsuario.setModel(fill(usuariodao.ConsultarAll()));
+            } catch (SQLException ex) {
+                Logger.getLogger(JFUsuario.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
     }//GEN-LAST:event_btnSalvarActionPerformed
@@ -374,9 +467,11 @@ public class JFUsuario extends javax.swing.JFrame {
         if (radID.isSelected()) {
 
             try {
-                tbUsuario.setModel(fill(usuariodao.ConsultarID(edtPesquisa, this)));
+                tbUsuario.setModel(fill(usuariodao.ConsultarID(Integer.parseInt(edtPesquisa.getText()))));
             } catch (SQLException ex) {
-                printStackTrace();
+                Logger.getLogger(JFUsuario.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (NumberFormatException nex) {
+                JOptionPane.showMessageDialog(null, "Número inválido");
             }
 
             if (tbUsuario.getRowCount() == 0) {
@@ -386,10 +481,11 @@ public class JFUsuario extends javax.swing.JFrame {
         }
 
         if (RadNome.isSelected()) {
+
             try {
-                tbUsuario.setModel(fill(usuariodao.ConsultarNome(edtPesquisa, this)));
+                tbUsuario.setModel(fill(usuariodao.ConsultarNome(edtPesquisa.getText())));
             } catch (SQLException ex) {
-                printStackTrace();
+                Logger.getLogger(JFUsuario.class.getName()).log(Level.SEVERE, null, ex);
             }
 
             if (tbUsuario.getRowCount() == 0) {
@@ -417,6 +513,14 @@ public class JFUsuario extends javax.swing.JFrame {
             Logger.getLogger(JFUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_formWindowOpened
+
+    private void edtEndActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtEndActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_edtEndActionPerformed
+
+    private void edtRgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtRgActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_edtRgActionPerformed
 
     /**
      * @param args the command line arguments
@@ -490,20 +594,37 @@ public class JFUsuario extends javax.swing.JFrame {
     private javax.swing.JButton btnPesquisar;
     private javax.swing.JButton btnSalvar;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JTextField edtCpf;
+    private javax.swing.JTextField edtEmail;
+    private javax.swing.JTextField edtEnd;
     private javax.swing.JTextField edtId;
     private javax.swing.JTextField edtLogin;
     private javax.swing.JTextField edtNome;
     private javax.swing.JTextField edtPesquisa;
+    private javax.swing.JTextField edtRg;
     private javax.swing.JPasswordField edtSenha;
     private javax.swing.JPasswordField edtSenhaE;
-    private javax.swing.JTextField edtemail;
+    private javax.swing.JFormattedTextField edtTelDDD;
+    private javax.swing.JFormattedTextField edtTelId;
+    private javax.swing.JFormattedTextField edtTelNum;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JRadioButton radID;
     private javax.swing.JTable tbUsuario;
     // End of variables declaration//GEN-END:variables
