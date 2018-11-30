@@ -24,6 +24,9 @@ public class JFPrincipal extends javax.swing.JFrame {
 
         initComponents();
         setLocationRelativeTo(null);
+        setExtendedState(MAXIMIZED_BOTH);
+        
+        
         //      this.getContentPane().setBackground(Color.WHITE);
     }
 
@@ -36,8 +39,9 @@ public class JFPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnUsuario = new javax.swing.JButton();
+        btnProduto = new javax.swing.JButton();
+        btnCarrinho = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
@@ -46,6 +50,7 @@ public class JFPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Sistema CSS");
+        setMinimumSize(new java.awt.Dimension(1000, 700));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
@@ -58,20 +63,40 @@ public class JFPrincipal extends javax.swing.JFrame {
                 formWindowOpened(evt);
             }
         });
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton1.setText("Usuário");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnUsuario.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
+        btnUsuario.setForeground(new java.awt.Color(51, 153, 255));
+        btnUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/ProjetoCSS/view/user.png"))); // NOI18N
+        btnUsuario.setText("Usuário");
+        btnUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnUsuarioActionPerformed(evt);
             }
         });
+        getContentPane().add(btnUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, 280, 130));
 
-        jButton2.setText("Produto");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnProduto.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
+        btnProduto.setForeground(new java.awt.Color(51, 153, 255));
+        btnProduto.setIcon(new javax.swing.ImageIcon("C:\\Users\\Beatriz\\Desktop\\icons CSS\\item.png")); // NOI18N
+        btnProduto.setText("Produto");
+        btnProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnProdutoActionPerformed(evt);
             }
         });
+        getContentPane().add(btnProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 40, 280, 130));
+
+        btnCarrinho.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
+        btnCarrinho.setForeground(new java.awt.Color(51, 153, 255));
+        btnCarrinho.setIcon(new javax.swing.ImageIcon("C:\\Users\\Beatriz\\Desktop\\icons CSS\\if_Cart_605508.png")); // NOI18N
+        btnCarrinho.setText("Carrinho");
+        btnCarrinho.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCarrinhoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnCarrinho, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 40, 280, 130));
 
         jMenu1.setText("Menu");
 
@@ -110,27 +135,6 @@ public class JFPrincipal extends javax.swing.JFrame {
 
         setJMenuBar(jMenuBar1);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 425, Short.MAX_VALUE))
-                .addContainerGap(24, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(25, Short.MAX_VALUE))
-        );
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -147,12 +151,13 @@ public class JFPrincipal extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         if (JFLogin.type == 1) {
-            jButton1.setEnabled(true);
+            btnUsuario.setEnabled(true);
             jMenuItem3.setEnabled(true);
         } else {
-            jButton1.setEnabled(false);
+            btnUsuario.setEnabled(false);
             jMenuItem3.setEnabled(false);
         }
+       
 
     }//GEN-LAST:event_formWindowOpened
 
@@ -163,15 +168,15 @@ public class JFPrincipal extends javax.swing.JFrame {
         login.setVisible(true);
     }//GEN-LAST:event_formWindowClosed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProdutoActionPerformed
         JFProduto produto = new JFProduto();
         produto.setVisible(true);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnProdutoActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuarioActionPerformed
         JFUsuario usu = new JFUsuario();
         usu.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnUsuarioActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         JFUsuario usu = new JFUsuario();
@@ -185,6 +190,10 @@ public class JFPrincipal extends javax.swing.JFrame {
     private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
         this.dispose();
     }//GEN-LAST:event_jMenu2MouseClicked
+
+    private void btnCarrinhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarrinhoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCarrinhoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -216,8 +225,9 @@ public class JFPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnCarrinho;
+    private javax.swing.JButton btnProduto;
+    private javax.swing.JButton btnUsuario;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
