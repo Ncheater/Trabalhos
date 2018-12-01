@@ -43,10 +43,11 @@ public class JFLogin extends javax.swing.JFrame {
         txt_usuario = new javax.swing.JTextField();
         txt_senha = new javax.swing.JPasswordField();
         btn_acesso = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
 
         jPasswordField1.setText("jPasswordField1");
@@ -68,20 +69,25 @@ public class JFLogin extends javax.swing.JFrame {
         });
         getContentPane().add(btn_acesso, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 120, 220, 30));
 
-        jLabel1.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jLabel1.setText("Senha");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 70, -1, 20));
-
-        jLabel2.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jLabel2.setText("Usuário");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 40, -1, 20));
-
         jPanel1.setBackground(new java.awt.Color(0, 153, 204));
         jPanel1.setToolTipText("");
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 550, 50));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setFocusTraversalPolicyProvider(true);
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel2.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        jLabel2.setText("Usuário");
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 35, -1, 20));
+
+        jLabel1.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        jLabel1.setText("Senha");
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(245, 75, -1, 20));
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/css_256.png"))); // NOI18N
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, -40, -1, -1));
+
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 550, 160));
         getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 80, -1, -1));
 
@@ -128,6 +134,7 @@ public class JFLogin extends javax.swing.JFrame {
     private javax.swing.JButton btn_acesso;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
