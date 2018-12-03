@@ -65,6 +65,23 @@ public class ProdutoDAO {
         con.desconector(conexao);
 
     }
+    
+    public void RestauraProd(Produto prd) {
+        String sql = "UPDATE select_inactive SET status_prod = 1 WHERE ID = ?";
+        conexao = Conexao.conector();
+
+        try {
+            pst = conexao.prepareStatement(sql);
+            pst.setInt(1, prd.getId_prod());
+
+            pst.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Restaurado com sucesso!");
+        } catch (SQLException | HeadlessException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao Restaurar! " + e);
+        }
+        con.desconector(conexao);
+
+    }
 
     public void AlterarProd(Produto prd) {
         String sql = "UPDATE select_active SET Nome = ?, Descrição = ?, Quantidade = ?,  Valor = ?, Categoria = ?, status_prod = ? WHERE ID = ?";
@@ -154,6 +171,23 @@ public class ProdutoDAO {
     public ResultSet ConsultarAll() {
 
         String sql = "SELECT ID, Nome, Descrição, Quantidade, Valor, Categoria FROM select_active";
+        conexao = Conexao.conector();
+        try {
+            pst = conexao.prepareStatement(sql);
+            rs = pst.executeQuery();
+            return rs;
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+        con.desconector(conexao);
+        return null;
+
+    }
+    
+    public ResultSet ConsultarInativo() {
+
+        String sql = "SELECT ID, Nome, Descrição, Quantidade, Valor, Categoria FROM select_inactive";
         conexao = Conexao.conector();
         try {
             pst = conexao.prepareStatement(sql);

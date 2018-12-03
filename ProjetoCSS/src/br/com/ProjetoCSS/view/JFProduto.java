@@ -53,6 +53,9 @@ public class JFProduto extends javax.swing.JFrame {
         buttonGroup1 = new javax.swing.ButtonGroup();
         jScrollPane1 = new javax.swing.JScrollPane();
         grade = new javax.swing.JTable();
+        t_recuperar = new javax.swing.JPanel();
+        recuperar = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
         t_consultar = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         cid = new javax.swing.JTextField();
@@ -86,6 +89,7 @@ public class JFProduto extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         m_consultar = new javax.swing.JMenu();
         m_cadastrar = new javax.swing.JMenu();
+        jMenu1 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Produtos");
@@ -133,6 +137,22 @@ public class JFProduto extends javax.swing.JFrame {
         jScrollPane1.setViewportView(grade);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 20, 530, 340));
+
+        t_recuperar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        recuperar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/trash.png"))); // NOI18N
+        recuperar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                recuperarActionPerformed(evt);
+            }
+        });
+        t_recuperar.add(recuperar, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 110, -1, -1));
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel9.setText("Recuperar");
+        t_recuperar.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, -1, -1));
+
+        getContentPane().add(t_recuperar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 270, 350));
 
         t_consultar.setName(""); // NOI18N
         t_consultar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -345,6 +365,9 @@ public class JFProduto extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 m_consultarMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                m_consultarMouseEntered(evt);
+            }
         });
         m_consultar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -365,6 +388,14 @@ public class JFProduto extends javax.swing.JFrame {
             }
         });
         jMenuBar1.add(m_cadastrar);
+
+        jMenu1.setText("Recuperar Item");
+        jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu1MouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(jMenu1);
 
         setJMenuBar(jMenuBar1);
 
@@ -396,11 +427,14 @@ public class JFProduto extends javax.swing.JFrame {
     private void m_consultarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_m_consultarMouseClicked
         t_consultar.setVisible(true);
         t_cadastrar.setVisible(false);
+        t_recuperar.setVisible(false);
+        t_valor.setText("0");
         reset();
     }//GEN-LAST:event_m_consultarMouseClicked
 
     private void m_cadastrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_m_cadastrarMouseClicked
         t_consultar.setVisible(false);
+        t_recuperar.setVisible(false);
         t_cadastrar.setVisible(true);
         buttonGroup1.clearSelection();
         cid.setEnabled(false);
@@ -410,6 +444,7 @@ public class JFProduto extends javax.swing.JFrame {
         dcat.setEnabled(false);
         dcat.setSelectedIndex(-1);
         consultar.setEnabled(false);
+        t_valor.setText("0");
         insertMode();
         reset();
     }//GEN-LAST:event_m_cadastrarMouseClicked
@@ -436,6 +471,7 @@ public class JFProduto extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         t_cadastrar.setVisible(false);
+        t_recuperar.setVisible(false);
         DecimalFormat d = new DecimalFormat("#.00", DecimalFormatSymbols.getInstance(Locale.US));
         NumberFormatter format = new NumberFormatter(d);
         format.setFormat(d);
@@ -574,6 +610,35 @@ public class JFProduto extends javax.swing.JFrame {
 
     }//GEN-LAST:event_formWindowClosed
 
+    private void recuperarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_recuperarActionPerformed
+        if (JOptionPane.showConfirmDialog(null, "Deseja restaurar o produto?") == 0) {
+            Produto p = new Produto();
+            p.setId_prod(Integer.parseInt(grade.getValueAt(grade.getSelectedRow(), 0).toString()));
+            pd.RestauraProd(p);
+            try {
+                grade.setModel(fill(pd.ConsultarInativo()));
+            } catch (SQLException ex) {
+                Logger.getLogger(JFProduto.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_recuperarActionPerformed
+
+    private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
+        t_recuperar.setVisible(true);
+        t_cadastrar.setVisible(false);
+        t_consultar.setVisible(false);
+        t_valor.setText("0");
+        try {
+            grade.setModel(fill(pd.ConsultarInativo()));
+        } catch (SQLException ex) {
+            Logger.getLogger(JFProduto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jMenu1MouseClicked
+
+    private void m_consultarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_m_consultarMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_m_consultarMouseEntered
+
     /**
      * @param args the command line arguments
      */
@@ -630,7 +695,7 @@ public class JFProduto extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(JFProduto.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
 
     public void select(int f) {
@@ -662,7 +727,7 @@ public class JFProduto extends javax.swing.JFrame {
                 for (int i = 0; i < ccat.getItemCount(); i++) {
                     for (int x = i + 1; x < ccat.getItemCount(); x++) {
                         if (ccat.getItemAt(i).equals(ccat.getItemAt(x))) {
-                            
+
                             ccat.removeItemAt(x);
                         }
                     }
@@ -769,6 +834,8 @@ public class JFProduto extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -777,12 +844,14 @@ public class JFProduto extends javax.swing.JFrame {
     private javax.swing.JRadioButton pcat;
     private javax.swing.JRadioButton pid;
     private javax.swing.JRadioButton pnome;
+    private javax.swing.JButton recuperar;
     private javax.swing.JPanel t_cadastrar;
     private javax.swing.JTextField t_cat;
     private javax.swing.JPanel t_consultar;
     private javax.swing.JTextArea t_desc;
     private javax.swing.JTextField t_nome;
     private javax.swing.JTextField t_qtd;
+    private javax.swing.JPanel t_recuperar;
     private javax.swing.JFormattedTextField t_valor;
     // End of variables declaration//GEN-END:variables
 }
