@@ -399,6 +399,29 @@ public class JFUsuario extends javax.swing.JFrame {
         }
 
         if (btnAtivo == 1) {
+//            edtNome.setEnabled(false);
+//            edtLogin.setEnabled(false);
+//            edtSenha.setEnabled(false);
+//            edtSenhaE.setEnabled(false);
+//            edtTelDDD.setEnabled(false);
+//            edtTelId.setEnabled(false);
+//            edtTelNum.setEnabled(false);
+//            edtCpf.setEnabled(false);
+//            edtRg.setEnabled(false);
+//            edtEnd.setEnabled(false);
+//            edtEmail.setEnabled(false);
+//            CB_Perfil.setEnabled(false);
+//            CB_Perfil.setSelectedIndex(0);
+//            edtPesquisa.setEnabled(false);
+//            edtPesquisa.setText("");
+//            buttonGroup1.clearSelection();
+//
+//            btnAlterar.setEnabled(true);
+//            btnSalvar.setEnabled(false);
+//            btnDeletar.setEnabled(true);
+//            btnCancelar.setEnabled(false);
+//            btnInserir.setEnabled(true);
+
             edtNome.setEnabled(false);
             edtLogin.setEnabled(false);
             edtSenha.setEnabled(false);
@@ -416,9 +439,9 @@ public class JFUsuario extends javax.swing.JFrame {
             edtPesquisa.setText("");
             buttonGroup1.clearSelection();
 
-            btnAlterar.setEnabled(true);
+            btnAlterar.setEnabled(false);
             btnSalvar.setEnabled(false);
-            btnDeletar.setEnabled(true);
+            btnDeletar.setEnabled(false);
             btnCancelar.setEnabled(false);
             btnInserir.setEnabled(true);
             // atualizaID();
@@ -450,8 +473,62 @@ public class JFUsuario extends javax.swing.JFrame {
             btnCancelar.setEnabled(true);
 
         }
-    }
+        
+        if(btnAtivo == 3){
+            edtNome.setEnabled(false);
+            edtLogin.setEnabled(false);
+            edtSenha.setEnabled(false);
+            edtSenhaE.setEnabled(false);
+            edtTelDDD.setEnabled(false);
+            edtTelId.setEnabled(false);
+            edtTelNum.setEnabled(false);
+            edtCpf.setEnabled(false);
+            edtRg.setEnabled(false);
+            edtEnd.setEnabled(false);
+            edtEmail.setEnabled(false);
+            CB_Perfil.setEnabled(false);
+            CB_Perfil.setSelectedIndex(0);
+            edtPesquisa.setEnabled(false);
+            edtPesquisa.setText("");
+            buttonGroup1.clearSelection();
 
+            btnAlterar.setEnabled(true);
+            btnSalvar.setEnabled(false);
+            btnDeletar.setEnabled(true);
+            btnCancelar.setEnabled(false);
+            btnInserir.setEnabled(true);
+        }
+        
+        
+        if (btnAtivo == 4) {
+
+            edtPesquisa.setEnabled(false);
+            buttonGroup1.clearSelection();
+
+            edtId.setText("");
+            edtNome.setText("");
+            edtLogin.setText("");
+            edtSenha.setText("");
+            edtSenhaE.setText("");
+            edtTelDDD.setText("");
+            edtTelId.setText("");
+            edtTelNum.setText("");
+            edtCpf.setText("");
+            edtRg.setText("");
+            edtEnd.setText("");
+            edtEmail.setText("");
+            CB_Perfil.setSelectedIndex(0);
+            edtPesquisa.setText("");
+            
+            
+
+            btnAlterar.setEnabled(false);
+            btnSalvar.setEnabled(false);
+            btnDeletar.setEnabled(false);
+            btnCancelar.setEnabled(false);
+            btnInserir.setEnabled(true);
+    }
+    }
     private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
         // TODO add your handling code here:
         StatusBotao(0);
@@ -468,6 +545,7 @@ public class JFUsuario extends javax.swing.JFrame {
 
     private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
         usuariodao.DeletaUsu(Integer.parseInt(edtId.getText()));
+       StatusBotao(4);
         try {
             tbUsuario.setModel(fill(usuariodao.ConsultarAll()));
         } catch (SQLException ex) {
@@ -548,6 +626,14 @@ public class JFUsuario extends javax.swing.JFrame {
         edtLogin.setText("");
         edtSenha.setText("");
         edtSenhaE.setText("");
+        edtCpf.setText("");
+        edtEmail.setText("");
+        edtEnd.setText("");
+        edtTelDDD.setText("");
+        edtTelNum.setText("");
+        edtTelId.setText("");
+        edtRg.setText("");
+        
 
     }//GEN-LAST:event_btnCancelarActionPerformed
 
@@ -591,6 +677,7 @@ public class JFUsuario extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (tbUsuario.getSelectedRow() != -1) {
             editMode();
+            StatusBotao(3);
         }
     }//GEN-LAST:event_tbUsuarioMouseClicked
 
@@ -720,13 +807,24 @@ public class JFUsuario extends javax.swing.JFrame {
     }
 
     public void editMode() {
+        String telefone = tbUsuario.getValueAt(tbUsuario.getSelectedRow(),5).toString();
+                
         btnAlterar.setEnabled(true);
         btnDeletar.setEnabled(true);
         btnSalvar.setEnabled(true);
         btnCancelar.setEnabled(true);
         edtId.setText(tbUsuario.getValueAt(tbUsuario.getSelectedRow(), 0).toString());
         edtNome.setText(tbUsuario.getValueAt(tbUsuario.getSelectedRow(), 1).toString());
-        edtLogin.setText(tbUsuario.getValueAt(tbUsuario.getSelectedRow(), 2).toString());
+        edtEnd.setText(tbUsuario.getValueAt(tbUsuario.getSelectedRow(), 2).toString());
+        edtCpf.setText(tbUsuario.getValueAt(tbUsuario.getSelectedRow(),3).toString());
+        edtRg.setText(tbUsuario.getValueAt(tbUsuario.getSelectedRow(),4).toString());
+        edtTelNum.setText(telefone.substring(7,11));
+        edtTelDDD.setText(telefone.substring(0,2));
+        edtTelId.setText(telefone.substring(2,7));
+        edtEmail.setText(tbUsuario.getValueAt(tbUsuario.getSelectedRow(),7).toString());
+        edtLogin.setText(tbUsuario.getValueAt(tbUsuario.getSelectedRow(), 8).toString());                    
+        CB_Perfil.setSelectedIndex(tbUsuario.getValueAt(tbUsuario.getSelectedRow(),10).toString().equals("true") ? 2 : 1 );
+
     }
     
     public void setSizeLimit(JTextField tf, int size){
