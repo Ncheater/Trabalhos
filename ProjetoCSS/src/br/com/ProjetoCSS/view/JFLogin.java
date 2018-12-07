@@ -21,6 +21,7 @@ public class JFLogin extends javax.swing.JFrame {
     Connection con;
     Conexao conexao = new Conexao();
     public static int type;
+    public static String usu;
 
     public JFLogin() {
         initComponents();
@@ -100,6 +101,7 @@ public class JFLogin extends javax.swing.JFrame {
         JFPrincipal principal = new JFPrincipal();
 
         type = usudao.Acesso(txt_usuario, txt_senha, principal, this);
+        usu = usudao.getUsuNome(txt_usuario, txt_senha);
         conexao.desconector(con);
     }//GEN-LAST:event_btn_acessoActionPerformed
 

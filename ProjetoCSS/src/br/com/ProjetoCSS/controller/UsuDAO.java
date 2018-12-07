@@ -28,6 +28,7 @@ public class UsuDAO {
     ResultSet rs;
 
     String sql = "select * from usuarios where login_usu = ? and senha_usu = ?";
+    String query = "select * from select_cli where Login = ? and Senha = ?";
 
     Conexao con = new Conexao();
     Usuario usu = new Usuario();
@@ -61,5 +62,26 @@ public class UsuDAO {
             JOptionPane.showMessageDialog(null, "Ocorreu um erro: " + e);
         }
         return 0;
+    }
+
+    public String getUsuNome(JTextField login, JTextField senha) {
+
+        usu.setUsu_login(login.getText());
+        usu.setUsu_senha(senha.getText());
+
+        try {
+            conexao = Conexao.conector();
+            pst = conexao.prepareStatement(query);
+            pst.setString(1, usu.getUsu_login());
+            pst.setString(2, usu.getUsu_senha());
+
+            rs = pst.executeQuery();
+            rs.first();
+            return rs.getString(1);
+
+        } catch (SQLException | HeadlessException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

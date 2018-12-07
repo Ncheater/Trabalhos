@@ -152,7 +152,7 @@ public class JFProduto extends javax.swing.JFrame {
         jLabel9.setText("Recuperar");
         t_recuperar.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, -1, -1));
 
-        getContentPane().add(t_recuperar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 270, 350));
+        getContentPane().add(t_recuperar, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 0, 270, 350));
 
         t_consultar.setName(""); // NOI18N
         t_consultar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());

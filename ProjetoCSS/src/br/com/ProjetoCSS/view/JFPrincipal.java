@@ -7,6 +7,7 @@ package br.com.projetocss.view;
 
 import br.com.ProjetoCSS.controller.Conexao;
 import br.com.ProjetoCSS.view.JFUsuario;
+import br.com.ProjetoCSS.view.JFVenda;
 
 
 /**
@@ -227,7 +228,8 @@ public class JFPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu2MouseClicked
 
     private void btnCarrinhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarrinhoActionPerformed
-        // TODO add your handling code here:
+        JFVenda vd = new JFVenda();
+        vd.setVisible(true);
     }//GEN-LAST:event_btnCarrinhoActionPerformed
 
     /**

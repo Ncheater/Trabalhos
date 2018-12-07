@@ -3,17 +3,37 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.projetocss.view;
+package br.com.ProjetoCSS.view;
+
+import br.com.ProjetoCSS.controller.VendaDAO;
+import br.com.ProjetoCSS.model.*;
+import br.com.projetocss.view.JFPrincipal;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.util.Vector;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import com.jxf.sql.Functions;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
- * @author Beatriz
+ * @author lucas
  */
 public class JFVenda extends javax.swing.JFrame {
 
-    /**
-     * Creates new form JFVenda
-     */
+    VendaDAO vd = new VendaDAO();
+    Produto p = new Produto();
+    Venda v = new Venda();
+
+    boolean clicou = false;
+    int codcliente;
+
     public JFVenda() {
         initComponents();
     }
@@ -27,21 +47,325 @@ public class JFVenda extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jTabbedPane2 = new javax.swing.JTabbedPane();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        ed_pesqped = new javax.swing.JTextField();
+        btn_pesqped = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tb_consultaped = new javax.swing.JTable();
+        jPanel1 = new javax.swing.JPanel();
+        ed_id = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        ed_data = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tabProduto = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tabCliente = new javax.swing.JTable();
+        jLabel3 = new javax.swing.JLabel();
+        ed_pesqcliente = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        ed_pesqlivro = new javax.swing.JTextField();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tbItensVenda = new javax.swing.JTable();
+        jLabel5 = new javax.swing.JLabel();
+        btn_fechar = new javax.swing.JButton();
+        ed_nomecliente = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        lbl_total = new javax.swing.JLabel();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel7.setText("Digite o pedido para consulta:");
+        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 20, -1, -1));
+        jPanel2.add(ed_pesqped, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 40, 80, -1));
+
+        btn_pesqped.setText("Consultar");
+        btn_pesqped.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_pesqpedActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btn_pesqped, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 80, -1, -1));
+
+        tb_consultaped.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Nome", "Preco", "Data_Compra"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane4.setViewportView(tb_consultaped);
+
+        jPanel2.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 170, -1, 130));
+
+        jTabbedPane2.addTab("Consulta", jPanel2);
+
+        jPanel1.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                jPanel1ComponentShown(evt);
+            }
+        });
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        ed_id.setEditable(false);
+        jPanel1.add(ed_id, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 60, -1));
+
+        jLabel1.setText("ID");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
+
+        ed_data.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                ed_dataFocusGained(evt);
+            }
+        });
+        jPanel1.add(ed_data, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 30, 140, -1));
+
+        jLabel2.setText("Data");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 10, -1, -1));
+
+        tabProduto.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "ID", "Nome", "Preco"
+            }
+        ));
+        tabProduto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabProdutoMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tabProduto);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 120, 310, 120));
+
+        tabCliente.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "ID", "Nome", "CPF"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tabCliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabClienteMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(tabCliente);
+
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 310, 120));
+
+        jLabel3.setText("Cliente");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, -1, -1));
+
+        ed_pesqcliente.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                ed_pesqclienteKeyTyped(evt);
+            }
+        });
+        jPanel1.add(ed_pesqcliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 310, -1));
+
+        jLabel4.setText("Produto");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 70, -1, -1));
+
+        ed_pesqlivro.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                ed_pesqlivroKeyTyped(evt);
+            }
+        });
+        jPanel1.add(ed_pesqlivro, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 90, 310, -1));
+
+        tbItensVenda.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Codigo", "Nome", "Preco"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tbItensVenda.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tbItensVendaKeyPressed(evt);
+            }
+        });
+        jScrollPane3.setViewportView(tbItensVenda);
+
+        jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 270, 600, 140));
+
+        jLabel5.setText("Itens da Venda");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 250, -1, -1));
+
+        btn_fechar.setText("Finalizar");
+        btn_fechar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_fecharActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btn_fechar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 500, -1, -1));
+        jPanel1.add(ed_nomecliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 30, 230, -1));
+
+        jLabel6.setText("Cliente");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, -1, -1));
+
+        lbl_total.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
+        lbl_total.setText("R$ 0,00");
+        jPanel1.add(lbl_total, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 440, -1, 30));
+
+        jTabbedPane2.addTab("Venda", jPanel1);
+
+        getContentPane().add(jTabbedPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 700, 580));
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void ed_pesqclienteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ed_pesqclienteKeyTyped
+        try {
+            // TODO add your handling code here:
+            tabCliente.setModel(Functions.fill(vd.ConsultarNomeCliente(ed_pesqcliente.getText())));
+        } catch (SQLException ex) {
+            Logger.getLogger(JFVenda.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_ed_pesqclienteKeyTyped
+
+    private void ed_pesqlivroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ed_pesqlivroKeyTyped
+        try {
+            // TODO add your handling code here:
+            tabProduto.setModel(Functions.fill(vd.ConsultarNomeProduto(ed_pesqlivro.getText())));
+        } catch (SQLException ex) {
+            Logger.getLogger(JFVenda.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_ed_pesqlivroKeyTyped
+
+    private void tabClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabClienteMouseClicked
+        // TODO add your handling code here:
+        vd.InsereVenda(Integer.parseInt(tabCliente.getValueAt(tabCliente.getSelectedRow(), 0).toString()));
+        int line = tabCliente.getSelectedRow();
+        int valor = Integer.valueOf(tabCliente.getValueAt(line, 0).toString());
+        String nome = tabCliente.getValueAt(line, 1).toString();
+        codcliente = valor;
+        ed_nomecliente.setText(nome);
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        Date d = new Date();
+        ed_data.setText(df.format(d));
+        ed_id.setText(vd.ConsultarIdNova() + "");
+    }//GEN-LAST:event_tabClienteMouseClicked
+
+    private void tabProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabProdutoMouseClicked
+        try {
+            // TODO add your handling code here:
+            int line = tabProduto.getSelectedRow();
+            v.setId_venda(vd.ConsultarIdNova());
+            p.setId_prod(Integer.parseInt(tabProduto.getValueAt(line, 0).toString()));
+            vd.InsereItem(v, Integer.parseInt(JOptionPane.showInputDialog("Insira a quantidade")), p);
+            vd.ConsultarAll();
+
+            lbl_total.setText("R$ " + vd.ConsultarTotal(vd.ConsultarIdNova()));
+            tbItensVenda.setModel(Functions.fill(vd.ConsultarItens(vd.ConsultarIdNova())));
+            tabProduto.setModel(Functions.fill(vd.ConsultarNomeProduto(ed_pesqlivro.getText())));
+        } catch (NumberFormatException | SQLException ex) {
+            Logger.getLogger(JFVenda.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_tabProdutoMouseClicked
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        // TODO add your handling code here:
+        vd.LimpaVenda(vd.ConsultarIdNova());
+        JFPrincipal jfPrincipal = new br.com.projetocss.view.JFPrincipal();
+        jfPrincipal.setVisible(true);
+    }//GEN-LAST:event_formWindowClosed
+
+    private void tbItensVendaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbItensVendaKeyPressed
+        // TODO add your handling code here:
+        v.setId_venda(vd.ConsultarIdNova());
+        p.setId_prod(Integer.parseInt(tbItensVenda.getValueAt(tbItensVenda.getSelectedRow(), 2).toString()));
+
+        if (JOptionPane.showConfirmDialog(null, "Deseja remover o item?", "Remover Item", JOptionPane.YES_NO_OPTION) == 0) {
+            vd.DeletaItem(v, p);
+        }
+    }//GEN-LAST:event_tbItensVendaKeyPressed
+
+    private void btn_fecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_fecharActionPerformed
+        // TODO add your handling code here:
+        vd.FinalizaVenda(Integer.parseInt(ed_id.getText()));
+        JOptionPane.showMessageDialog(null, "Venda realizada com sucesso!");
+        this.dispose();
+    }//GEN-LAST:event_btn_fecharActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowOpened
+
+    private void btn_pesqpedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_pesqpedActionPerformed
+        // TODO add your handling code here:
+        try {
+            tb_consultaped.setModel(Functions.fill(vd.ConsultarID(Integer.parseInt(ed_pesqped.getText()))));
+        } catch (NumberFormatException ex) {
+            try {
+                tb_consultaped.setModel(Functions.fill(vd.ConsultarNome(ed_pesqped.getText())));
+            } catch (SQLException ex1) {
+                Logger.getLogger(JFVenda.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(JFVenda.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btn_pesqpedActionPerformed
+
+    private void ed_dataFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_ed_dataFocusGained
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_ed_dataFocusGained
+
+    private void jPanel1ComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jPanel1ComponentShown
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_jPanel1ComponentShown
 
     /**
      * @param args the command line arguments
@@ -63,7 +387,9 @@ public class JFVenda extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(JFVenda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        
+        //</editor-fold>
+
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
@@ -72,6 +398,54 @@ public class JFVenda extends javax.swing.JFrame {
         });
     }
 
+    public static DefaultTableModel fill(ResultSet rs) throws SQLException {
+        ResultSetMetaData metaData = rs.getMetaData();
+        int count = metaData.getColumnCount();
+
+        Vector<String> names = new Vector<>();
+        for (int i = 1; i <= count; i++) {
+            names.add(metaData.getColumnName(i));
+        }
+
+        Vector<Vector<Object>> data = new Vector<>();
+        while (rs.next()) {
+            Vector<Object> vector = new Vector<>();
+            for (int i = 1; i <= count; i++) {
+                vector.add(rs.getObject(i));
+            }
+            data.add(vector);
+        }
+
+        return new DefaultTableModel(data, names);
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_fechar;
+    private javax.swing.JButton btn_pesqped;
+    private javax.swing.JTextField ed_data;
+    private javax.swing.JTextField ed_id;
+    private javax.swing.JTextField ed_nomecliente;
+    private javax.swing.JTextField ed_pesqcliente;
+    private javax.swing.JTextField ed_pesqlivro;
+    private javax.swing.JTextField ed_pesqped;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JTabbedPane jTabbedPane2;
+    private javax.swing.JLabel lbl_total;
+    private javax.swing.JTable tabCliente;
+    private javax.swing.JTable tabProduto;
+    private javax.swing.JTable tbItensVenda;
+    private javax.swing.JTable tb_consultaped;
     // End of variables declaration//GEN-END:variables
 }
